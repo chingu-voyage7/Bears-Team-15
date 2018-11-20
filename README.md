@@ -2,7 +2,7 @@
 
 Johnny D's Barber Shop Website
 
-We propose to build a replacement website for Johnny D's Bartber Shop
+We propose to build a replacement website for Johnny D's Barber Shop
 
 Here is [Johnny D's current website](http://www.johnnydsbarbershop.com/)
 
