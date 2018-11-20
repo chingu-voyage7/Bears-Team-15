@@ -18,5 +18,12 @@ Here is [Johnny D's current website](http://www.johnnydsbarbershop.com/)
     * Apppointment (Queue)
 3. Queue:
     * Will allow users to sign up for today's waitlist
+    
+**Teammates:**
+  - @UjwalBattar
+  - @aRtoo
+  - @CyberPutty
+
+
 
 Voyage-7 | https://chingu.io/
