@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
+const passport = require("passport");
+require("./config/passport")(passport);
 
 const users = require("./routes/api/users");
 
@@ -22,11 +24,12 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+// Home
+app.use(passport.initialize());
+// app.get("/", (req, res) => res.send("Hello World"));
+
 // Users route
 app.use("/api/users", users);
-
-// Home
-app.get("/", (req, res) => res.send("Hello World"));
 
 // Listen on provided port
 const port = process.env.PORT || 5000;
