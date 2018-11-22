@@ -1,0 +1,50 @@
+## Database Schema
+
+USERS
+
+| column name     |   type   |          details |
+| --------------- | :------: | ---------------: |
+| _id             | ObjectId |      not_null/PK |
+| name            |  string  |         not_null |
+| first_name      |  string  |                ? |
+| last_name       |  string  |                ? |
+| email           |  string  |         not_null |
+| phone           |  string  |         not_null |
+| password_digest |  string  |         not_null |
+| isBarber        |  boolean |   default: false |
+| session_token   |  string  |                ? |
+| created_at      | datetime |         not_null |
+
+IMAGES
+
+| column name |   type   |          details |
+| ----------- | :------: | ---------------: |
+| _id         | ObjectId |      not_null/PK |
+| title       |  string  | not_null/indexed |
+| userId      | ObjectId |      not_nulL/FK |
+| url         |  string  |         not_null |
+| created_at  | datetime |         not_null |
+
+VIDEOS
+
+| column name |   type   |          details |
+| ----------- | :------: | ---------------: |
+| _id         | ObjectId |      not_null/PK |
+| title       |  string  |         not_null |
+| userId      | ObjectId |      not_nulL/FK |
+| url         |  string  |         not_null |
+| created_at  | datetime |         not_null |
+
+
+REVIEWS
+
+Yelp API
+| column name |   type   |          details |
+| ----------- | :------: | ---------------: | -->
+| _id         | integer  |      not_null/PK |
+| title       |  string  | not_null/indexed |
+| body        |   text   |         not_null |
+| rating      | integer  |        not_null? |
+| userId      | ObjectId |      not_nulL/FK |
+
+| created_at  | datetime |         not_null |
