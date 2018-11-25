@@ -34,6 +34,8 @@ const mainRoute = require("./api/routes/main.routes.js");
 
 app.use("/api", mainRoute);
 
+app.get("/", (req, res) => res.send("Hello World"));
+
 // // ! local mongo connection ====================
 // mongoose.connect(
 //   'mongodb://localhost/bbs_db',
