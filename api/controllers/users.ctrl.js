@@ -11,7 +11,8 @@ const dotenv = require("dotenv").config();
 const secretOrKey = process.env.SECRET_OR_KEY;
 
 module.exports = {
-  helloWorld: (req, res) => {
+  // Fetches all users from db
+  getUsers: (req, res) => {
     User.find().then(users => res.json(users));
   },
 
@@ -19,6 +20,7 @@ module.exports = {
   //   Test.find().then(tests => res.json(tests));
   // },
 
+  // Sign up a new user
   registerUser: (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -48,7 +50,7 @@ module.exports = {
               .then(user => {
                 const payload = {
                   id: user.id,
-                  email: user.email
+                  name: user.name
                 };
                 // assign web token using jsonwebtoken
                 jwt.sign(
@@ -71,6 +73,7 @@ module.exports = {
     });
   },
 
+  // Login existing user
   loginUser: (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
 
@@ -90,7 +93,10 @@ module.exports = {
       // Password validation with BCrypt
       bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
-          const payload = { id: user.id, email: user.email };
+          const payload = {
+            id: user.id,
+            name: user.name
+          };
           // assign web token using jsonwebtoken
           jwt.sign(
             payload,
@@ -111,5 +117,21 @@ module.exports = {
         }
       });
     });
+  },
+
+  // Fetch current user
+  getCurrentUser: (req, res) => {
+    res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email
+    });
   }
+  //   passport.authenticate('jsonwebtoken', {session: false}), (req, res) => {
+  //   res.json({
+  //     id: req.user.id,
+  //     name: req.user.name,
+  //     email: req.user.email
+  //   });
+  // }
 };
