@@ -38,7 +38,7 @@ app.use('/api', mainRoute);
 // ! rest API route ====================
 
 // ! graphql route testing ====================
-app.use('/graphql', graphqlHTTP);
+app.use('/graphql', mainRoute);
 // ! graphql route testing ====================
 
 // // ! local mongo connection ====================
