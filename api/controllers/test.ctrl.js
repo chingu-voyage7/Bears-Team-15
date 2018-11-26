@@ -1,19 +1,19 @@
-const model = require('../models/main.model');
+const model = require("../models/main.model");
 
 module.exports = {
   helloWorld: (req, res) => {
-    res.json({hello: 'world'});
+    res.json({ hello: "world" });
   },
 
   testAdd: (req, res) => {
-    const user_name = req.body.name;
+    const userName = req.body.name;
     model.test
-      .create({user_name})
-      .then((result) => {
+      .create({ userName })
+      .then(result => {
         res.json(result);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
       });
-  },
+  }
 };
