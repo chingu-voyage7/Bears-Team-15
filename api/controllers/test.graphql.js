@@ -4,4 +4,9 @@ module.exports = {
    return 'Hello world!';
   },
  },
+ // testScheme: {
+ //  foo: () => {
+ //   return 'test';
+ //  },
+ // },
 };
