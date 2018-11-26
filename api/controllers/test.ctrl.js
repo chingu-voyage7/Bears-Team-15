@@ -2,13 +2,20 @@ const model = require('../models/main.model');
 
 module.exports = {
  helloWorld: (req, res) => {
-  res.json({hello: 'world'});
+  model.test
+   .find({})
+   .then((result) => {
+    res.json(result);
+   })
+   .catch((err) => {
+    res.json(err);
+   });
  },
 
  testAdd: (req, res) => {
-  const user_name = req.body.name;
+  const userName = req.body.name;
   model.test
-   .create({user_name})
+   .create({userName})
    .then((result) => {
     res.json(result);
    })

@@ -30,7 +30,6 @@ app.use(bp.json());
 
 // ! custom routes =======================
 const mainRoute = require('./api/routes/main.routes.js');
-const graphqlHTTP = require('./api/routes/graphql.routes.js');
 // ! custom routes =======================
 
 // ! rest API route ====================
@@ -38,7 +37,8 @@ app.use('/api', mainRoute);
 // ! rest API route ====================
 
 // ! graphql route testing ====================
-app.use('/graphql', mainRoute);
+const queryGraph = require('./api/graphql_route/graph.user.js');
+app.use('/', queryGraph);
 // ! graphql route testing ====================
 
 // // ! local mongo connection ====================
