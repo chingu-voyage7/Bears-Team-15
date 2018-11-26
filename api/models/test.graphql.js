@@ -1,9 +1,18 @@
 const {buildSchema} = require('graphql');
 
-const testSchema = buildSchema(`
+const helloScheme = buildSchema(`
   type Query {
     hello: String
   }
 `);
 
-module.exports = testSchema;
+const test = buildSchema(`
+  type Query {
+    foo: String
+  }
+`);
+
+module.exports = {
+ helloScheme,
+ //  test,
+};
