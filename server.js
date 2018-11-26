@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const bp = require('body-parser');
+const passport = require('passport');
 // ! dependencies ===================
 
 // ! dev dependencies ===================
@@ -28,18 +29,18 @@ app.use(bp.urlencoded({extended: false}));
 app.use(bp.json());
 // ! middleware =========================
 
-// ! custom routes =======================
-const mainRoute = require('./api/routes/main.routes.js');
-// ! custom routes =======================
+// // ! custom routes =======================
+// const mainRoute = require('./api/routes/main.routes.js');
+// // ! custom routes =======================
 
-// ! rest API route ====================
-app.use('/api', mainRoute);
-// ! rest API route ====================
+// // ! rest API route ====================
+// app.use('/api', mainRoute);
+// // ! rest API route ====================
 
-// ! graphql route testing ====================
-const queryGraph = require('./api/graphql_route/graph.user.js');
-app.use('/', queryGraph);
-// ! graphql route testing ====================
+// // ! graphql route testing ====================
+// const queryGraph = require('./api/graphql_route/graph.user.js');
+// app.use('/', queryGraph);
+// // ! graphql route testing ====================
 
 // // ! local mongo connection ====================
 // mongoose.connect(
@@ -61,6 +62,15 @@ mongoose
  .then(() => console.log('Connected to mLab MongoDB successfully'))
  .catch((err) => console.log(err));
 // ! remote mongo connection ====================
+
+// ! custom routes =======================
+const mainRoute = require('./api/routes/main.routes.js');
+// ! custom routes =======================
+// Passport
+app.use(passport.initialize());
+require('./config/passport')(passport);
+
+app.use('/api', mainRoute);
 
 app.listen(_PORT, () => {
  console.log(`SERVER USING PORT: ${_PORT}`);

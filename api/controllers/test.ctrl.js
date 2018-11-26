@@ -2,14 +2,7 @@ const model = require('../models/main.model');
 
 module.exports = {
  helloWorld: (req, res) => {
-  model.test
-   .find({})
-   .then((result) => {
-    res.json(result);
-   })
-   .catch((err) => {
-    res.json(err);
-   });
+  res.json({hello: 'world'});
  },
 
  testAdd: (req, res) => {
