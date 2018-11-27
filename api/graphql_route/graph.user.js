@@ -3,6 +3,6 @@ const schema = require('../graphql_schema/scheme.user.graphql');
 
 module.exports = graphqlHTTP({
  schema,
- rootValue: root,
+ // rootValue: root,
  graphiql: true,
 });
