@@ -37,11 +37,6 @@ app.use(bp.json());
 // app.use('/api', mainRoute);
 // // ! rest API route ====================
 
-// // ! graphql route testing ====================
-// const queryGraph = require('./api/graphql_route/graph.user.js');
-// app.use('/', queryGraph);
-// // ! graphql route testing ====================
-
 // // ! local mongo connection ====================
 // mongoose.connect(
 //   'mongodb://localhost/bbs_db',
@@ -71,6 +66,11 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use('/api', mainRoute);
+
+// ! graphql route testing ====================
+const queryGraph = require('./api/graphql_route/graph.user.js');
+app.use('/graph', queryGraph);
+// ! graphql route testing ====================
 
 app.listen(_PORT, () => {
  console.log(`SERVER USING PORT: ${_PORT}`);
