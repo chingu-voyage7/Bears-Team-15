@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const bp = require("body-parser");
+const passport = require("passport");
 // ! dependencies ===================
 
 // ! dev dependencies ===================
@@ -28,12 +29,6 @@ app.use(bp.urlencoded({ extended: false }));
 app.use(bp.json());
 // ! middleware =========================
 
-//! custom routes =======================
-const mainRoute = require("./api/routes/main.routes.js");
-//! custom routes =======================
-
-app.use("/api", mainRoute);
-
 // // ! local mongo connection ====================
 // mongoose.connect(
 //   'mongodb://localhost/bbs_db',
@@ -56,6 +51,17 @@ mongoose
   .catch(err => console.log(err));
 
 // ! remote mongo connection ====================
+
+//! custom routes =======================
+const mainRoute = require("./api/routes/main.routes.js");
+//! custom routes =======================
+// Passport
+app.use(passport.initialize());
+require("./config/passport")(passport);
+
+app.get("/", (req, res) => res.send("Hello World"));
+
+app.use("/api", mainRoute);
 
 app.listen(_PORT, () => {
   console.log(`SERVER USING PORT: ${_PORT}`);
