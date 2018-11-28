@@ -65,7 +65,17 @@ const mutateUser = new GraphQLObjectType({
     password: {type: GraphQLString}
    },
    resolve(parent, args) {
-    return usersCtrl.registerUser();
+    const newUser = {
+     name: args.name,
+     email: args.email,
+     password: args.password
+    };
+    return usersCtrl
+     .registerUser(newUser)
+     .then((result) => result)
+     .catch((err) => {
+      console.error(err);
+     });
    }
   }
  }

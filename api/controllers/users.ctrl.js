@@ -22,51 +22,64 @@ module.exports = {
 
  // Sign up a new user
  registerUser: (req, res) => {
-  const {errors, isValid} = validateRegisterInput(req.body);
-
-  if (!isValid) {
-   return res.status(400).json(errors);
-  }
+  // const {errors, isValid} = validateRegisterInput(req.body);
+  // if (!isValid) {
+  //  return res.status(400).json(errors);
+  // }
   // Check to make sure nobody has already registered with a duplicate email
-  User.findOne({email: req.body.email}).then((user) => {
+  return User.findOne({email: req.email}).then((user) => {
    if (user) {
     // Throw a 400 error if the email address already exists
-    errors.email = 'An account with this email already exists';
-    return res.status(400).json(errors);
+    // errors.email = 'An account with this email already exists';
+    // return res.status(400).json(errors);
+    return 'An account with this email already exists';
    } else {
     // Otherwise create a new user
-    const newUser = new User({
-     name: req.body.name,
-     email: req.body.email,
-     password: req.body.password,
-    });
+
     // Hash and salt password
-    bcrypt.genSalt(11, (err, salt) => {
-     bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if (err) throw err;
-      newUser.password = hash;
-      newUser
-       .save()
-       .then((user) => {
-        const payload = {
-         id: user.id,
-         name: user.name,
-        };
-        // assign web token using jsonwebtoken
-        jwt.sign(
-         payload,
-         secretOrKey,
-         // Set seesion expiration to 2 days
-         {expiresIn: '2 days'},
-         (err, token) => {
-          res.json({
-           success: true,
-           token: 'Bearer ' + token,
+    return new Promise((res, rej) => {
+     bcrypt.genSalt(11, (err, salt) => {
+      returnedUser = new Promise((res, rej) => {
+       const newUser = new User({
+        name: req.name,
+        email: req.email,
+        password: req.password
+       });
+       bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (err) throw err;
+        newUser.password = hash;
+        const getNewUser = newUser
+         .save()
+         .then((user) => {
+          const payload = {
+           id: user.id,
+           name: user.name
+          };
+
+          return new Promise((res, rej) => {
+           // assign web token using jsonwebtoken
+           jwt.sign(
+            payload,
+            secretOrKey,
+            // Set seesion expiration to 2 days
+            {expiresIn: '2 days'},
+            (err, token) => {
+             //  res.json({
+             //   success: true,
+             //   token: 'Bearer ' + token
+             //  });
+             res({token: 'Bearer ' + token});
+            }
+           );
           });
-         }
-        );
-       })
-       .catch((err) => console.log(err));
+         })
+         .catch((err) => {
+          rej({error: 'Internal Error'});
+         });
+        res(getNewUser);
+       });
+      });
+      res(returnedUser);
      });
     });
    }
@@ -74,6 +87,7 @@ module.exports = {
  },
 
  // Login existing user
+ // FIXME: req, res fix this. rename this.
  loginUser: (req, res) => {
   // since were not invoking this function via frontend or post man. req and res doesn't have express obj
   // rather it has arguments pass from grapql. req will contain an email and password prop
@@ -93,8 +107,6 @@ module.exports = {
   console.log(email, password);
 
   return User.findOne({email}).then(async (user) => {
-   const userAuth = '';
-
    if (!user) {
     errors.email =
      'An account with this email does not exist. Please check your email and try again';
@@ -106,7 +118,7 @@ module.exports = {
     if (isMatch) {
      const payload = {
       id: user.id,
-      name: user.name,
+      name: user.name
      };
 
      // assign web token using jsonwebtoken
@@ -126,9 +138,10 @@ module.exports = {
       );
      });
     } else {
-     return res.status(400).json({
-      password: 'Please check your password and try again',
-     });
+     rej({token: 'Please check your password and try again'});
+     //  return res.status(400).json({
+     //   password: 'Please check your password and try again'
+     //  });
     }
    });
   });
@@ -139,9 +152,9 @@ module.exports = {
   res.json({
    id: req.user.id,
    name: req.user.name,
-   email: req.user.email,
+   email: req.user.email
   });
- },
+ }
  //   passport.authenticate('jsonwebtoken', {session: false}), (req, res) => {
  //   res.json({
  //     id: req.user.id,
