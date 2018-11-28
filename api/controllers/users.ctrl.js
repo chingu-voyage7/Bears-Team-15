@@ -78,6 +78,7 @@ module.exports = {
   // since were not invoking this function via frontend or post man. req and res doesn't have express obj
   // rather it has arguments pass from grapql. req will contain an email and password prop
   // we will access this by req.email and req.password. we will also change req to avoid confusion
+
   // const {errors, isValid} = validateLoginInput(req.body);
 
   // if (!isValid) {
@@ -121,7 +122,6 @@ module.exports = {
         //   token: 'Bearer ' + token,
         //  });
         res({success: true, token: 'Bearer ' + token});
-        return {success: true, token: 'Bearer ' + token};
        }
       );
      });
