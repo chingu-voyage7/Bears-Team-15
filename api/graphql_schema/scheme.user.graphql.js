@@ -3,7 +3,7 @@ const {
  GraphQLString,
  GraphQLList,
  GraphQLSchema,
- GraphQLID,
+ GraphQLID
 } = require('graphql');
 
 const usersCtrl = require('../controllers/users.ctrl');
@@ -15,12 +15,12 @@ const UserType = new GraphQLObjectType({
   id: {type: GraphQLID},
   name: {type: GraphQLString},
   email: {type: GraphQLString},
-  password: {type: GraphQLString},
-  token: {type: GraphQLString},
- }),
+  token: {type: GraphQLString}
+ })
 });
 
-// this will be the query root. to query the user info it should be done with this syntax user(id:){}
+// this will be the query root. to query the user
+// info it should be done with this syntax user(id:){}
 const RootQuery = new GraphQLObjectType({
  name: 'RootQuery',
  fields: {
@@ -36,8 +36,10 @@ const RootQuery = new GraphQLObjectType({
       // this results return bearer and token
       return result;
      })
-     .catch((err) => {});
-   },
+     .catch((err) => {
+      return {token: 'Incorrect Credentials'};
+     });
+   }
   },
   userGetAll: {
    type: new GraphQLList(UserType),
@@ -46,9 +48,9 @@ const RootQuery = new GraphQLObjectType({
    resolve(parent, args) {
     // code to get data in db mongodb query goes here.
     return usersCtrl.getUsers();
-   },
-  },
- },
+   }
+  }
+ }
 });
 
 const mutateUser = new GraphQLObjectType({
@@ -60,15 +62,16 @@ const mutateUser = new GraphQLObjectType({
    args: {
     name: {type: GraphQLString},
     email: {type: GraphQLString},
-    password: {type: GraphQLString},
+    password: {type: GraphQLString}
    },
    resolve(parent, args) {
     return usersCtrl.registerUser();
-   },
-  },
- },
+   }
+  }
+ }
 });
 
 module.exports = new GraphQLSchema({
  query: RootQuery,
+ mutation: mutateUser
 });
