@@ -1,6 +1,5 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
 const User = require('../models/main.model').user;
 
 // validators
@@ -12,6 +11,7 @@ require('dotenv').config();
 const secretOrKey = process.env.SECRET_OR_KEY;
 
 module.exports = {
+ // FIXME: req, res should be change. ask permission first
  // Fetches all users from db
  getUsers: async (req, res) => {
   return await User.find();
@@ -21,6 +21,7 @@ module.exports = {
  //   Test.find().then(tests => res.json(tests));
  // },
 
+ // FIXME: req, res should be change. ask permission first
  // Sign up a new user
  registerUser: async (req, res) => {
   // const {errors, isValid} = validateRegisterInput(req.body);
@@ -64,10 +65,7 @@ module.exports = {
            // Set seesion expiration to 2 days
            {expiresIn: '2 days'},
            (err, token) => {
-            //  res.json({
-            //   success: true,
-            //   token: 'Bearer ' + token
-            //  });
+            // removed json response
             res({token: 'Bearer ' + token});
            }
           );
@@ -85,13 +83,8 @@ module.exports = {
   }
  },
 
- // Login existing user
- // FIXME: req, res fix this. rename this.
+ // FIXME: req, res should be change. ask permission first
  loginUser: async (req, res) => {
-  // since were not invoking this function via frontend or post man. req and res doesn't have express obj
-  // rather it has arguments pass from grapql. req will contain an email and password prop
-  // we will access this by req.email and req.password. we will also change req to avoid confusion
-
   // const {errors, isValid} = validateLoginInput(req.body);
 
   // if (!isValid) {
@@ -106,9 +99,9 @@ module.exports = {
 
   const user = await User.findOne({email});
   if (!user) {
-   errors.email =
-    'An account with this email does not exist. Please check your email and try again';
-   // return res.status(400).json(errors);
+   errors.email = `An account with this email does not exist. 
+    Please check your email and try again`;
+   // removed json response
    return 'error';
   }
   const isMatch = await bcrypt.compare(password, user.password);
@@ -122,22 +115,17 @@ module.exports = {
     jwt.sign(
      payload,
      secretOrKey,
-     // Set seesion expiration to 2 days
+     // Set session expiration to 2 days
      {expiresIn: '2 days'},
      (err, token) => {
-      //  res.json({
-      //   success: true,
-      //   token: 'Bearer ' + token,
-      //  });
+      // removed json response
       res({success: true, token: 'Bearer ' + token});
      }
     );
    });
   } else {
+   // removed json response
    rej({token: 'Please check your password and try again'});
-   //  return res.status(400).json({
-   //   password: 'Please check your password and try again'
-   //  });
   }
  },
 
