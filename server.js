@@ -1,16 +1,16 @@
 // ! dependencies ===================
-const mongoose = require("mongoose");
-const express = require("express");
-const bp = require("body-parser");
-const passport = require("passport");
+const mongoose = require('mongoose');
+const express = require('express');
+const bp = require('body-parser');
+const passport = require('passport');
 // ! dependencies ===================
 
 // ! dev dependencies ===================
-const morgan = require("morgan");
+const morgan = require('morgan');
 // ! dev dependencies ===================
 
 // ! env ===================
-const dotenv = require("dotenv").config();
+const dotenv = require('dotenv').config();
 const mongoURI = process.env.MONGO_URI;
 // ! env ===================
 
@@ -22,12 +22,20 @@ const _PORT = process.env.PORT || 8000;
 // * express always on top of the middlewares
 const app = express();
 // * morgan
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 // * parse application/x-www-form-urlencoded
-app.use(bp.urlencoded({ extended: false }));
+app.use(bp.urlencoded({extended: false}));
 // * parse application/json
 app.use(bp.json());
 // ! middleware =========================
+
+// // ! custom routes =======================
+// const mainRoute = require('./api/routes/main.routes.js');
+// // ! custom routes =======================
+
+// // ! rest API route ====================
+// app.use('/api', mainRoute);
+// // ! rest API route ====================
 
 // // ! local mongo connection ====================
 // mongoose.connect(
@@ -38,31 +46,32 @@ app.use(bp.json());
 //     console.log('--< Connection successful');
 //   }
 // );
-//
 // // ! local mongo connection ====================
 
 // ! remote mongo connection ====================
 mongoose
-  .connect(
-    mongoURI,
-    { useNewUrlParser: true }
-  )
-  .then(() => console.log("Connected to mLab MongoDB successfully"))
-  .catch(err => console.log(err));
-
+ .connect(
+  mongoURI,
+  {useNewUrlParser: true}
+ )
+ .then(() => console.log('Connected to mLab MongoDB successfully'))
+ .catch((err) => console.log(err));
 // ! remote mongo connection ====================
 
-//! custom routes =======================
-const mainRoute = require("./api/routes/main.routes.js");
-//! custom routes =======================
+// ! custom routes =======================
+const mainRoute = require('./api/routes/main.routes.js');
+// ! custom routes =======================
 // Passport
 app.use(passport.initialize());
-require("./config/passport")(passport);
+require('./config/passport')(passport);
 
-app.get("/", (req, res) => res.send("Hello World"));
+app.use('/api', mainRoute);
 
-app.use("/api", mainRoute);
+// ! graphql route testing ====================
+const queryGraph = require('./api/graphql_route/graph.user.js');
+app.use('/graph', queryGraph);
+// ! graphql route testing ====================
 
 app.listen(_PORT, () => {
-  console.log(`SERVER USING PORT: ${_PORT}`);
+ console.log(`SERVER USING PORT: ${_PORT}`);
 });

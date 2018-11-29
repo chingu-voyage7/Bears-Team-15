@@ -4,8 +4,8 @@ const router = express.Router();
 const tstCtrl = require('../controllers/test.ctrl');
 
 router
-  .route('/')
-  .get(tstCtrl.helloWorld)
-  .post(tstCtrl.testAdd);
+ .route('/')
+ .get(tstCtrl.helloWorld)
+ .post(tstCtrl.testAdd);
 
 module.exports = router;
