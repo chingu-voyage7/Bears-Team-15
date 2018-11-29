@@ -15,7 +15,8 @@ const UserType = new GraphQLObjectType({
   id: {type: GraphQLID},
   name: {type: GraphQLString},
   email: {type: GraphQLString},
-  token: {type: GraphQLString}
+  token: {type: GraphQLString},
+  error: {type: GraphQLString}
  })
 });
 
@@ -74,7 +75,7 @@ const mutateUser = new GraphQLObjectType({
      .registerUser(newUser)
      .then((result) => result)
      .catch((err) => {
-      console.error(err);
+      return {error: err};
      });
    }
   }
