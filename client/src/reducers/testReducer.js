@@ -8,7 +8,7 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case TEST_ING:
       return {
-        ...state,
+        // ...state,
         logArr: action.payload,
       };
     default:
