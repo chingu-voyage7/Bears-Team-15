@@ -7,11 +7,9 @@ import Layout from '../Components/Common/Layout';
 
 class Test extends Component {
   handleClick = () => {
-    console.log('foo', this.props.test);
     const items = [...this.props.test];
     items.push('yolo');
-    console.log(items, 'f');
-    console.log(this.props.testLog(items), 'fn');
+    this.props.testLog(items);
   };
 
   testing = () => {
@@ -19,13 +17,13 @@ class Test extends Component {
   };
 
   handleAdd = () => {
-    console.log(this.props.incDec);
+    console.log(this.props.incDec, 's');
     const num = this.props.incDec;
     this.props.increment(num);
   };
 
   handleDec = () => {
-    console.log(this.props.incDec);
+    // console.log(this.props.incDec);
     const num = this.props.incDec;
     this.props.decrement(num);
   };
@@ -47,9 +45,11 @@ class Test extends Component {
 
 // these are the props
 // test key came from index.js
+// state.the reducer name obj from index reducer.initial state from testReducer
 const mapStateToProps = (state) => ({
   test: state.test.logArr,
-  incDec: state.incDec.num,
+  incDec: state.incDec,
+  state,
 });
 
 export default connect(
