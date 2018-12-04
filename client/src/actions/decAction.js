@@ -1,9 +1,9 @@
 import {DECREMENT} from './types';
 
-export const decrement = (args) => (dispatch) => {
+export const decrement = (args) => {
   const diff = args - 1;
-  dispatch({
+ return {
     type: DECREMENT,
     payload: diff,
-  });
+  };
 };

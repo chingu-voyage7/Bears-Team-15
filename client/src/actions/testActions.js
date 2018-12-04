@@ -1,8 +1,8 @@
 import {TEST_ING} from './types';
 
-export const testLog = (args) => (dispatch) => {
-  dispatch({
+export const testLog = (args) => {
+  return {
     type: TEST_ING,
     payload: args,
-  });
+  };
 };
