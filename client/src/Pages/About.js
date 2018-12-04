@@ -1,13 +1,9 @@
 import React from 'react'
-import Layout from '../Components/Common/Layout/index'
-
 
 const About = () => (
-	<Layout>
-        <div>
-        <h1>about Page</h1>
-        </div>
-	</Layout>
+	  <div>
+	    <h1>About Page</h1>
+	  </div>
 )
 
 export default About
