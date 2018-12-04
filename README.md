@@ -1,24 +1,24 @@
 # Bears-Team-15
 
-Johnny D's Barber Shop Website
+Disaster Relief Coordinator
 
-We propose to build a replacement website for Johnny D's Barber Shop
+We are attempting to create an application to assist individuals to
+organize drive in their neighborhoods to aid disaster relief efforts.
 
-Here is [Johnny D's current website](http://www.johnnydsbarbershop.com/)
 
 #### Features we propose:
 1. Authentication
 2. Pages:
     * Home
-    * Picures
+    * Pictures
     * Videos
     * About Us
     * Contact Us
     * Services
-    * Apppointment (Queue)
-3. Queue:
-    * Will allow users to sign up for today's waitlist
-    
+
+### Need to revamp ASAP
+3. Drives:
+
 **Teammates:**
   - @UjwalBattar
   - @aRtoo

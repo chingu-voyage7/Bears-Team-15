@@ -1,17 +1,22 @@
 import React from 'react';
+import { Router } from '@reach/router';
+
 import Header from '../../Theme/header';
 import Footer from '../../Theme/footer';
-import {Provider} from 'react-redux';
-import store from '../../../store/store';
+import {IndexPage, Locations, Drives, About, Test} from '../../../Pages';
 
-const Layout = ({children}) => (
-  <Provider store={store}>
+const Layout = () => (
     <div>
       <Header />
-      {children}
+      <Router>
+        <IndexPage path="/" />
+        <Drives path="/drives" />
+        <Locations path="/locations" />
+        <About path="/about" />
+        <Test path="/test" />
+      </Router>
       <Footer />
     </div>
-  </Provider>
 );
 
 export default Layout;
