@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {testLog} from '../actions/testActions';
 import {increment} from '../actions/incAction';
 import {decrement} from '../actions/decAction';
-import Layout from '../Components/Common/Layout';
 
 class Test extends Component {
   handleClick = () => {
@@ -30,7 +29,7 @@ class Test extends Component {
 
   render() {
     return (
-      <Layout>
+      <div>
         {this.testing()}
         <div>
           <button onClick={this.handleClick}>TEST BTN</button>
@@ -38,7 +37,7 @@ class Test extends Component {
         <h1>{this.props.incDec}</h1>
         <button onClick={this.handleAdd}>+</button>
         <button onClick={this.handleDec}>-</button>
-      </Layout>
+      </div>
     );
   }
 }
@@ -51,8 +50,17 @@ const mapStateToProps = (state) => ({
   incDec: state.incDec,
   state,
 });
-
+const mapDispatchToProps=(dispatch)=>({
+  increment:(args)=>{
+    dispatch(increment(args));
+  },
+  decrement:(args)=>{
+    dispatch(decrement(args));
+  },
+  testLog:(args)=>{
+    dispatch(testLog(args));
+  }
+});
 export default connect(
-  mapStateToProps,
-  {testLog, increment, decrement}
+  mapStateToProps,mapDispatchToProps
 )(Test);
