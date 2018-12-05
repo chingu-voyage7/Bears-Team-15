@@ -1,4 +1,4 @@
 module.exports = {
  test: require('./test.model'),
- user: require('./User.model'),
+ user: require('./User.model')
 };
