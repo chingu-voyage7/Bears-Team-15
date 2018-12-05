@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {testLog} from '../actions/testActions';
-import {increment} from '../actions/incAction';
-import {decrement} from '../actions/decAction';
+import {testLog} from '../../actions/testActions';
+import {increment} from '../../actions/incAction';
+import {decrement} from '../../actions/decAction';
 
 class Test extends Component {
   handleClick = () => {
