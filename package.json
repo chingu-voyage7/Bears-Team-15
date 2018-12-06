@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/chingu-voyage7/Bears-Team-15#readme",
   "dependencies": {
+    "apollo-boost": "^0.1.22",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "dotenv": "^6.1.0",
@@ -31,6 +32,7 @@
     "mongoose": "^5.3.13",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "react-apollo": "^2.3.2",
     "validator": "^10.9.0"
   },
   "devDependencies": {
