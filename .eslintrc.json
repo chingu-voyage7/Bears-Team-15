@@ -4,7 +4,8 @@
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
     "indent": ["error", 1],
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+    "new-cap": ["error", {"capIsNew": false}]
   },
   "parserOptions": {
     "ecmaVersion": 2017

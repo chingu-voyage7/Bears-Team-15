@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 
 const testSchema = new Schema({
  user_name: {
-  type: String,
- },
+  type: String
+ }
 });
 
 const testAdd = mongoose.model('test', testSchema);

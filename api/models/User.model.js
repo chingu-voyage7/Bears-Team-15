@@ -6,20 +6,20 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
  name: {
   type: String,
-  required: [true, 'Name cannot be blank'],
+  required: [true, 'Name cannot be blank']
  },
  email: {
   type: String,
-  required: [true, 'Email cannot be blank'],
+  required: [true, 'Email cannot be blank']
  },
  password: {
   type: String,
-  required: [true, 'Password cannot be blank'],
+  required: [true, 'Password cannot be blank']
  },
  date: {
   type: Date,
-  default: Date.now,
- },
+  default: Date.now
+ }
 });
 
 module.exports = User = mongoose.model('users', UserSchema);
