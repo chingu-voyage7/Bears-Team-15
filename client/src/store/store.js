@@ -5,6 +5,7 @@ import rootReducer from '../reducers/rootReducxer';
 const middlewares = [thunk];
 const globalInitialState = {
   incDec: 0,
+  allUsers: [],
 };
 
 if (process.env.NODE_ENV !== 'production') {
