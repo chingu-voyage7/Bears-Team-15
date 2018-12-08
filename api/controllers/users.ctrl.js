@@ -52,10 +52,10 @@ module.exports = {
        newUser.password = hash;
        const getNewUser = newUser
         .save()
-        .then((user_1) => {
+        .then((userOne) => {
          const payload = {
-          id: user_1.id,
-          name: user_1.name
+          id: userOne.id,
+          name: userOne.name
          };
          return new Promise((res, rej) => {
           // assign web token using jsonwebtoken
