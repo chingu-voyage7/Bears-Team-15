@@ -8,6 +8,7 @@ import {
   Locations,
   About,
   Test,
+  Login,
 } from './Components/Pages/index';
 import {ApolloProvider} from 'react-apollo';
 import ApolloClient from 'apollo-boost';
@@ -26,6 +27,7 @@ const App = ({store}) => (
           <Locations path="/locations" />
           <About path="/about" />
           <Test path="/test" />
+          <Login path="/login" />
         </Router>
       </Layout>
     </Provider>

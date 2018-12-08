@@ -1,22 +1,17 @@
+// ! imported dependencies
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {testLog} from '../../reduxes/actions/testActions';
-import {increment} from '../../reduxes/actions/incAction';
-import {decrement} from '../../reduxes/actions/decAction';
-import {getAllUsers} from '../../reduxes/actions/userGrabAction';
 import {compose} from 'redux';
-// apollo
-import {gql} from 'apollo-boost';
 import {graphql} from 'react-apollo';
-
-const testUserQuery = gql`
-  {
-    userGetAll {
-      name
-      id
-    }
-  }
-`;
+// ! imported actions
+import {
+  testLog,
+  increment,
+  decrement,
+  getAllUsers,
+} from '../../reduxes/actions/rootAction';
+// ! imported queries
+import {testUserQuery} from '../../util/graphQLQuery';
 
 class Test extends Component {
   handleClick = () => {
