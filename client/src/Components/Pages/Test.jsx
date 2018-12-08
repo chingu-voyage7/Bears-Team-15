@@ -47,6 +47,7 @@ class Test extends Component {
   };
 
   handleGrabUsers = () => {
+    console.log(this.props.data);
     const {userGetAll} = this.props.data;
     console.log('fn to get user!', this.props.getAllUsers(userGetAll));
   };

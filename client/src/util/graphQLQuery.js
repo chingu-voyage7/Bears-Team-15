@@ -1,4 +1,4 @@
-import {gql} from 'apollo-boost';
+import { gql } from 'apollo-boost';
 
 const testUserQuery = gql`
   {
@@ -9,4 +9,15 @@ const testUserQuery = gql`
   }
 `;
 
-export {testUserQuery};
+const userLogin = function (email, password) {
+  console.log(email, password, 'query');
+  return gql`
+    {
+      userLogin(email: "boo@boo.com", password: "password") {
+        token
+      }
+    }
+  `;
+};
+
+export { testUserQuery, userLogin };
