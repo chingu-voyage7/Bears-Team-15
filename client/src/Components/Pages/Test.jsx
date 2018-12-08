@@ -5,10 +5,12 @@ import {increment} from '../../actions/incAction';
 import {decrement} from '../../actions/decAction';
 import {getAllUsers} from '../../actions/userGrabAction';
 import {compose} from 'redux';
-// apollo
+// ! export gql for querying
 import {gql} from 'apollo-boost';
 import {graphql} from 'react-apollo';
 
+// ! this is how you query
+// ! export this inside the graphql
 const testUserQuery = gql`
   {
     userGetAll {
@@ -41,19 +43,22 @@ class Test extends Component {
     this.props.decrement(num);
   };
 
-  getAllUsers = () => {
-    const {userGetAll} = this.props.data;
-    return userGetAll.map((u, i) => (
-      <div key={u.id}>
-        <div>id : {u.id}</div>
-        <div>name: {u.name}</div>
-      </div>
-    ));
-  };
+  // getAllUsers = () => {
+  //   const {userGetAll} = this.props.data;
+  //   return userGetAll.map((u, i) => (
+  //     <div key={u.id}>
+  //       <div>id : {u.id}</div>
+  //       <div>name: {u.name}</div>
+  //     </div>
+  //   ));
+  // };
 
   handleGrabUsers = () => {
     const {userGetAll} = this.props.data;
-    console.log('fn to get user!', this.props.getAllUsers(userGetAll));
+    const clone = [...userGetAll];
+    console.log(this.props);
+    // console.log(this.props.allUsers, 'ff');
+    this.props.getAllUsers(clone);
   };
 
   render() {
@@ -68,7 +73,7 @@ class Test extends Component {
         <button onClick={this.handleAdd}>+</button>
         <button onClick={this.handleDec}>-</button>
         <div>
-          {!loading ? this.getAllUsers() : ''}
+          {/* {!loading ? this.getAllUsers() : ''} */}
           <button onClick={this.handleGrabUsers}>Users</button>
         </div>
       </div>
@@ -82,6 +87,7 @@ class Test extends Component {
 const mapStateToProps = (state) => ({
   test: state.test.logArr,
   incDec: state.incDec,
+  allUsers: state.allUsers,
   state,
 });
 
@@ -104,6 +110,7 @@ const mapDispatchToProps = (dispatch) => ({
 //   mapDispatchToProps
 // )(Test);
 
+// ! using compose to export redux and graphql
 export default compose(
   connect(
     mapStateToProps,

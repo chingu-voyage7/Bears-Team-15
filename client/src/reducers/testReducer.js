@@ -11,6 +11,7 @@ export default function(state = initialState, action) {
         // ...state,
         logArr: action.payload,
       };
+    // return action.payload,
     default:
       return state;
   }
