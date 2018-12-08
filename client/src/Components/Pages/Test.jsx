@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {testLog} from '../../actions/testActions';
-import {increment} from '../../actions/incAction';
-import {decrement} from '../../actions/decAction';
-import {getAllUsers} from '../../actions/userGrabAction';
+import {testLog} from '../../reduxes/actions/testActions';
+import {increment} from '../../reduxes/actions/incAction';
+import {decrement} from '../../reduxes/actions/decAction';
+import {getAllUsers} from '../../reduxes/actions/userGrabAction';
 import {compose} from 'redux';
 // apollo
 import {gql} from 'apollo-boost';
