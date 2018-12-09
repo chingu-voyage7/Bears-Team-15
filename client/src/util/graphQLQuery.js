@@ -10,12 +10,12 @@ const testUserQuery = gql`
 `;
 
 const userLogin = gql`
-    {
-      userLogin(email: "boo@boo.com", password: "password") {
-        token
-      }
+  query($email: String = "", $password: String = ""){
+    userLogin(email:$email, password:$password) {
+      token 
     }
-  `;
+  }
+`;
 
 
 export { testUserQuery, userLogin };

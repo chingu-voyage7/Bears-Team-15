@@ -1,8 +1,8 @@
 // ! imported dependecies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { graphql } from 'react-apollo';
+// import { compose } from 'redux';
+import { graphql, compose } from 'react-apollo';
 
 // ! imported files
 import Input from '../Common/Input/input';
@@ -13,6 +13,8 @@ import { login } from '../../reduxes/actions/loginAction';
 // ! imported query
 import { userLogin } from '../../util/graphQLQuery';
 
+
+// email: "boo@boo.com", password: "password")
 class Login extends Component {
   state = {
     email: '',
@@ -29,11 +31,14 @@ class Login extends Component {
   };
 
   handleClick = () => {
-    console.log(this.props.state);
+    // this.props.userLogin{
+    //   variables: {
+    //     email: "boo@boo.com",
+    //       password: "password"
+    //   }
+    // }
     console.log(this.props.data.userLogin);
-    const { token } = this.props.data.userLogin;
-    this.props.login(token);
-    // this.props.loginTest("boo@boo.com", "password");
+    // this.props.data.userLogin("boo@boo.com", "password");
   };
 
   render() {
@@ -79,5 +84,14 @@ export default compose(
     mapDispatchToProps
   ),
   // graphql query from backend
-  graphql(userLogin) // <<<<<===== heres the query
+  graphql(userLogin, {
+    options: (props) => {
+      return {
+        variables: {
+          email: "boo@boo.com",
+          password: "password"
+        }
+      }
+    }
+  }) // <<<<<===== heres the query
 )(Login);
