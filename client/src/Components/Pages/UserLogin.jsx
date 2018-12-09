@@ -30,9 +30,10 @@ class Login extends Component {
 
   handleClick = () => {
     console.log(this.props.state);
-    // console.log(this.props.data.userLogin);
-    // this.props.login('**');
-    this.props.loginTest("boo@boo.com", "password");
+    console.log(this.props.data.userLogin);
+    const { token } = this.props.data.userLogin;
+    this.props.login(token);
+    // this.props.loginTest("boo@boo.com", "password");
   };
 
   render() {
@@ -62,14 +63,14 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // login: (args) => {
-  //   console.log(args, 'dis');
-  //   // dispatch(login());
-  //   dispatch(graphql(userLogin(args)));
-  // },
-  loginTest: (email, password) => {
-    dispatch(loginTest(email, password));
+  login: (args) => {
+    console.log(args, 'dis');
+    dispatch(login(args));
+    // dispatch(graphql(userLogin(args)));
   },
+  // loginTest: (email, password) => {
+  //   dispatch(loginTest(email, password));
+  // },
 });
 
 export default compose(
@@ -78,5 +79,5 @@ export default compose(
     mapDispatchToProps
   ),
   // graphql query from backend
-  // graphql(userLogin())
+  graphql(userLogin) // <<<<<===== heres the query
 )(Login);

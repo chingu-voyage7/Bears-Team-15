@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import configureStore from './reduxes/store/store';
 import App from './App.jsx';
 import * as serviceWorker from './serviceWorker';
-import {login} from './reduxes/actions/loginAction';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store = configureStore();
@@ -29,8 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
   //   }
   // }
   const root = document.getElementById('root');
-  window.login = login;
-  window.getState = store.getState;
   ReactDOM.render(<App store={store} />, root);
   serviceWorker.register();
 });

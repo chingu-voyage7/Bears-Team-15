@@ -9,15 +9,13 @@ const testUserQuery = gql`
   }
 `;
 
-const userLogin = function (email, password) {
-  console.log(email, password, 'query');
-  return gql`
+const userLogin = gql`
     {
       userLogin(email: "boo@boo.com", password: "password") {
         token
       }
     }
   `;
-};
+
 
 export { testUserQuery, userLogin };
