@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here|Maiden+Orange');
+.logo{
+    font-family: 'Just Me Again Down Here', cursive;
+}
+body{
+    margin: 0px;
+    padding: 0px;  
+    font-family: 'Maiden Orange', cursive;
+}
+
+.header, .footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.footer{
+    flex-direction: column;
+    justify-content: center;
+    background-color:#d6243f ;
+    color: white;
+}
+.footer>*{
+    width: 100%;
+    text-align: center;
+}
+nav{
+    font-size: 21px;
+}
