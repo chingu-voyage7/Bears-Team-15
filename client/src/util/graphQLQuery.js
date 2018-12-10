@@ -10,7 +10,7 @@ const testUserQuery = gql`
 `;
 
 const userLogin = gql`
-  query($email: String = "", $password: String = ""){
+  query($email: String!, $password: String!){
     userLogin(email:$email, password:$password) {
       token 
     }

@@ -7,7 +7,6 @@ import { graphql, compose } from 'react-apollo';
 // ! imported files
 import Input from '../Common/Input/input';
 import Button from '../Common/Button/button';
-import { loginTest } from '../../reduxes/actions/loginAction';
 import { login } from '../../reduxes/actions/loginAction';
 
 // ! imported query
@@ -31,13 +30,12 @@ class Login extends Component {
   };
 
   handleClick = () => {
-    // this.props.userLogin{
-    //   variables: {
-    //     email: "boo@boo.com",
-    //       password: "password"
-    //   }
+    console.log(this.props);
+    // this.props.data.variables = {
+    //   email: "boo@boo.com",
+    //   password: "password",
     // }
-    console.log(this.props.data.userLogin);
+
     // this.props.data.userLogin("boo@boo.com", "password");
   };
 
@@ -72,10 +70,7 @@ const mapDispatchToProps = (dispatch) => ({
     console.log(args, 'dis');
     dispatch(login(args));
     // dispatch(graphql(userLogin(args)));
-  },
-  // loginTest: (email, password) => {
-  //   dispatch(loginTest(email, password));
-  // },
+  }
 });
 
 export default compose(
@@ -90,8 +85,12 @@ export default compose(
         variables: {
           email: "boo@boo.com",
           password: "password"
-        }
+        },
+        // variables: {
+        //   email: "",
+        //   password: ""
+        // }
       }
     }
-  }) // <<<<<===== heres the query
+  })
 )(Login);
