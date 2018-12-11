@@ -1,10 +1,9 @@
 
-const LOG_IN = 'LOG_IN';
 
 export const login = (args) => {
-  console.log('action');
+  const credentials = args
   return {
-    type: LOG_IN,
-    payload: args,
+    type: 'LOG_IN',
+    payload: credentials,
   };
 };

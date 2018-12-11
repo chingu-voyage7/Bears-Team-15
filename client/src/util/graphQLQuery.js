@@ -9,8 +9,17 @@ const testUserQuery = gql`
   }
 `;
 
+const test = gql`
+  {
+    testQuery {
+      test
+    }
+  }
+`;
+
 const userLogin = gql`
-  query($email: String!, $password: String!){
+  query($email: String = "", $password: String = "")
+  {
     userLogin(email:$email, password:$password) {
       token 
     }
@@ -18,4 +27,4 @@ const userLogin = gql`
 `;
 
 
-export { testUserQuery, userLogin };
+export { testUserQuery, userLogin, test };

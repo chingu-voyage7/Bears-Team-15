@@ -1,8 +1,8 @@
-// ! imported dependecies
+// ! imported dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { compose } from 'redux';
 import { graphql, compose } from 'react-apollo';
+import { gql } from 'apollo-boost';
 
 // ! imported files
 import Input from '../Common/Input/input';
@@ -10,7 +10,7 @@ import Button from '../Common/Button/button';
 import { login } from '../../reduxes/actions/loginAction';
 
 // ! imported query
-import { userLogin } from '../../util/graphQLQuery';
+import { userLogin, testUserQuery, test } from '../../util/graphQLQuery';
 
 
 // email: "boo@boo.com", password: "password")
@@ -21,8 +21,6 @@ class Login extends Component {
   };
 
   handleChange = (e) => {
-    console.log(e.target.value);
-    console.log(e.target.name);
     const { value, name } = e.target;
     this.setState({
       [name]: value,
@@ -30,14 +28,24 @@ class Login extends Component {
   };
 
   handleClick = () => {
-    console.log(this.props);
-    // this.props.data.variables = {
-    //   email: "boo@boo.com",
-    //   password: "password",
-    // }
+    const { email, password } = this.state;
+    this.props.client.query({
+      query: gql`
+      query($email: String!  , $password: String! )
+      {
+        userLogin(email: $email, password: $password) {
+          token 
+        }
+      }
 
-    // this.props.data.userLogin("boo@boo.com", "password");
-  };
+    `,
+      variables: {
+        email: email,
+        password: password
+      },
+    }).then(({ data }) => console.log(data, 'data'))
+      .catch(error => console.error(error));
+  }
 
   render() {
     const { email, password } = this.state;
@@ -67,9 +75,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   login: (args) => {
-    console.log(args, 'dis');
     dispatch(login(args));
-    // dispatch(graphql(userLogin(args)));
   }
 });
 
@@ -79,18 +85,19 @@ export default compose(
     mapDispatchToProps
   ),
   // graphql query from backend
-  graphql(userLogin, {
-    options: (props) => {
-      return {
-        variables: {
-          email: "boo@boo.com",
-          password: "password"
-        },
-        // variables: {
-        //   email: "",
-        //   password: ""
-        // }
-      }
-    }
-  })
+  graphql(testUserQuery, { name: 'user' }),
+  graphql(test, { name: 'test' })
+  // graphql(userLogin,
+  //   {
+  //     options: (props) => {
+  //       console.log(props, 'yow');
+  //       return {
+  //         variables: {
+  //           email: props.state.email,
+  //           password: props.state.password
+  //         },
+  //       }
+  //     }
+  //   }
+  // )
 )(Login);
