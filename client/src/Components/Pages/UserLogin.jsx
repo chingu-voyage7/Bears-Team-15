@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import { gql } from 'apollo-boost';
 
 // ! imported files
 import Input from '../Common/Input/input';
@@ -11,6 +10,10 @@ import { login } from '../../reduxes/actions/loginAction';
 
 // ! imported query
 import { userLogin, testUserQuery, test } from '../../util/graphQLQuery';
+
+// ! import helpers
+import SetGetCookie from '../../util/helper.cookie';
+import JWTHelpers from '../../util/jwt.helper';
 
 
 // email: "boo@boo.com", password: "password")
@@ -30,20 +33,21 @@ class Login extends Component {
   handleClick = () => {
     const { email, password } = this.state;
     this.props.client.query({
-      query: gql`
-      query($email: String!  , $password: String! )
-      {
-        userLogin(email: $email, password: $password) {
-          token 
-        }
-      }
-
-    `,
+      query: userLogin,
       variables: {
         email: email,
         password: password
       },
-    }).then(({ data }) => console.log(data, 'data'))
+    }).then(({ data }) => {
+      const { setCookie, getCookie } = new SetGetCookie();
+      const { decodeJWT } = new JWTHelpers();
+      const { token } = data.userLogin;
+      this.props.login(token)
+      setCookie('tokenizer', token)
+
+      const hashToken = getCookie('tokenizer')
+      console.log(decodeJWT(hashToken))
+    })
       .catch(error => console.error(error));
   }
 
