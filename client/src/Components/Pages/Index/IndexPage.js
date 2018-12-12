@@ -14,7 +14,7 @@ const IndexPage = () => (
 			<h2>Why ARC?</h2>
 			<h2>ARC allows you to create events, assign tasks, assign roles, and create supply lists for your events.
 		  </h2>
-			<h2>Assign individuals or allow attendees to pick up these tasks to coordinate an event.
+			<h2>Assign volunteers or allow attendees to pick up these tasks to coordinate an event.
 			 </h2>
 			<div className="flexMid">
 				<div className="leftImage">
