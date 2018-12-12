@@ -10,5 +10,5 @@ export default combineReducers({
   test: testReducers,
   incDec: incDecReducers,
   allUsers: allUsers,
-  credentials: login,
+  token: login,
 });

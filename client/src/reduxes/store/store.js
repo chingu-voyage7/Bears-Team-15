@@ -6,10 +6,7 @@ const middlewares = [thunk];
 const globalInitialState = {
   incDec: 0,
   allUsers: [],
-  credentials: {
-    email: "",
-    password: ""
-  }
+  token: {}
 };
 
 if (process.env.NODE_ENV !== 'production') {
