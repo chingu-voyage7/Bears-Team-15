@@ -8,7 +8,7 @@ import {
   Locations,
   About,
   Test,
-  Login,
+  Login
 } from './Components/Pages/index';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
