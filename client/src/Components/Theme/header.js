@@ -7,7 +7,7 @@ const Header = () => (
       <nav>
         {/* <Link to="/">Home</Link>{"  "}
         <Link to="drives">Drives</Link>{"  "}
-        <Link to="loacations">Locations</Link>{"  "}
+        <Link to="locations">Locations</Link>{"  "}
         <Link to="about">About</Link>{"  "}
         <Link to="test">Test</Link> */}
         <Link to="/">Sign Up</Link>{" "}
@@ -17,4 +17,4 @@ const Header = () => (
   	</div>
 )
 
-export default Header
+export default Header;
