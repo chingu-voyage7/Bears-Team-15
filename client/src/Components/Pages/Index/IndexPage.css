@@ -1,3 +1,7 @@
+.fillPage {
+    margin: 10px;
+}
+
 .banner{
     height: 150px;
    display: flex;
@@ -42,6 +46,7 @@ border-style: none;
 .categories{
     display: flex;
     font-size: 24px;
+    flex-direction: column;
 }
 
 .leftImage img{
