@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware, compose} from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers/rootReducxer';
 
@@ -6,11 +6,12 @@ const middlewares = [thunk];
 const globalInitialState = {
   incDec: 0,
   allUsers: [],
+  token: {}
 };
 
 if (process.env.NODE_ENV !== 'production') {
   // must use 'require' (import only allowed at top of file)
-  const {logger} = require('redux-logger');
+  const { logger } = require('redux-logger');
   middlewares.push(logger);
 }
 // store will will take 3 args
@@ -27,7 +28,7 @@ const configureStore = () =>
     compose(
       applyMiddleware(...middlewares),
       window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
+      window.__REDUX_DEVTOOLS_EXTENSION__()
     )
   );
 
