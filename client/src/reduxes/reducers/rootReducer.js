@@ -3,6 +3,7 @@ import testReducers from './testReducer';
 import incDecReducers from './inc_dec_reducers';
 import allUsers from './userGrabReducer';
 import login from './login_reducer';
+import modal from './modal_reducer';
 
 // pure functions that will be triggered
 // combineReducers fn will receive all the reducers
@@ -11,4 +12,5 @@ export default combineReducers({
   incDec: incDecReducers,
   allUsers: allUsers,
   token: login,
+  modal: modal
 });
