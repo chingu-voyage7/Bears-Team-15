@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node server.js",
-    "start": "nodemon server.js",
+    "server": "nodemon server.js",
+    "start": "node server.js",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
     "lint": "./node_modules/.bin/eslint ./api/**/*.js",
     "frontend-install": "npm install --prefix client",
