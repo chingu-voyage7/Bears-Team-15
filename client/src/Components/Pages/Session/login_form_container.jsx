@@ -65,17 +65,21 @@ class LoginForm extends Component {
       <div className="session-form-container">
         <div className="session-form-elements">
           <Input
+            height="30px"
+            width="300px"
             value={email}
             onChange={this.handleChange}
             placeholder="email"
             name="email"
-            />
+          />
           <Input
+            height="30px"
+            width="300px"
             value={password}
             onChange={this.handleChange}
             placeholder="password"
             name="password"
-            />
+          />
           <Button onClick={this.handleClick}> Login </Button>
         </div>
       </div>
