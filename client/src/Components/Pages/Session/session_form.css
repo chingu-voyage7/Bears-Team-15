@@ -1,0 +1,12 @@
+.session-form-container {
+  background-color: white;
+  height: 110px;
+  width: 450px;
+
+}
+
+.session-form-elements {
+  position: absolute;
+  top: 15%;
+  left: 5%;
+}

@@ -4,7 +4,7 @@
 }
 body{
     margin: 0px;
-    padding: 0px;  
+    padding: 0px;
     font-family: 'Maiden Orange', cursive;
 }
 
@@ -16,6 +16,14 @@ body{
     padding-left: 20px;
     padding-right: 20px;
 }
+.header .login-link {
+  color: blue;
+  text-decoration: underline;
+}
+.header .login-link:hover {
+  cursor: pointer;
+}
+
 .footer{
     flex-direction: column;
     justify-content: center;
