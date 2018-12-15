@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { closeModal } from "../../../reduxes/actions/modal_actions";
-import LoginForm from "../../Pages/Session/login_form_container.jsx";
+import LoginForm from "../../Pages/Session/LoginForm.jsx";
 import './modal.css';
 
 function Modal({ modal, closeModal }) {
