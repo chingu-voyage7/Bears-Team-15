@@ -19,15 +19,15 @@ const IndexPage = () => (
 			<div className="flexMid">
 				<div className="leftImage">
 					<p>Don't forget the chips!</p>
-				<img src={chips} alt="chips"></img>
-			
+					<img src={chips} alt="chips"></img>
+
 				</div>
 				<h2>How does it work?</h2>
 			</div>
 			<h2>Explore</h2>
 			<div className="categories">
-				{tempImgData.map((item) => {
-					return (<div className="sampleImage">Category</div>);
+				{tempImgData.map((item, i) => {
+					return (<div key={i} className="sampleImage">Category</div>);
 				})}
 			</div>
 
