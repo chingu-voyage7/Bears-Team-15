@@ -9,6 +9,8 @@ import Input from '../../Common/Input/input';
 import Button from '../../Common/Button/button';
 import { login } from '../../../reduxes/actions/loginAction';
 import { closeModal } from "../../../reduxes/actions/modal_actions";
+
+// ! style
 import './session_form.css';
 
 // ! imported query
@@ -40,6 +42,7 @@ class LoginForm extends Component {
 
   handleClick() {
     const { email, password } = this.state;
+    // console.log(this.props.client, 'sadfsdfs')
     this.props.client.query({
       query: userLogin,
       variables: {
@@ -89,9 +92,9 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    state,
     // errors: state.errors.sessionErrors,
-    formType: "login"
+    formType: "login",
+    client: state.client
   };
 };
 
