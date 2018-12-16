@@ -9,6 +9,8 @@ const Input = styled.input`
   display: block;
   border-radius: 2px;
   box-sizing: border-box;
+  text-indent: 10px;
+  font-size: 24px;
 `;
 
 export default Input;
