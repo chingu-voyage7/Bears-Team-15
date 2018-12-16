@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
+import { navigate } from "@reach/router"
 
 // ! imported files
 import Input from '../../Common/Input/input';
@@ -31,6 +32,7 @@ class LoginForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleQuery = this.handleQuery.bind(this)
   }
 
   handleChange(e) {
@@ -42,23 +44,33 @@ class LoginForm extends Component {
 
   handleClick() {
     const { email, password } = this.state;
-    // console.log(this.props.client, 'sadfsdfs')
+    this.handleQuery(email, password);
+  }
+
+  handleQuery(email, password) {
     this.props.client.query({
       query: userLogin,
       variables: {
         email: email,
         password: password
       },
-    }).then(({ data }) => {
-      const { setCookie, getCookie } = new SetGetCookie();
-      const { decodeJWT } = new JWTHelpers();
-      const { token } = data.userLogin;
-      this.props.login(token)
-      setCookie('tokenizer', token)
-
-      const hashToken = getCookie('tokenizer')
-      console.log(decodeJWT(hashToken))
     })
+      .then(({ data }) => {
+        // destructured helper functions for cookies
+        // setGetCookie constructor needs a key name type STRING
+        const { setCookie, getCookie } = new SetGetCookie('tokenizer');
+        // destructured JWT helper method
+        const { decodeJWT } = new JWTHelpers();
+        const { token } = data.userLogin;
+        // dispatching action with payload of JWT token
+        this.props.login(token);
+        // method in setting token into cookies
+        setCookie(token);
+        const hashToken = getCookie('tokenizer');
+        decodeJWT(hashToken);
+        // ! should check if the token is valid then navigate
+        // navigate("/test")
+      })
       .catch(error => console.error(error));
   }
 
@@ -68,7 +80,7 @@ class LoginForm extends Component {
       <div className="session-form-container">
         <div className="session-form-elements">
           <Input
-            height="30px"
+            height="45px"
             width="300px"
             value={email}
             onChange={this.handleChange}
@@ -76,7 +88,7 @@ class LoginForm extends Component {
             name="email"
           />
           <Input
-            height="30px"
+            height="45px"
             width="300px"
             value={password}
             onChange={this.handleChange}
