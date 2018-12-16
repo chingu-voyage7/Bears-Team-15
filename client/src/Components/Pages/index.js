@@ -4,4 +4,5 @@ import Locations from './Locations.js';
 import About from './About/About.js';
 import Test from './Test.jsx';
 import Login from './UserLogin.jsx';
-export { Drives, IndexPage, Locations, About, Test, Login };
+import LoginForm from "./Session/LoginForm.jsx";
+export { Drives, IndexPage, Locations, About, Test, Login, LoginForm };
