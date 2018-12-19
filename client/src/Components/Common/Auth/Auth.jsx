@@ -1,65 +1,53 @@
 import React, { Component } from 'react';
-import { LoginForm } from "../../Pages";
-import { Router, Redirect, navigate } from '@reach/router';
-
-
+import { Redirect } from '@reach/router';
+import { compose } from 'react-apollo';
+import { connect } from 'react-redux';
+import { openModal } from '../../../reduxes/actions/modal_actions';
 
 class Auth extends Component {
- state = {
-  authenticate: true,
- }
 
  checkAuthenticate = () => {
-  const { component: Component, path } = this.props;
-  console.log(this.props, path);
-  const { authenticate } = this.state
-  if (authenticate) {
-   console.log('auth')
+  const { component: Component, path, isAuth } = this.props;
+  if (isAuth) {
+   console.log(this.props, path, 'YOW AUTHENTICATED');
    return (
-    this.props.children
-    // <Component path={path} />
-
+    <Component path={path} />
    )
   } else {
-   console.log('false')
-   return (
-    // <LoginForm path='/login' />
-    <Redirect from={path} to='/login' noThrow />
-    // navigate("/login")
-   )
-  }
- }
-
- foo = () => {
-  const { authenticate } = this.state
-  if (authenticate) {
-   return (
-    <div>
-     <h1>FOO</h1>
-    </div>
-   )
-  } else {
-   return (
-    <div>
-     <h1>BAR</h1>
-    </div>
-   )
+   console.log('Not Authenticated')
+   // return (
+   //  <Redirect from={path} to='/login' noThrow />
+   // )
+   this.props.openModal('login');
   }
  }
 
  render() {
   return (
-   <div>
-    <h1>Auth</h1>
-    {/* <Router> */}
+   <>
     {
      this.checkAuthenticate()
-     // this.foo()
     }
-    {/* </Router> */}
-   </div>
+   </>
   )
  }
 }
 
-export default Auth;
+const mapStateToProps = (state) => {
+ return {
+  isAuth: state.isAuth
+ };
+};
+
+const mapDispatchToProps = (dispatch) => {
+ return {
+  openModal: (args) => dispatch(openModal(args)),
+ }
+};
+
+export default compose(
+ connect(
+  mapStateToProps,
+  mapDispatchToProps
+ ),
+)(Auth);

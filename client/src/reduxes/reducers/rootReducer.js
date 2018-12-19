@@ -5,6 +5,7 @@ import allUsers from './userGrabReducer';
 import login from './login_reducer';
 import modal from './modal_reducer';
 import client from './client_reducers';
+import isAuth from './isAuthReducer';
 
 // pure functions that will be triggered
 // combineReducers fn will receive all the reducers
@@ -15,4 +16,5 @@ export default combineReducers({
   token: login,
   modal: modal,
   client: client,
+  isAuth: isAuth
 });

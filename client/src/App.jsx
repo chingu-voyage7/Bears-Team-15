@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Router, Redirect } from '@reach/router';
+import { Router } from '@reach/router';
 import Layout from './Components/Common/Layout/index.js';
 import {
   Drives,
@@ -41,24 +41,13 @@ class App extends Component {
       <ApolloProvider client={this.state.client}>
         <Provider store={this.props.store}>
           <Layout>
-            <h1>APP.jsx</h1>
-            {/* <Router>
-              <LoginForm path="/login" />
-              <Test path='/test' />
+            <Router>
               <IndexPage path="/" />
               <Drives path="/drives" />
-              <Locations path="/locations" />
-              <About path="/about" />
-              <Auth path="/test" component={Test} />
-            </Router> */}
-
-            <Router>
               <LoginForm path="/login" />
-              <Auth path='/test' >
-                <Test path='/test' />
-              </Auth>
+              <Auth path="/test" component={Test} />
+              <Auth path="/about" component={About} />
             </Router>
-
           </Layout>
         </Provider>
       </ApolloProvider>

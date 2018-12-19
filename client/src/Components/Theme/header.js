@@ -19,12 +19,10 @@ class Header extends Component {
             <Link to="about">About</Link>{"  "}
             <Link to="test">Test</Link> */}
           <Link to="/signup">Sign Up</Link>{" "}
-          {/* <span className="login-link" onClick={() => this.props.openModal("login")}>
-            Login
-            </span>{" "} */}
           <Link to='/login'>Login</Link>
           <Link to='/test'>Test</Link>
-          <Link to="/">Getting Started</Link>
+          <Link to='/about'>About</Link>
+          <Link default to="/">Getting Started</Link>
         </nav>
       </div>
     )

@@ -3,13 +3,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import { navigate } from "@reach/router"
+import { navigate } from '@reach/router';
 
 // ! imported files
 import Input from '../../Common/Input/input';
 import Button from '../../Common/Button/button';
+
+// ! imported actions
 import { login } from '../../../reduxes/actions/loginAction';
 import { closeModal } from "../../../reduxes/actions/modal_actions";
+import { auth } from '../../../reduxes/actions/isAuthAction';
 
 // ! style
 import './session_form.css';
@@ -35,6 +38,10 @@ class LoginForm extends Component {
     this.handleQuery = this.handleQuery.bind(this)
   }
 
+  componentDidMount() {
+    console.log(this.props, 'shit');
+  }
+
   handleChange(e) {
     const { value, name } = e.target;
     this.setState({
@@ -43,11 +50,13 @@ class LoginForm extends Component {
   };
 
   handleClick() {
+    console.log(this.props, 'loginf')
     const { email, password } = this.state;
     this.handleQuery(email, password);
   }
 
   handleQuery(email, password) {
+    const { auth, login } = this.props;
     this.props.client.query({
       query: userLogin,
       variables: {
@@ -63,13 +72,20 @@ class LoginForm extends Component {
         const { decodeJWT } = new JWTHelpers();
         const { token } = data.userLogin;
         // dispatching action with payload of JWT token
-        this.props.login(token);
+        login(token);
         // method in setting token into cookies
         setCookie(token);
-        const hashToken = getCookie('tokenizer');
-        decodeJWT(hashToken);
-        // ! should check if the token is valid then navigate
-        // navigate("/test")
+
+        // const hashToken = getCookie('tokenizer');
+        // console.log(hashToken);
+        // console.log(decodeJWT(hashToken));
+
+        // ! dispatching action to store bool true if user has login
+        auth(true)
+        // this.props.history.push('/test');
+        // navigate('/test');
+        this.props.closeModal();
+        // console.log(this.props.history.push('/test'), 'pathname');
       })
       .catch(error => console.error(error));
   }
@@ -114,6 +130,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: (args) => dispatch(login(args)),
     closeModal: () => dispatch(closeModal()),
+    auth: (args) => dispatch(auth(args))
   }
 };
 
@@ -122,7 +139,7 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  // graphql query from backend
+  // graphql query from back end
   graphql(testUserQuery, { name: 'user' }),
   graphql(test, { name: 'test' })
   // graphql(userLogin,
