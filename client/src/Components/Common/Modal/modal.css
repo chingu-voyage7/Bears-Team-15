@@ -1,4 +1,13 @@
 .modal-background {
+  /* position: absolute;
+  border: solid black;
+  height: 100vh;
+  width: 100vw;
+  background: black; */
+  /* z-index: 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -9,12 +18,15 @@
 }
 
 .modal-child {
-  position: absolute;
-  border: black;
+  display: block;
+  width: fit-content;
+  /* display: none; */
+  /* position: absolute; */
+  /* border:solid green;
   background-color: white;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 }
 
 .close-x {

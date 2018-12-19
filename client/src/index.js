@@ -6,6 +6,10 @@ import configureStore from './reduxes/store/store';
 import App from './App.jsx';
 import * as serviceWorker from './serviceWorker';
 
+// ! styles
+import './styles/_reset.scss';
+import './styles/main.scss';
+
 document.addEventListener('DOMContentLoaded', () => {
   let store = configureStore();
   // for front end auth, comment or replace commented out code below
