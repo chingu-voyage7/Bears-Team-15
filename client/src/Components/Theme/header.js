@@ -19,7 +19,7 @@ class Header extends Component {
             <Link to="about">About</Link>{"  "}
             <Link to="test">Test</Link> */}
           <Link to="/signup">Sign Up</Link>{" "}
-          <Link to='/login'>Login</Link>
+          {/* <Link to='/login'>Login</Link> */}
           <Link to='/test'>Test</Link>
           <Link to='/about'>About</Link>
           <Link default to="/">Getting Started</Link>

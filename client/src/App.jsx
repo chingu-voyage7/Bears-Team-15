@@ -6,7 +6,6 @@ import Layout from './Components/Common/Layout/index.js';
 import {
   Drives,
   IndexPage,
-  Locations,
   About,
   Test,
   // Login,
@@ -42,9 +41,9 @@ class App extends Component {
         <Provider store={this.props.store}>
           <Layout>
             <Router>
-              <IndexPage path="/" />
+              <IndexPage default path="/" />
               <Drives path="/drives" />
-              <LoginForm path="/login" />
+              {/* <LoginForm path="/login" /> */}
               <Auth path="/test" component={Test} />
               <Auth path="/about" component={About} />
             </Router>

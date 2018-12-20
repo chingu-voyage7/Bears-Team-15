@@ -24,8 +24,6 @@ import { userLogin, testUserQuery, test } from '../../../util/graphQLQuery';
 import SetGetCookie from '../../../util/helper.cookie';
 import JWTHelpers from '../../../util/jwt.helper';
 
-
-// email: "boo@boo.com", password: "password")
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -76,16 +74,13 @@ class LoginForm extends Component {
         // method in setting token into cookies
         setCookie(token);
 
-        // const hashToken = getCookie('tokenizer');
-        // console.log(hashToken);
-        // console.log(decodeJWT(hashToken));
+        const hashToken = getCookie('tokenizer');
+        console.log(hashToken);
+        console.log(decodeJWT(hashToken));
 
         // ! dispatching action to store bool true if user has login
         auth(true)
-        // this.props.history.push('/test');
-        // navigate('/test');
         this.props.closeModal();
-        // console.log(this.props.history.push('/test'), 'pathname');
       })
       .catch(error => console.error(error));
   }
