@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { Link } from '@reach/router';
 import { login } from "../../reduxes/actions/loginAction";
 import { openModal } from "../../reduxes/actions/modal_actions.js";
-import { inherits } from 'util';
 
 const linkStyle={
   textDecoration: 'none',

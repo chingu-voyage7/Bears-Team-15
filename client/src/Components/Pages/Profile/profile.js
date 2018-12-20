@@ -10,7 +10,7 @@ class Profile extends React.Component{
                 name: "CoolGuy",
                 avatar: avatar,
                 groups:["group1","group2"],
-                currentEvents:[{title: "Event1"},{title: "Event2"},{title: "Event3"},{title: "Event4"}],
+                upcomingEvents:[{title: "Event1"},{title: "Event2"},{title: "Event3"},{title: "Event4"}],
             }   
         }
     }
@@ -35,30 +35,30 @@ class Profile extends React.Component{
                     </ul>
                 </div>
                
-                <div className="profile-events">
+                <div className="">
                 <h1>My Groups</h1>
-                <div className="profile-rule">
-                </div>
+                <div className="profile-rule"></div>
                 <div className="profile-group">
-                <div className="profile-group-card">Group</div>
-                <div className="profile-group-card">Group</div>
+                <Link to="/group"><div className="profile-group-card">Group</div></Link>
+                <Link to="/group"><div className="profile-group-card">Group</div></Link>
                 </div>
                 </div>
             
-                <div className="profile-events">
-                    <h1>My Events</h1>
+                <div>
+                    <h1>Upcoming Events</h1>
                     <div className="profile-rule"></div>
-                    {this.state.user.currentEvents.map((item)=>{
+                    <div className="profile-events">
+                    {this.state.user.upcomingEvents.map((item)=>{
                         return(<div className="profile-event-card">
-                        <h1><Link to={"/profile/"+item.title}>{item.title}</Link></h1>
+                        <h2><Link to={"/group/event"}>{item.title}</Link></h2>
                         <div className="profile-event-details">
                         <p>Date: {Date(Date.now()).toString()}</p>
                         <p>Location:</p>
                         </div>
-                        <h1>Status:Private</h1>
-                        
+                        <h3>Status:Private</h3>
                         </div>)
                     })}
+                    </div>
                 </div>
                 </div>
             </div>

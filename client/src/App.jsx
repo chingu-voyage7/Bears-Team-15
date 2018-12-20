@@ -10,7 +10,8 @@ import {
   Test,
   Login,
   Search,
-  Profile
+  Profile,
+  Event
 } from './Components/Pages/index';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
@@ -32,6 +33,7 @@ const App = ({ store }) => (
           <Login path="/login" client={client} />
           <Search path= "/search"/>
           <Profile path= "/profile"/>
+          <Event path="/group/event"/>
         </Router>
       </Layout>
     </Provider>

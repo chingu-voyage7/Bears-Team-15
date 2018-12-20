@@ -29,6 +29,7 @@
     display: flex;
     flex-direction: column;
     justify-items: center;
+    flex-wrap: wrap;
 }
 .profile-menu ul{
     list-style: none;
@@ -37,7 +38,6 @@
 }
 .profile-menu ul li{
     display: inline;
-    width: 100px;
     font-size: 24px;
     border: 2px solid #a7a7a9;
     border-radius: 3px;
@@ -49,14 +49,15 @@
     cursor: pointer;
 }
 .profile-events{
+    display: flex;
     text-align: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .profile-event-card{
-    width: 80vw;
-    height: 100px;
-    
+    width: 250px;
+    height: 250px;
     border-radius: 5px;
-    margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
     box-shadow: 0px 0px 3px 1px #8f8f91;
@@ -68,12 +69,11 @@
     background-color: #f3f3f3;
 }
 .profile-event-card>*{
-    width: 30%;
+    width: 100%;
 }
 
 .profile-event-details{
     display: flex;
-    flex-direction: column;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
@@ -83,6 +83,7 @@
 .profile-group{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .profile-group-card{
     margin: 20px;
