@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import { navigate } from '@reach/router';
 
 // ! imported files
 import Input from '../../Common/Input/input';
@@ -36,10 +35,6 @@ class LoginForm extends Component {
     this.handleQuery = this.handleQuery.bind(this)
   }
 
-  componentDidMount() {
-    console.log(this.props, 'shit');
-  }
-
   handleChange(e) {
     const { value, name } = e.target;
     this.setState({
@@ -48,7 +43,6 @@ class LoginForm extends Component {
   };
 
   handleClick() {
-    console.log(this.props, 'loginf')
     const { email, password } = this.state;
     this.handleQuery(email, password);
   }
@@ -63,6 +57,7 @@ class LoginForm extends Component {
       },
     })
       .then(({ data }) => {
+        console.log(data, 'yow');
         // destructured helper functions for cookies
         // setGetCookie constructor needs a key name type STRING
         const { setCookie, getCookie } = new SetGetCookie('tokenizer');

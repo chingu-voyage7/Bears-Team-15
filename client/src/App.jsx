@@ -8,15 +8,11 @@ import {
   IndexPage,
   About,
   Test,
-  // Login,
-  LoginForm
 } from './Components/Pages/index';
 import { ApolloProvider } from 'react-apollo';
 
 
 import Auth from './Components/Common/Auth/Auth'
-// import ApolloClient from 'apollo-boost';
-// import { clientGraphQL } from './reduxes/actions/clientAction';
 
 
 class App extends Component {
@@ -43,7 +39,6 @@ class App extends Component {
             <Router>
               <IndexPage default path="/" />
               <Drives path="/drives" />
-              {/* <LoginForm path="/login" /> */}
               <Auth path="/test" component={Test} />
               <Auth path="/about" component={About} />
             </Router>

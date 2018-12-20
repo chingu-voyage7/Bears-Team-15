@@ -4,7 +4,7 @@ const User = require('../models/main.model').user;
 
 // validators
 // const validateRegisterInput = require('./validation/register');
-// const validateLoginInput = require('./validation/login');
+const validateLoginInput = require('./validation/login');
 
 // import secret
 require('dotenv').config();
@@ -29,7 +29,7 @@ module.exports = {
   //  return res.status(400).json(errors);
   // }
   // Check to make sure nobody has already registered with a duplicate email
-  const user = await User.findOne({email: req.email});
+  const user = await User.findOne({ email: req.email });
 
   // Throw a 400 error if the email address already exists
   // errors.email = 'An account with this email already exists';
@@ -63,16 +63,16 @@ module.exports = {
            payload,
            secretOrKey,
            // Set seesion expiration to 2 days
-           {expiresIn: '2 days'},
+           { expiresIn: '2 days' },
            (err, token) => {
             // removed json response
-            res({token: 'Bearer ' + token});
+            res({ token: 'Bearer ' + token });
            }
           );
          });
         })
         .catch((err) => {
-         rej({error: 'Internal Error'});
+         rej({ error: 'Internal Error' });
         });
        res(getNewUser);
       });
@@ -84,25 +84,23 @@ module.exports = {
  },
 
  // FIXME: req, res should be change. ask permission first
- loginUser: async (req, res) => {
-  // const {errors, isValid} = validateLoginInput(req.body);
+ loginUser: async (userData, res) => {
+  console.log(userData, 'req');
+  const { errors, isValid } = validateLoginInput(userData);
+  console.log(errors, 'err', isValid, 'val')
 
   // if (!isValid) {
   //  return res.status(400).json(errors);
   // }
 
   // ill comment this one out to test graph
-  // const email = req.body.email;
-  // const password = req.body.password;
-  const email = req.email;
-  const password = req.password;
+  const { email, password } = userData;
 
-  const user = await User.findOne({email});
+  const user = await User.findOne({ email });
   if (!user) {
-   errors.email = `An account with this email does not exist. 
-    Please check your email and try again`;
-   // removed json response
-   return 'error';
+   errors.email = `User doesn't exist`;
+   return Promise.reject(errors.email)
+
   }
   const isMatch = await bcrypt.compare(password, user.password);
   if (isMatch) {
@@ -116,16 +114,16 @@ module.exports = {
      payload,
      secretOrKey,
      // Set session expiration to 2 days
-     {expiresIn: '2 days'},
-     (err, token) => {
-      // removed json response
-      res({success: true, token: 'Bearer ' + token});
+     { expiresIn: '2 days' },
+     async (err, token) => {
+      err ? rej(err) : res({ token: 'Bearer ' + token });
      }
     );
    });
+
   } else {
    // removed json response
-   rej({token: 'Please check your password and try again'});
+   return { error: 'Incorrect credentials' }
   }
  },
 

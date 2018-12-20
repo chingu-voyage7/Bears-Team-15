@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from '@reach/router';
+// import { Redirect } from '@reach/router';
 import { compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { openModal } from '../../../reduxes/actions/modal_actions';
