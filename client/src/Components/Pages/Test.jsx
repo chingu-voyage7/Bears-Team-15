@@ -1,8 +1,8 @@
 // ! imported dependencies
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {compose} from 'redux';
-import {graphql} from 'react-apollo';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { graphql } from 'react-apollo';
 // ! imported actions
 import {
   testLog,
@@ -11,7 +11,7 @@ import {
   getAllUsers,
 } from '../../reduxes/actions/rootAction';
 // ! imported queries
-import {testUserQuery} from '../../util/graphQLQuery';
+import { testUserQuery } from '../../util/graphQLQuery';
 
 class Test extends Component {
   handleClick = () => {
@@ -37,7 +37,7 @@ class Test extends Component {
   };
 
   getAllUsers = () => {
-    const {userGetAll} = this.props.data;
+    const { userGetAll } = this.props.data;
     return userGetAll.map((u, i) => (
       <div key={u.id}>
         <div>id : {u.id}</div>
@@ -48,14 +48,15 @@ class Test extends Component {
 
   handleGrabUsers = () => {
     console.log(this.props.data);
-    const {userGetAll} = this.props.data;
+    const { userGetAll } = this.props.data;
     console.log('fn to get user!', this.props.getAllUsers(userGetAll));
   };
 
   render() {
-    const {loading} = this.props.data;
+    const { loading } = this.props.data;
     return (
       <div>
+        <h1>TESTING</h1>
         {this.testing()}
         <div>
           <button onClick={this.handleClick}>TEST BTN</button>

@@ -4,13 +4,13 @@ import Footer from '../../Theme/footer';
 import Modal from '../Modal/Modal';
 import './main.css'
 
-const Layout = ({children}) => (
-    <div>
-      <Modal />
-      <Header />
-      {children}
-      <Footer />
-    </div>
+const Layout = ({ children }) => (
+  <div className='Layout-container'>
+    <Modal />
+    <Header />
+    {children}
+    <Footer />
+  </div>
 );
 
 export default Layout;

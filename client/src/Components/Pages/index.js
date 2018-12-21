@@ -7,4 +7,5 @@ import Login from './UserLogin.jsx';
 import Search from './Search/search.js';
 import Profile from './Profile/profile.js';
 import Event from './Event/event.js';
-export { Drives, IndexPage, Locations, About, Test, Login, Search, Profile, Event};
+import LoginForm from "./Session/LoginForm.jsx";
+export { Drives, IndexPage, Locations, About, Test, Login, Search, Profile, Event, LoginForm};

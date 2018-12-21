@@ -13,24 +13,31 @@ const linkStyle={
 class Header extends Component {
 
   render() {
+
       return (
         <div className="header">
       		 <h1 className="logo"><Link to="/" style={linkStyle}>ARC</Link></h1>
           <nav>
             {/*{"  "}
+            <Link to="/">Home</Link>{"  "}
             <Link to="drives">Drives</Link>{"  "}
             <Link to="locations">Locations</Link>{"  "}
             <Link to="about">About</Link>{"  "}
             <Link to="test">Test</Link> */}
             <Link to="/search">Search</Link>{" "}
-            <Link to="/signup">Sign Up</Link>{" "}
+            {/*
             <span className="login-link" onClick={() => this.props.openModal("login")}>
               Login
             </span>{" "}
-            <Link to="/">Getting Started</Link>
-          </nav>
-      	</div>
-      )
+            */}
+          <Link to="/signup">Sign Up</Link>{" "}
+          <Link to='/login'>Login</Link>
+          <Link to='/test'>Test</Link>
+          <Link to='/about'>About</Link>
+          <Link default to="/">Getting Started</Link>
+        </nav>
+      </div>
+    )
   }
 }
 
