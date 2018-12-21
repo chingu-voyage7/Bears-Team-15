@@ -1,24 +1,38 @@
 # Bears-Team-15
 
-Johnny D's Barber Shop Website
+ARC - Activity And Resource Coordinator for Everyone!
 
-We propose to build a replacement website for Johnny D's Barber Shop
+ARC allows you to create events, assign tasks, assign roles, and create supply lists for your events.
+Assign volunteers or allow attendees to pick up these tasks to coordinate an event.
 
-Here is [Johnny D's current website](http://www.johnnydsbarbershop.com/)
 
 #### Features we propose:
 1. Authentication
 2. Pages:
     * Home
-    * Picures
-    * Videos
+    * Events
+    * User Dashboard
+    * Search
     * About Us
     * Contact Us
-    * Services
-    * Apppointment (Queue)
-3. Queue:
-    * Will allow users to sign up for today's waitlist
-    
+3. Events:
+    * Create or host events through form page
+    * Join events (link or invite)
+    * Search for events
+    * Manage resources for the event (foods, locations, carpools, etc.)
+    * Implement custom routing algorithm or utilize Google Maps API
+4. Other implementations:
+    * Custom Authentication using bCrypt, jwt, cookies
+    * Custom modal for forms: login, signup, edit profile, event creation
+    * Search
+    * Maps API
+5. Technologies:
+    * MongoDB
+    * GraphQL
+    * Node
+    * React
+    * Redux
+
 **Teammates:**
   - @UjwalBattar
   - @aRtoo
