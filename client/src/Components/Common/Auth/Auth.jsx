@@ -9,12 +9,10 @@ class Auth extends Component {
  checkAuthenticate = () => {
   const { component: Component, path, isAuth } = this.props;
   if (isAuth) {
-   console.log(this.props, path, 'YOW AUTHENTICATED');
    return (
     <Component path={path} />
    )
   } else {
-   console.log('Not Authenticated')
    // return (
    //  <Redirect from={path} to='/login' noThrow />
    // )

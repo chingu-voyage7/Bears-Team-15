@@ -18,7 +18,8 @@ const UserType = new GraphQLObjectType({
     error: { type: GraphQLString },
     test: { type: GraphQLString }, // testing query
     statusCode: { type: GraphQLInt },
-    success: { type: GraphQLBoolean },
+    isSuccess: { type: GraphQLBoolean },
+    msg: { type: GraphQLString }
   })
 });
 
@@ -43,14 +44,12 @@ module.exports = {
     resolve(parent, args) {
       return usersCtrl
         .loginUser(args)
-        .then((result) => {
-          // this results return bearer and token
-          console.log(result, 'sult')
-          return result;
+        .then(({ token, statusCode, isSuccess, msg }) => {
+          return { token, statusCode, isSuccess, msg };
         })
-        .catch((err) => {
-          console.log(err, 'eer')
-          return err;
+        .catch(({ statusCode, isSuccess, msg }) => {
+          console.log(statusCode, isSuccess);
+          return { statusCode, isSuccess, msg };
           // return { token: 'Incorrect Credentials' };
         });
     }

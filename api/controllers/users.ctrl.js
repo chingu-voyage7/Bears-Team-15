@@ -85,21 +85,23 @@ module.exports = {
 
  // FIXME: req, res should be change. ask permission first
  loginUser: async (userData, res) => {
-  console.log(userData, 'req');
   const { errors, isValid } = validateLoginInput(userData);
-  console.log(errors, 'err', isValid, 'val')
-
-  // if (!isValid) {
-  //  return res.status(400).json(errors);
-  // }
+  console.log(errors);
+  if (!isValid) {
+   return res.status(400).json(errors);
+  }
 
   // ill comment this one out to test graph
   const { email, password } = userData;
 
   const user = await User.findOne({ email });
   if (!user) {
-   errors.email = `User doesn't exist`;
-   return Promise.reject(errors.email)
+   const status = {
+    statusCode: 400,
+    isSuccess: false,
+    msg: 'Unsuccessful login, Please try again'
+   };
+   return Promise.reject(status)
 
   }
   const isMatch = await bcrypt.compare(password, user.password);
@@ -116,7 +118,15 @@ module.exports = {
      // Set session expiration to 2 days
      { expiresIn: '2 days' },
      async (err, token) => {
-      err ? rej(err) : res({ token: 'Bearer ' + token });
+      const status = {
+       statusCode: 200,
+       isSuccess: true,
+       msg: 'login success'
+      };
+      err ? rej(err) : res({
+       token: `Bearer ${token}`,
+       ...status
+      });
      }
     );
    });

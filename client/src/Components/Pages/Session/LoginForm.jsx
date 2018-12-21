@@ -23,6 +23,13 @@ import { userLogin, testUserQuery, test } from '../../../util/graphQLQuery';
 import SetGetCookie from '../../../util/helper.cookie';
 import JWTHelpers from '../../../util/jwt.helper';
 
+
+// destructured helper functions for cookies
+// setGetCookie constructor needs a key name type STRING
+const { setCookie, getCookie } = new SetGetCookie('tokenizer');
+// destructured JWT helper method
+const { decodeJWT } = new JWTHelpers();
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -58,26 +65,22 @@ class LoginForm extends Component {
     })
       .then(({ data }) => {
         console.log(data, 'yow');
-        // destructured helper functions for cookies
-        // setGetCookie constructor needs a key name type STRING
-        const { setCookie, getCookie } = new SetGetCookie('tokenizer');
-        // destructured JWT helper method
-        const { decodeJWT } = new JWTHelpers();
+
         const { token } = data.userLogin;
         // dispatching action with payload of JWT token
         login(token);
         // method in setting token into cookies
         setCookie(token);
 
-        const hashToken = getCookie('tokenizer');
-        console.log(hashToken);
-        console.log(decodeJWT(hashToken));
+        // const hashToken = getCookie('tokenizer');
+        // console.log(hashToken);
+        // console.log(decodeJWT(hashToken));
 
         // ! dispatching action to store bool true if user has login
         auth(true)
         this.props.closeModal();
       })
-      .catch(error => console.error(error));
+      .catch(error => console.error(error, 'err here'));
   }
 
   render() {
