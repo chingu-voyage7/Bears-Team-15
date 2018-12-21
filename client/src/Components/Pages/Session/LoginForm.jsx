@@ -55,8 +55,8 @@ class LoginForm extends Component {
   }
 
   handleQuery(email, password) {
-    const { auth, login } = this.props;
-    this.props.client.query({
+    const { auth, login, client } = this.props;
+    client.query({
       query: userLogin,
       variables: {
         email: email,
@@ -64,21 +64,21 @@ class LoginForm extends Component {
       },
     })
       .then(({ data }) => {
-        console.log(data, 'yow');
+        const { isSuccess, statusCode, token, msg } = data.userLogin;
 
-        const { token } = data.userLogin;
-        // dispatching action with payload of JWT token
-        login(token);
-        // method in setting token into cookies
-        setCookie(token);
+        if (isSuccess && statusCode === 200) {
+          login(token);
+          auth(true)
+          this.props.closeModal();
+          // method in setting token into cookies
+          setCookie(token);
+          // const hashToken = getCookie('tokenizer');
+          // console.log(hashToken);
+          // console.log(decodeJWT(hashToken));
+        } else {
+          console.log(msg, statusCode, isSuccess)
+        }
 
-        // const hashToken = getCookie('tokenizer');
-        // console.log(hashToken);
-        // console.log(decodeJWT(hashToken));
-
-        // ! dispatching action to store bool true if user has login
-        auth(true)
-        this.props.closeModal();
       })
       .catch(error => console.error(error, 'err here'));
   }

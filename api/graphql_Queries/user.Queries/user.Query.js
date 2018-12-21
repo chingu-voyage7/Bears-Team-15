@@ -50,7 +50,6 @@ module.exports = {
         .catch(({ statusCode, isSuccess, msg }) => {
           console.log(statusCode, isSuccess);
           return { statusCode, isSuccess, msg };
-          // return { token: 'Incorrect Credentials' };
         });
     }
   },

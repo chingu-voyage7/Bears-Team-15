@@ -86,9 +86,13 @@ module.exports = {
  // FIXME: req, res should be change. ask permission first
  loginUser: async (userData, res) => {
   const { errors, isValid } = validateLoginInput(userData);
-  console.log(errors);
   if (!isValid) {
-   return res.status(400).json(errors);
+   const status = {
+    statusCode: 400,
+    isSuccess: false,
+    msg: 'invalid address'
+   };
+   return { ...status };
   }
 
   // ill comment this one out to test graph
@@ -96,12 +100,13 @@ module.exports = {
 
   const user = await User.findOne({ email });
   if (!user) {
+   console.log(user, 'user');
    const status = {
     statusCode: 400,
     isSuccess: false,
     msg: 'Unsuccessful login, Please try again'
    };
-   return Promise.reject(status)
+   return { ...status }
 
   }
   const isMatch = await bcrypt.compare(password, user.password);
@@ -132,8 +137,13 @@ module.exports = {
    });
 
   } else {
-   // removed json response
-   return { error: 'Incorrect credentials' }
+   // this will be triggered if the email is correct and password is incorrect
+   const status = {
+    statusCode: 400,
+    isSuccess: false,
+    msg: 'Incorrect credentials'
+   }
+   return { ...status }
   }
  },
 
