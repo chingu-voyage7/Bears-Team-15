@@ -9,6 +9,9 @@ import {
   Locations,
   About,
   Test,
+  Search,
+  Profile,
+  Event,
   // Login,
   LoginForm
 } from './Components/Pages/index';
@@ -44,9 +47,13 @@ class App extends Component {
             <Router>
               <IndexPage path="/" />
               <Drives path="/drives" />
+              <Locations path="/locations" />
               <LoginForm path="/login" />
               <Auth path="/test" component={Test} />
               <Auth path="/about" component={About} />
+              <Search path= "/search"/>
+              <Profile path= "/profile"/>
+              <Event path="/group/event"/>
             </Router>
           </Layout>
         </Provider>
