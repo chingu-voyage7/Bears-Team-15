@@ -44,12 +44,12 @@ module.exports = {
     resolve(parent, args) {
       return usersCtrl
         .loginUser(args)
-        .then(({ token, statusCode, isSuccess, msg }) => {
-          return { token, statusCode, isSuccess, msg };
+        .then((result) => {
+          return { ...result };
         })
-        .catch(({ statusCode, isSuccess, msg }) => {
+        .catch((error) => {
           console.log(statusCode, isSuccess);
-          return { statusCode, isSuccess, msg };
+          return { ...error };
         });
     }
   },
@@ -68,9 +68,11 @@ module.exports = {
       };
       return usersCtrl
         .registerUser(newUser)
-        .then((result) => result)
+        .then((result) => {
+          return { ...result }
+        })
         .catch((err) => {
-          return { error: err };
+          return { ...err };
         });
     }
   },
