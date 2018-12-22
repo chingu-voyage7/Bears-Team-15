@@ -39,7 +39,7 @@ module.exports = {
     isSuccess: false,
     msg: 'User already exist'
    };
-   return { ...status }
+   return status
   } else {
 
    // Otherwise create a new user
@@ -54,7 +54,7 @@ module.exports = {
        isSuccess: false,
        msg: 'Can not create HASH!'
       };
-      return { ...status }
+      return status;
      }
 
      const newUser = new User({
@@ -87,7 +87,7 @@ module.exports = {
          const status = {
           statusCode: 200,
           isSuccess: true,
-          msg: 'login success'
+          msg: 'Sign-up success'
          };
          res({
           token: `Bearer ${token}`,
@@ -114,7 +114,7 @@ module.exports = {
     isSuccess: false,
     msg: 'invalid address'
    };
-   return { ...status };
+   return status;
   }
 
   // ill comment this one out to test graph
@@ -128,7 +128,7 @@ module.exports = {
     isSuccess: false,
     msg: 'Incorrect Credentials'
    };
-   return { ...status }
+   return status;
 
   }
   const isMatch = await bcrypt.compare(password, user.password);
@@ -174,7 +174,7 @@ module.exports = {
     isSuccess: false,
     msg: 'Incorrect credentials'
    }
-   return { ...status }
+   return status;
   }
  },
 
