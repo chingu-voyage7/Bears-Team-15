@@ -6,7 +6,7 @@ import { graphql, compose } from 'react-apollo';
 // ! imported files
 import Input from '../Common/Input/input';
 import Button from '../Common/Button/button';
-import { login } from '../../reduxes/actions/loginAction';
+import { login } from '../../reduxes/actions/session_actions';
 
 // ! imported query
 import { userLogin, testUserQuery, test } from '../../util/graphQLQuery';
