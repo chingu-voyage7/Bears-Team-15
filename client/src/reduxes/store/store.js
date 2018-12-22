@@ -11,9 +11,7 @@ const middleWares = [thunk];
 const globalInitialState = {
   incDec: 0,
   allUsers: [],
-  token: {},
   client: ApClient,
-  isAuth: false,
 };
 
 if (process.env.NODE_ENV !== 'production') {

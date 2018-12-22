@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/main.model').user;
 
 // validators
-// const validateRegisterInput = require('./validation/register');
+const validateRegisterInput = require('./validation/register');
 const validateLoginInput = require('./validation/login');
 
 // import secret
@@ -17,29 +17,30 @@ module.exports = {
   return await User.find();
  },
 
- // tests: (req, res) => {
- //   Test.find().then(tests => res.json(tests));
- // },
-
- // FIXME: req, res should be change. ask permission first
  // Sign up a new user
  registerUser: async (dataNewUser, res) => {
-  // const {errors, isValid} = validateRegisterInput(req.body);
-  // if (!isValid) {
-  //  return res.status(400).json(errors);
-  // }
+  console.log(dataNewUser)
+  const { errors, isValid } = validateRegisterInput(dataNewUser);
+  if (!isValid) {
+   const status = {
+    statusCode: 400,
+    isSuccess: false,
+    msg: errors
+   };
+   console.log(status, 'sdf');
+   return status;
+  }
   // Check to make sure nobody has already registered with a duplicate email
   const user = await User.findOne({ email: dataNewUser.email });
   // Throw a 400 error if the email address already exists
   // errors.email = 'An account with this email already exists';
   if (user) {
-   console.log('naa na');
    const status = {
     statusCode: 400,
     isSuccess: false,
     msg: 'User already exist'
    };
-   return status
+   return status;
   } else {
 
    // Otherwise create a new user
@@ -52,20 +53,21 @@ module.exports = {
       const status = {
        statusCode: 500,
        isSuccess: false,
-       msg: 'Can not create HASH!'
+       msg: 'Cannot create HASH!'
       };
       return status;
      }
 
      const newUser = new User({
-      name: dataNewUser.name,
+      firstName: dataNewUser.firstName,
+      lastName: dataNewUser.lastName,
       email: dataNewUser.email,
       password: hash
      });
 
      const returnNewUser = await newUser.save();
      const payload = {
-      name: returnNewUser.name,
+      lastName: returnNewUser.lastName,
       email: returnNewUser.email,
      }
 
@@ -80,14 +82,14 @@ module.exports = {
          const status = {
           statusCode: 500,
           isSuccess: true,
-          msg: 'can not produce token!'
+          msg: 'cannot produce token!'
          };
-         rej({ ...status })
+         rej(status)
         } else {
          const status = {
           statusCode: 200,
           isSuccess: true,
-          msg: 'Sign-up success'
+          msg: 'Sign up success'
          };
          res({
           token: `Bearer ${token}`,
@@ -135,7 +137,7 @@ module.exports = {
   if (isMatch) {
    const payload = {
     id: user.id,
-    name: user.name
+    name: user.firstName
    };
    // assign web token using jsonwebtoken
    return new Promise((res, rej) => {
@@ -182,15 +184,8 @@ module.exports = {
  getCurrentUser: (req, res) => {
   res.json({
    id: req.user.id,
-   name: req.user.name,
+   name: req.user.firstName,
    email: req.user.email
   });
  }
- //   passport.authenticate('jsonwebtoken', {session: false}), (req, res) => {
- //   res.json({
- //     id: req.user.id,
- //     name: req.user.name,
- //     email: req.user.email
- //   });
- // }
 };

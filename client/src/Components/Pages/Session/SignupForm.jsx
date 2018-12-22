@@ -16,7 +16,7 @@ import { auth } from '../../../reduxes/actions/isAuthAction';
 import './session_form.css';
 
 // ! imported query
-import { userLogin, testUserQuery, test } from '../../../util/graphQLQuery';
+import { userSignup, testUserQuery, test, addUser } from '../../../util/graphQLQuery';
 
 // ! import helpers
 import SetGetCookie from '../../../util/helper.cookie';
@@ -32,14 +32,14 @@ class SignupForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      passwordOne: '',
-      passwordTwo: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      passwordOne: "",
+      passwordTwo: ""
     };
-    this.handleChange = this.handleChange.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleQuery = this.handleQuery.bind(this)
   }
 
@@ -55,55 +55,45 @@ class SignupForm extends Component {
   };
 
   handleClick() {
-    // console.log(this.props, 'signup')
-    const { email, password } = this.state;
-    console.log("submitting signup form")
-    console.log(this.state, "signup form state");
-    // this.handleQuery(email, password);
+    const { firstName, lastName, email, passwordOne, passwordTwo } = this.state;
+    this.handleQuery(firstName, lastName, email, passwordOne, passwordTwo);
   }
 
-  // THIS IS THE LOGIN QUERY CODE
-  // handleQuery(email, password) {
-  //   const { auth, login, client } = this.props;
-  //   client.query({
-  //     query: userLogin,
-  //     variables: {
-  //       email: email,
-  //       password: password
-  //     },
-  //   })
-  //     .then(({ data }) => {
-  //       const { isSuccess, statusCode, token, msg } = data.userLogin;
-  //
-  //       if (isSuccess && statusCode === 200) {
-  //         login(token);
-  //         auth(true)
-  //         this.props.closeModal();
-  //         // method in setting token into cookies
-  //         setCookie(token);
-  //         // const hashToken = getCookie('tokenizer');
-  //         // console.log(hashToken);
-  //         // console.log(decodeJWT(hashToken));
-  //       } else {
-  //         console.log(msg, statusCode, isSuccess)
-  //       }
-  //
-  //     })
-  //     .catch(error => console.error(error, 'err here'));
-  // }
+  handleQuery(firstName, lastName, email, passwordOne, passwordTwo) {
+    const { auth, signup, client } = this.props;
+
+    client.mutate({
+      mutation: addUser,
+      variables: {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: passwordOne,
+        passwordTwo: passwordTwo
+      },
+    })
+      .then(({ data }) => {
+        const { isSuccess, statusCode, token, msg } = data.addUser;
+        // console.log(data, 'asd');
+        if (isSuccess && statusCode === 200) {
+          signup(token);
+          auth(true)
+          this.props.closeModal();
+          // method in setting token into cookies
+          setCookie(token);
+          // const hashToken = getCookie('tokenizer');
+          // console.log(hashToken);
+          // console.log(decodeJWT(hashToken));
+        } else {
+          console.log(msg, statusCode, isSuccess)
+        }
+
+      })
+      .catch(error => console.error(error, 'err here'));
+  }
 
   render() {
     const { firstName, lastName, email, passwordOne, passwordTwo } = this.state;
-
-    // NEED TO IMPLEMENT THIS BETTER
-    // const checkPasswords = (pwOne, pwTwo) => {
-    //   if (pwOne !== pwTwo) {
-    //     return (<span className="error">Please check that both passwords are the same</span>);
-    //   } else {
-    //     return (<span className="error"></span>)
-    //   }
-    // };
-    // {checkPasswords}
 
     return (
       <div className="session-form-container">
@@ -150,7 +140,7 @@ class SignupForm extends Component {
             name="passwordTwo"
           />
 
-        <Button onClick={this.handleClick}> Sign Up </Button>
+          <Button onClick={this.handleClick}> Sign Up </Button>
         </div>
       </div>
     );

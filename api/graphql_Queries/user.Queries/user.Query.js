@@ -12,10 +12,11 @@ const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     id: { type: GraphQLID },
-    name: { type: GraphQLString },
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
     email: { type: GraphQLString },
     token: { type: GraphQLString },
-    error: { type: GraphQLString },
+    // errors: { type: GraphQLString },
     test: { type: GraphQLString }, // testing query
     statusCode: { type: GraphQLInt },
     isSuccess: { type: GraphQLBoolean },
@@ -45,34 +46,38 @@ module.exports = {
       return usersCtrl
         .loginUser(args)
         .then((result) => {
-          return { ...result };
+          return result;
         })
         .catch((error) => {
           console.log(statusCode, isSuccess);
-          return { ...error };
+          return error;
         });
     }
   },
   addUser: {
     type: UserType,
     args: {
-      name: { type: GraphQLString },
+      firstName: { type: GraphQLString },
+      lastName: { type: GraphQLString },
       email: { type: GraphQLString },
-      password: { type: GraphQLString }
+      password: { type: GraphQLString },
+      passwordTwo: { type: GraphQLString }
     },
     resolve(parent, args) {
       const newUser = {
-        name: args.name,
+        firstName: args.firstName,
+        lastName: args.lastName,
         email: args.email,
-        password: args.password
+        password: args.password,
+        passwordTwo: args.passwordTwo
       };
       return usersCtrl
         .registerUser(newUser)
         .then((result) => {
-          return { ...result }
+          return result;
         })
         .catch((err) => {
-          return { ...err };
+          return err;
         });
     }
   },

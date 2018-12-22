@@ -3,7 +3,7 @@ import { gql } from 'apollo-boost';
 const testUserQuery = gql`
   {
     userGetAll {
-      name
+      firstName
       id
     }
   }
@@ -29,5 +29,16 @@ const userLogin = gql`
   }
 `;
 
+const addUser = gql`
+  mutation($firstName: String = "", $lastName: String = "", $email: String = "", $password: String = "", $passwordTwo: String = "") 
+  {
+  addUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password, passwordTwo: $passwordTwo) {
+    token,
+    statusCode,
+    isSuccess,
+    msg
+  }
+}
+`
 
-export { testUserQuery, userLogin, test };
+export { testUserQuery, userLogin, test, addUser };
