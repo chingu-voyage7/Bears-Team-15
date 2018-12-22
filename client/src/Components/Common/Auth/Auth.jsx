@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from '@reach/router';
+// import { Redirect } from '@reach/router';
 import { compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import { openModal } from '../../../reduxes/actions/modal_actions';
@@ -9,12 +9,10 @@ class Auth extends Component {
  checkAuthenticate = () => {
   const { component: Component, path, isAuth } = this.props;
   if (isAuth) {
-   console.log(this.props, path, 'YOW AUTHENTICATED');
    return (
     <Component path={path} />
    )
   } else {
-   console.log('Not Authenticated')
    // return (
    //  <Redirect from={path} to='/login' noThrow />
    // )

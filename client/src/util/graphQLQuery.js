@@ -21,7 +21,10 @@ const userLogin = gql`
   query($email: String = "", $password: String = "")
   {
     userLogin(email:$email, password:$password) {
-      token 
+      token,
+      statusCode,
+      isSuccess,
+      msg
     }
   }
 `;

@@ -3,7 +3,9 @@ const {
   GraphQLString,
   GraphQLList,
   GraphQLID,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLInt,
+  GraphQLBoolean
 } = require('graphql');
 
 const UserType = new GraphQLObjectType({
@@ -14,7 +16,10 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     token: { type: GraphQLString },
     error: { type: GraphQLString },
-    test: { type: GraphQLString }
+    test: { type: GraphQLString }, // testing query
+    statusCode: { type: GraphQLInt },
+    isSuccess: { type: GraphQLBoolean },
+    msg: { type: GraphQLString }
   })
 });
 
@@ -37,16 +42,14 @@ module.exports = {
       password: { type: new GraphQLNonNull(GraphQLString) }
     },
     resolve(parent, args) {
-      console.log(args, 'args backend')
       return usersCtrl
         .loginUser(args)
         .then((result) => {
-          // this results return bearer and token
-          console.log(result)
-          return result;
+          return { ...result };
         })
-        .catch((err) => {
-          return { token: 'Incorrect Credentials' };
+        .catch((error) => {
+          console.log(statusCode, isSuccess);
+          return { ...error };
         });
     }
   },
@@ -65,9 +68,11 @@ module.exports = {
       };
       return usersCtrl
         .registerUser(newUser)
-        .then((result) => result)
+        .then((result) => {
+          return { ...result }
+        })
         .catch((err) => {
-          return { error: err };
+          return { ...err };
         });
     }
   },

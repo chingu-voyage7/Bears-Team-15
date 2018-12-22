@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-import { navigate } from '@reach/router';
 
 // ! imported files
 import Input from '../../Common/Input/input';
@@ -25,7 +24,12 @@ import SetGetCookie from '../../../util/helper.cookie';
 import JWTHelpers from '../../../util/jwt.helper';
 
 
-// email: "boo@boo.com", password: "password")
+// destructured helper functions for cookies
+// setGetCookie constructor needs a key name type STRING
+const { setCookie, getCookie } = new SetGetCookie('tokenizer');
+// destructured JWT helper method
+const { decodeJWT } = new JWTHelpers();
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -38,10 +42,6 @@ class LoginForm extends Component {
     this.handleQuery = this.handleQuery.bind(this)
   }
 
-  componentDidMount() {
-    console.log(this.props, 'shit');
-  }
-
   handleChange(e) {
     const { value, name } = e.target;
     this.setState({
@@ -50,14 +50,13 @@ class LoginForm extends Component {
   };
 
   handleClick() {
-    console.log(this.props, 'loginf')
     const { email, password } = this.state;
     this.handleQuery(email, password);
   }
 
   handleQuery(email, password) {
-    const { auth, login } = this.props;
-    this.props.client.query({
+    const { auth, login, client } = this.props;
+    client.query({
       query: userLogin,
       variables: {
         email: email,
@@ -65,29 +64,23 @@ class LoginForm extends Component {
       },
     })
       .then(({ data }) => {
-        // destructured helper functions for cookies
-        // setGetCookie constructor needs a key name type STRING
-        const { setCookie, getCookie } = new SetGetCookie('tokenizer');
-        // destructured JWT helper method
-        const { decodeJWT } = new JWTHelpers();
-        const { token } = data.userLogin;
-        // dispatching action with payload of JWT token
-        login(token);
-        // method in setting token into cookies
-        setCookie(token);
+        const { isSuccess, statusCode, token, msg } = data.userLogin;
 
-        // const hashToken = getCookie('tokenizer');
-        // console.log(hashToken);
-        // console.log(decodeJWT(hashToken));
+        if (isSuccess && statusCode === 200) {
+          login(token);
+          auth(true)
+          this.props.closeModal();
+          // method in setting token into cookies
+          setCookie(token);
+          // const hashToken = getCookie('tokenizer');
+          // console.log(hashToken);
+          // console.log(decodeJWT(hashToken));
+        } else {
+          console.log(msg, statusCode, isSuccess)
+        }
 
-        // ! dispatching action to store bool true if user has login
-        auth(true)
-        // this.props.history.push('/test');
-        // navigate('/test');
-        this.props.closeModal();
-        // console.log(this.props.history.push('/test'), 'pathname');
       })
-      .catch(error => console.error(error));
+      .catch(error => console.error(error, 'err here'));
   }
 
   render() {
