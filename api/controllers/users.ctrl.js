@@ -101,7 +101,6 @@ module.exports = {
      tokenAndStatus ? res(tokenAndStatus) : rej(tokenAndStatus);
     });
    });
-   console.log(returnsTokenAndStatus, 'etest');
    return returnsTokenAndStatus;
   }
  },
@@ -127,7 +126,7 @@ module.exports = {
    const status = {
     statusCode: 400,
     isSuccess: false,
-    msg: 'Unsuccessful login, Please try again'
+    msg: 'Incorrect Credentials'
    };
    return { ...status }
 

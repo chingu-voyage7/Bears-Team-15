@@ -8,6 +8,11 @@ import {
   IndexPage,
   About,
   Test,
+  Search,
+  Profile,
+  Event,
+  // Login,
+  LoginForm
 } from './Components/Pages/index';
 import { ApolloProvider } from 'react-apollo';
 
@@ -39,8 +44,13 @@ class App extends Component {
             <Router>
               <IndexPage default path="/" />
               <Drives path="/drives" />
+              {/* <Locations path="/locations" /> */}
+              <LoginForm path="/login" />
               <Auth path="/test" component={Test} />
               <Auth path="/about" component={About} />
+              <Search path="/search" />
+              <Profile path="/profile" />
+              <Event path="/group/event" />
             </Router>
           </Layout>
         </Provider>
