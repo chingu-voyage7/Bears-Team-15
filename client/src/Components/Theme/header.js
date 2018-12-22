@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react'
 import { Link } from '@reach/router';
-import { login } from "../../reduxes/actions/loginAction";
+import { login } from "../../reduxes/actions/session_actions";
 import { openModal } from "../../reduxes/actions/modal_actions.js";
 
 const linkStyle={
@@ -25,13 +25,13 @@ class Header extends Component {
             <Link to="about">About</Link>{"  "}
             <Link to="test">Test</Link> */}
             <Link to="/search">Search</Link>{" "}
-            {/*
-            <span className="login-link" onClick={() => this.props.openModal("login")}>
-              Login
+
+            <span className="login-link" onClick={() => this.props.openModal("signup")}>
+              Signup
             </span>{" "}
-            */}
+            {/*
           <Link to="/signup">Sign Up</Link>{" "}
-          {/* <Link to='/login'>Login</Link> */}
+          <Link to='/login'>Login</Link> */}
           <Link to='/test'>Test</Link>
           <Link to='/about'>About</Link>
           <Link default to="/">Getting Started</Link>
