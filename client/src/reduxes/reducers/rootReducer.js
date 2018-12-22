@@ -13,7 +13,7 @@ export default combineReducers({
   test: testReducers,
   incDec: incDecReducers,
   allUsers: allUsers,
-  token: sessionReducer,
+  currentUser: sessionReducer,
   modal: modal,
   client: client,
   isAuth: isAuth

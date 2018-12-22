@@ -1,30 +1,6 @@
 class SetGetCookie {
- constructor(keyName, date = {}) {
+ constructor(keyName) {
   this.keyName = keyName;
-  this.date = date;
-  this.test = this.test();
- }
-
- test = () => {
-  const date = new Date();
-  const weeks = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const day = weeks[date.getDay()];
-  const month = months[date.getMonth()]
-  const hours = date.getHours() + 4; // 4 is dynamically added
-  // console.log('day:', day);
-  // console.log('day of the month:', date.getDate());
-  // console.log('month:', month);
-  // console.log('Year:', date.getFullYear());
-  // console.log('hours', hours)
-
-  this.date = {
-   day,
-   date: date.getDate(),
-   month,
-   year: date.getFullYear(),
-   hours,
-  }
  }
 
  setCookie = (value) => {
@@ -51,8 +27,8 @@ class SetGetCookie {
  }
 
  // TODO: finish this method will delete a cookie
- deleteCookie = () => {
-  document.cookie = "tokenizer=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+ deleteCookie = (key) => {
+  document.cookie = `${key}=; Max-Age=0`;
  }
 }
 

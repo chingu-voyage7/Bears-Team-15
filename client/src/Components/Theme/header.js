@@ -1,54 +1,82 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react'
-import { Link } from '@reach/router';
-import { login } from "../../reduxes/actions/session_actions";
+import { Link, navigate } from '@reach/router';
+import { login, logout } from "../../reduxes/actions/session_actions";
 import { openModal } from "../../reduxes/actions/modal_actions.js";
 
-const linkStyle={
+const linkStyle = {
   textDecoration: 'none',
   color: 'inherit',
-  backgroundColor:'inherit'
-  };
+  backgroundColor: 'inherit'
+};
 
 class Header extends Component {
 
-  render() {
+  handleLogout = () => {
+    this.props.logout();
+    navigate('/');
+  }
 
-      return (
-        <div className="header">
-      		 <h1 className="logo"><Link to="/" style={linkStyle}>ARC</Link></h1>
-          <nav>
-            {/*{"  "}
+  render() {
+    const loggedInLinks = () => {
+
+      return (<span className="login-link" onClick={() => this.props.logout()}>
+        Logout
+            </span>)
+    }
+
+    const loggedOutLinks = () => {
+      return (<>
+        <span className="login-link" onClick={() => this.props.openModal("login")}>
+          Login
+            </span>
+        <span className="login-link" onClick={() => this.props.openModal("signup")}>
+          Signup
+            </span>
+      </>)
+    }
+
+    console.log(this.props.currentUser);
+
+    return (
+      <div className="header">
+        <h1 className="logo"><Link to="/" style={linkStyle}>ARC</Link></h1>
+        <nav>
+          {/*{"  "}
             <Link to="/">Home</Link>{"  "}
             <Link to="drives">Drives</Link>{"  "}
             <Link to="locations">Locations</Link>{"  "}
             <Link to="about">About</Link>{"  "}
             <Link to="test">Test</Link> */}
-            <Link to="/search">Search</Link>{" "}
+          <Link to="/search">Search</Link>{" "}
 
-            <span className="login-link" onClick={() => this.props.openModal("signup")}>
-              Signup
+          {/* <span className="login-link" onClick={() => this.props.openModal("login")}>
+            Login
             </span>{" "}
-            {/*
-          <Link to="/signup">Sign Up</Link>{" "}
-          <Link to='/login'>Login</Link> */}
+          <span className="login-link" onClick={() => this.props.openModal("signup")}>
+            Signup
+            </span>{" "} */}
+          {this.props.currentUser ? loggedInLinks() : loggedOutLinks()}
           <Link to='/test'>Test</Link>
           <Link to='/about'>About</Link>
           <Link default to="/">Getting Started</Link>
+          {/* <span className="login-link" onClick={() => this.handleLogout()}>
+            Logout
+            </span>{" "} */}
         </nav>
-      </div>
+      </div >
     )
   }
 }
 
-// const mapStateToProps = ({ session }) => ({
-//   // currentUser: session.currentUser
-// });
+const mapStateToProps = ({ currentUser }) => ({
+  currentUser
+});
 
 const mapDispatchToProps = dispatch => ({
   login: guestUser => dispatch(login(guestUser)),
-  // logout: () => dispatch(logout()),
+  logout: () => dispatch(logout()),
   openModal: modal => dispatch(openModal(modal))
 });
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

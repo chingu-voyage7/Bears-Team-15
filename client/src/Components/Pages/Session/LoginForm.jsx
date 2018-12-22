@@ -65,12 +65,12 @@ class LoginForm extends Component {
       .then(({ data }) => {
         const { isSuccess, statusCode, token, msg } = data.userLogin;
 
+        // ! check status and is success
         if (isSuccess && statusCode === 200) {
           login(token);
           auth(true)
           this.props.closeModal();
           // method in setting token into cookies
-          setCookie(token);
           // const hashToken = getCookie('tokenizer');
           // console.log(hashToken);
           // console.log(decodeJWT(hashToken));
