@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import testReducers from './testReducer';
 import incDecReducers from './inc_dec_reducers';
 import allUsers from './userGrabReducer';
-import login from './login_reducer';
+import sessionReducer from './session_reducer';
 import modal from './modal_reducer';
 import client from './client_reducers';
 import isAuth from './isAuthReducer';
@@ -13,7 +13,7 @@ export default combineReducers({
   test: testReducers,
   incDec: incDecReducers,
   allUsers: allUsers,
-  token: login,
+  token: sessionReducer,
   modal: modal,
   client: client,
   isAuth: isAuth

@@ -9,7 +9,7 @@ import Input from '../../Common/Input/input';
 import Button from '../../Common/Button/button';
 
 // ! imported actions
-import { login } from '../../../reduxes/actions/loginAction';
+import { login } from '../../../reduxes/actions/session_actions';
 import { closeModal } from "../../../reduxes/actions/modal_actions";
 import { auth } from '../../../reduxes/actions/isAuthAction';
 
@@ -22,7 +22,6 @@ import { userLogin, testUserQuery, test } from '../../../util/graphQLQuery';
 // ! import helpers
 import SetGetCookie from '../../../util/helper.cookie';
 import JWTHelpers from '../../../util/jwt.helper';
-
 
 // destructured helper functions for cookies
 // setGetCookie constructor needs a key name type STRING
