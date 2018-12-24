@@ -1,23 +1,37 @@
 # Bears-Team-15
 
-Disaster Relief Coordinator
+ARC - Activity And Resource Coordinator for Everyone!
 
-We are attempting to create an application to assist individuals to
-organize drive in their neighborhoods to aid disaster relief efforts.
+ARC allows you to create events, assign tasks, assign roles, and create supply lists for your events.
+Assign volunteers or allow attendees to pick up these tasks to coordinate an event.
 
 
 #### Features we propose:
 1. Authentication
 2. Pages:
     * Home
-    * Pictures
-    * Videos
+    * Events
+    * User Dashboard
+    * Search
     * About Us
     * Contact Us
-    * Services
-
-### Need to revamp ASAP
-3. Drives:
+3. Events:
+    * Create or host events through form page
+    * Join events (link or invite)
+    * Search for events
+    * Manage resources for the event (foods, locations, carpools, etc.)
+    * Implement custom routing algorithm or utilize Google Maps API
+4. Other implementations:
+    * Custom Authentication using bCrypt, jwt, cookies
+    * Custom modal for forms: login, signup, edit profile, event creation
+    * Search
+    * Maps API
+5. Technologies:
+    * MongoDB
+    * GraphQL
+    * Node
+    * React
+    * Redux
 
 **Teammates:**
   - @UjwalBattar
