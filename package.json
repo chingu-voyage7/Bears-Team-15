@@ -10,7 +10,9 @@
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
     "lint": "./node_modules/.bin/eslint ./api/**/*.js",
     "frontend-install": "npm install --prefix client",
-    "frontend": "npm start --prefix client"
+    "frontend": "npm start --prefix client",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+
   },
   "repository": {
     "type": "git",
