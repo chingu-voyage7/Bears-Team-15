@@ -1,5 +1,4 @@
 import jwtDecode from 'jwt-decode';
-
 import SetGetCookie from '../../util/helper.cookie';
 
 const { setCookie, deleteCookie } = new SetGetCookie('tokenizer');
@@ -35,9 +34,9 @@ export const signup = (args) => dispatch => {
 
 export const logout = () => dispatch => {
   const user = {};
-  deleteCookie('tokenizer');
-  dispatch(setCurrentUser(user));
   dispatch(auth(false));
+  // deleteCookie('tokenizer');
+  // dispatch(setCurrentUser(user));
 }
 
 export const setCurrentUser = (user) => {

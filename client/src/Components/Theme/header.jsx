@@ -13,30 +13,35 @@ const linkStyle = {
 class Header extends Component {
 
   handleLogout = () => {
+    console.log('logout')
     this.props.logout();
     navigate('/');
   }
 
   render() {
-    const loggedInLinks = () => {
 
-      return (<span className="login-link" onClick={() => this.props.logout()}>
-        Logout
-            </span>)
+    const loggedInLinks = () => {
+      return (
+        <span className="login-link"
+          onClick={() => this.handleLogout()}>
+          Logout
+        </span>)
     }
 
     const loggedOutLinks = () => {
       return (<>
-        <span className="login-link" onClick={() => this.props.openModal("login")}>
+        <span className="login-link"
+          onClick={() => this.props.openModal("login")}>
           Login
-            </span>
-        <span className="login-link" onClick={() => this.props.openModal("signup")}>
+        </span>
+        <span className="login-link"
+          onClick={() => this.props.openModal("signup")}>
           Signup
-            </span>
+        </span>
       </>)
     }
 
-    console.log(this.props.currentUser);
+    // console.log(this.props.currentUser === false, this.props.currentUser);
 
     return (
       <div className="header">
@@ -56,7 +61,7 @@ class Header extends Component {
           <span className="login-link" onClick={() => this.props.openModal("signup")}>
             Signup
             </span>{" "} */}
-          {this.props.currentUser ? loggedInLinks() : loggedOutLinks()}
+          {this.props.state.isAuth ? loggedInLinks() : loggedOutLinks()}
           <Link to='/test'>Test</Link>
           <Link to='/about'>About</Link>
           <Link default to="/">Getting Started</Link>
@@ -69,8 +74,8 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = ({ currentUser }) => ({
-  currentUser
+const mapStateToProps = (state) => ({
+  state
 });
 
 const mapDispatchToProps = dispatch => ({

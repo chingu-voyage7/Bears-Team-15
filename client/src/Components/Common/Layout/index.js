@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../../Theme/header';
-import Footer from '../../Theme/footer';
+import Header from '../../Theme/header.jsx';
+import Footer from '../../Theme/footer.jsx';
 import Modal from '../Modal/Modal';
 import './main.css'
 
