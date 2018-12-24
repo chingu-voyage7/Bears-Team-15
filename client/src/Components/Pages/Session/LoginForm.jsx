@@ -1,4 +1,3 @@
-
 // ! imported dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -10,7 +9,7 @@ import Button from '../../Common/Button/button';
 
 // ! imported actions
 import { login } from '../../../reduxes/actions/session_actions';
-import { closeModal } from "../../../reduxes/actions/modal_actions";
+import { closeModal } from '../../../reduxes/actions/modal_actions';
 import { auth } from '../../../reduxes/actions/isAuthAction';
 
 // ! style
@@ -30,121 +29,118 @@ const { setCookie, getCookie } = new SetGetCookie('tokenizer');
 const { decodeJWT } = new JWTHelpers();
 
 class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-    this.handleChange = this.handleChange.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleQuery = this.handleQuery.bind(this)
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			email    : '',
+			password : ''
+		};
+		this.handleChange = this.handleChange.bind(this);
+		this.handleClick = this.handleClick.bind(this);
+		this.handleQuery = this.handleQuery.bind(this);
+	}
 
-  handleChange(e) {
-    const { value, name } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
+	handleChange(e) {
+		const { value, name } = e.target;
+		this.setState({
+			[name] : value
+		});
+	}
 
-  handleClick() {
-    const { email, password } = this.state;
-    this.handleQuery(email, password);
-  }
+	handleClick() {
+		const { email, password } = this.state;
+		this.handleQuery(email, password);
+	}
 
-  handleQuery(email, password) {
-    const { auth, login, client } = this.props;
-    client.query({
-      query: userLogin,
-      variables: {
-        email: email,
-        password: password
-      },
-    })
-      .then(({ data }) => {
-        const { isSuccess, statusCode, token, msg } = data.userLogin;
+	handleQuery(email, password) {
+		const { auth, login, client } = this.props;
+		client
+			.query({
+				query     : userLogin,
+				variables : {
+					email    : email,
+					password : password
+				}
+			})
+			.then(({ data }) => {
+				const { isSuccess, statusCode, token, msg } = data.userLogin;
 
-        // ! check status and is success
-        if (isSuccess && statusCode === 200) {
-          login(token);
-          auth(true)
-          this.props.closeModal();
-          // method in setting token into cookies
-          // const hashToken = getCookie('tokenizer');
-          // console.log(hashToken);
-          // console.log(decodeJWT(hashToken));
-        } else {
-          console.log(msg, statusCode, isSuccess)
-        }
+				// ! check status and is success
+				if (isSuccess && statusCode === 200) {
+					login(token);
+					auth(true);
+					this.props.closeModal();
+					// method in setting token into cookies
+					// const hashToken = getCookie('tokenizer');
+					// console.log(hashToken);
+					// console.log(decodeJWT(hashToken));
+				} else {
+					console.log(msg, statusCode, isSuccess);
+				}
+			})
+			.catch((error) => console.error(error, 'err here'));
+	}
 
-      })
-      .catch(error => console.error(error, 'err here'));
-  }
-
-  render() {
-    const { email, password } = this.state;
-    return (
-      <div className="session-form-container">
-        <div className="session-form-elements">
-          <Input
-            height="45px"
-            width="300px"
-            value={email}
-            onChange={this.handleChange}
-            placeholder="email"
-            name="email"
-          />
-          <Input
-            height="45px"
-            width="300px"
-            value={password}
-            onChange={this.handleChange}
-            placeholder="password"
-            name="password"
-          />
-          <Button onClick={this.handleClick}> Login </Button>
-        </div>
-      </div>
-    );
-  }
+	render() {
+		const { email, password } = this.state;
+		return (
+			<div className="session-form-container">
+				<div className="session-form-elements">
+					<Input
+						height="45px"
+						width="300px"
+						value={email}
+						onChange={this.handleChange}
+						placeholder="email"
+						name="email"
+					/>
+					<Input
+						height="45px"
+						width="300px"
+						value={password}
+						onChange={this.handleChange}
+						placeholder="password"
+						name="password"
+					/>
+					<Button onClick={this.handleClick}> Login </Button>
+				</div>
+			</div>
+		);
+	}
 }
 
 const mapStateToProps = (state) => {
-  return {
-    // errors: state.errors.sessionErrors,
-    formType: "login",
-    client: state.client
-  };
+	return {
+		// errors: state.errors.sessionErrors,
+		formType : 'login',
+		client   : state.client
+	};
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (args) => dispatch(login(args)),
-    closeModal: () => dispatch(closeModal()),
-    auth: (args) => dispatch(auth(args))
-  }
+	return {
+		login      : (args) => dispatch(login(args)),
+		closeModal : () => dispatch(closeModal()),
+		auth       : (args) => dispatch(auth(args))
+	};
 };
 
 export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
-  // graphql query from back end
-  graphql(testUserQuery, { name: 'user' }),
-  graphql(test, { name: 'test' })
-  // graphql(userLogin,
-  //   {
-  //     options: (props) => {
-  //       console.log(props, 'yow');
-  //       return {
-  //         variables: {
-  //           email: props.state.email,
-  //           password: props.state.password
-  //         },
-  //       }
-  //     }
-  //   }
-  // )
+	connect(mapStateToProps, mapDispatchToProps),
+	// graphql query from back end
+	graphql(testUserQuery, { name: 'user' }),
+	graphql(test, { name: 'test' })
+	// graphql(userLogin,
+	//   {
+	//     options: (props) => {
+	//       console.log(props, 'yow');
+	//       return {
+	//         variables: {
+	//           email: props.state.email,
+	//           password: props.state.password
+	//         },
+	//       }
+	//     }
+	//   }
+	// )
 )(LoginForm);
