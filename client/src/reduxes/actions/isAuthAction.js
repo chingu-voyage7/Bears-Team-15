@@ -6,5 +6,3 @@ export const auth = (args) => {
     payload: args,
   };
 };
-
-
