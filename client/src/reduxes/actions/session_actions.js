@@ -35,8 +35,8 @@ export const signup = (args) => dispatch => {
 export const logout = () => dispatch => {
   const user = {};
   dispatch(auth(false));
-  // deleteCookie('tokenizer');
-  // dispatch(setCurrentUser(user));
+  deleteCookie('tokenizer');
+  dispatch(setCurrentUser(user));
 }
 
 export const setCurrentUser = (user) => {
