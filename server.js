@@ -10,7 +10,7 @@ const morgan = require('morgan');
 // ! dev dependencies ===================
 
 // ! env ===================
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const mongoURI = process.env.MONGO_URI;
 // ! env ===================
 

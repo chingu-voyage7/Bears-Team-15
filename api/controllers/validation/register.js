@@ -4,17 +4,26 @@ const isEmpty = require('./is-empty');
 module.exports = function validateRegisterInput(data) {
  const errors = {};
 
- data.name = !isEmpty(data.name) ? data.name : '';
+ data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
+ data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
  data.email = !isEmpty(data.email) ? data.email : '';
  data.password = !isEmpty(data.password) ? data.password : '';
  data.passwordTwo = !isEmpty(data.passwordTwo) ? data.passwordTwo : '';
 
- if (!Validator.isLength(data.name, {min: 2, max: 30})) {
-  errors.name = 'Name must be between 2 and 30 characters';
+ if (!Validator.isLength(data.firstName, { min: 2, max: 30 })) {
+  errors.firstName = 'First name must be between 2 and 30 characters';
  }
 
- if (Validator.isEmpty(data.name)) {
-  errors.name = 'Name cannot be blank';
+ if (Validator.isEmpty(data.firstName)) {
+  errors.firstName = 'First name cannot be blank';
+ }
+
+ if (!Validator.isLength(data.lastName, { min: 2, max: 30 })) {
+  errors.lastName = 'Last name must be between 2 and 30 characters';
+ }
+
+ if (Validator.isEmpty(data.lastName)) {
+  errors.lastName = 'Last name cannot be blank';
  }
 
  if (Validator.isEmpty(data.email)) {
@@ -29,7 +38,7 @@ module.exports = function validateRegisterInput(data) {
   errors.password = 'Password cannot be blank';
  }
 
- if (!Validator.isLength(data.password, {min: 6, max: 30})) {
+ if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
   errors.password = 'Password must be at least 6 characters';
  }
 
@@ -43,6 +52,6 @@ module.exports = function validateRegisterInput(data) {
 
  return {
   errors,
-  isValid: isEmpty(errors),
+  isValid: isEmpty(errors)
  };
 };

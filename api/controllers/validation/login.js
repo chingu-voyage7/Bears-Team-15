@@ -16,11 +16,11 @@ module.exports = function validateLoginInput(data) {
  }
 
  if (Validator.isEmpty(data.password)) {
-  errors.password = 'Password cnnot be blank';
+  errors.password = 'Password cannot be blank';
  }
 
  return {
   errors,
-  isValid: isEmpty(errors),
+  isValid: isEmpty(errors)
  };
 };

@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/main.model').user;
 
 // validators
-// const validateRegisterInput = require('./validation/register');
-// const validateLoginInput = require('./validation/login');
+const validateRegisterInput = require('./validation/register');
+const validateLoginInput = require('./validation/login');
 
 // import secret
 require('dotenv').config();
@@ -17,98 +17,127 @@ module.exports = {
   return await User.find();
  },
 
- // tests: (req, res) => {
- //   Test.find().then(tests => res.json(tests));
- // },
-
- // FIXME: req, res should be change. ask permission first
  // Sign up a new user
- registerUser: async (req, res) => {
-  // const {errors, isValid} = validateRegisterInput(req.body);
-  // if (!isValid) {
-  //  return res.status(400).json(errors);
-  // }
+ registerUser: async (dataNewUser, res) => {
+  console.log(dataNewUser)
+  const { errors, isValid } = validateRegisterInput(dataNewUser);
+  if (!isValid) {
+   const status = {
+    statusCode: 400,
+    isSuccess: false,
+    msg: errors
+   };
+   console.log(status, 'sdf');
+   return status;
+  }
   // Check to make sure nobody has already registered with a duplicate email
-  const user = await User.findOne({email: req.email});
-
+  const user = await User.findOne({ email: dataNewUser.email });
   // Throw a 400 error if the email address already exists
   // errors.email = 'An account with this email already exists';
   if (user) {
-   // return res.status(400).json(errors);
-   return 'An account with this email already exists';
+   const status = {
+    statusCode: 400,
+    isSuccess: false,
+    msg: 'User already exist'
+   };
+   return status;
   } else {
+
    // Otherwise create a new user
    // Hash and salt password
-   return new Promise((res, rej) => {
-    bcrypt.genSalt(11, (err, salt) => {
-     returnedUser = new Promise((res, rej) => {
-      const newUser = new User({
-       name: req.name,
-       email: req.email,
-       password: req.password
-      });
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
-       if (err) throw err;
-       newUser.password = hash;
-       const getNewUser = newUser
-        .save()
-        .then((user_1) => {
-         const payload = {
-          id: user_1.id,
-          name: user_1.name
-         };
-         return new Promise((res, rej) => {
-          // assign web token using jsonwebtoken
-          jwt.sign(
-           payload,
-           secretOrKey,
-           // Set seesion expiration to 2 days
-           {expiresIn: '2 days'},
-           (err, token) => {
-            // removed json response
-            res({token: 'Bearer ' + token});
-           }
-          );
-         });
-        })
-        .catch((err) => {
-         rej({error: 'Internal Error'});
-        });
-       res(getNewUser);
-      });
+   const returnsTokenAndStatus = await new Promise((res, rej) => {
+    bcrypt.hash(dataNewUser.password, 11, async function (err, hash) {
+
+     // if cant create hash
+     if (err) {
+      const status = {
+       statusCode: 500,
+       isSuccess: false,
+       msg: 'Cannot create HASH!'
+      };
+      return status;
+     }
+
+     const newUser = new User({
+      firstName: dataNewUser.firstName,
+      lastName: dataNewUser.lastName,
+      email: dataNewUser.email,
+      password: hash
      });
-     res(returnedUser);
+
+     const returnNewUser = await newUser.save();
+     const payload = {
+      lastName: returnNewUser.lastName,
+      email: returnNewUser.email,
+     }
+
+     const tokenAndStatus = await new Promise((res, rej) => {
+      jwt.sign(
+       payload,
+       secretOrKey,
+       // Set session expiration to 2 days
+       { expiresIn: '2 days' },
+       (err, token) => {
+        if (err) {
+         const status = {
+          statusCode: 500,
+          isSuccess: true,
+          msg: 'cannot produce token!'
+         };
+         rej(status)
+        } else {
+         const status = {
+          statusCode: 200,
+          isSuccess: true,
+          msg: 'Sign up success'
+         };
+         res({
+          token: `Bearer ${token}`,
+          ...status
+         });
+        }
+       }
+      );
+     });
+     // resolved after getting the token
+     tokenAndStatus ? res(tokenAndStatus) : rej(tokenAndStatus);
     });
    });
+   return returnsTokenAndStatus;
   }
  },
 
  // FIXME: req, res should be change. ask permission first
- loginUser: async (req, res) => {
-  // const {errors, isValid} = validateLoginInput(req.body);
-
-  // if (!isValid) {
-  //  return res.status(400).json(errors);
-  // }
+ loginUser: async (userData, res) => {
+  const { errors, isValid } = validateLoginInput(userData);
+  if (!isValid) {
+   const status = {
+    statusCode: 400,
+    isSuccess: false,
+    msg: 'invalid address'
+   };
+   return status;
+  }
 
   // ill comment this one out to test graph
-  // const email = req.body.email;
-  // const password = req.body.password;
-  const email = req.email;
-  const password = req.password;
+  const { email, password } = userData;
 
-  const user = await User.findOne({email});
+  const user = await User.findOne({ email });
   if (!user) {
-   errors.email = `An account with this email does not exist. 
-    Please check your email and try again`;
-   // removed json response
-   return 'error';
+   console.log(user, 'user');
+   const status = {
+    statusCode: 400,
+    isSuccess: false,
+    msg: 'Incorrect Credentials'
+   };
+   return status;
+
   }
   const isMatch = await bcrypt.compare(password, user.password);
   if (isMatch) {
    const payload = {
     id: user.id,
-    name: user.name
+    name: user.firstName
    };
    // assign web token using jsonwebtoken
    return new Promise((res, rej) => {
@@ -116,16 +145,38 @@ module.exports = {
      payload,
      secretOrKey,
      // Set session expiration to 2 days
-     {expiresIn: '2 days'},
+     { expiresIn: '2 days' },
      (err, token) => {
-      // removed json response
-      res({success: true, token: 'Bearer ' + token});
+      if (err) {
+       const status = {
+        statusCode: 500,
+        isSuccess: true,
+        msg: 'can not produce token!'
+       };
+       rej({ ...status })
+      } else {
+       const status = {
+        statusCode: 200,
+        isSuccess: true,
+        msg: 'login success'
+       };
+       res({
+        token: `Bearer ${token}`,
+        ...status
+       });
+      }
      }
     );
    });
+
   } else {
-   // removed json response
-   rej({token: 'Please check your password and try again'});
+   // this will be triggered if the email is correct and password is incorrect
+   const status = {
+    statusCode: 400,
+    isSuccess: false,
+    msg: 'Incorrect credentials'
+   }
+   return status;
   }
  },
 
@@ -133,15 +184,8 @@ module.exports = {
  getCurrentUser: (req, res) => {
   res.json({
    id: req.user.id,
-   name: req.user.name,
+   name: req.user.firstName,
    email: req.user.email
   });
  }
- //   passport.authenticate('jsonwebtoken', {session: false}), (req, res) => {
- //   res.json({
- //     id: req.user.id,
- //     name: req.user.name,
- //     email: req.user.email
- //   });
- // }
 };
