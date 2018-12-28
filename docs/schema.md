@@ -1,5 +1,5 @@
 ## Database Schema
-
+'''JavaScript
 UserSchema: {
   _id: ObjectId,
   firstName: String,
@@ -39,3 +39,4 @@ ImageSchema: {
   userId: ObjectId,
   eventId: ObjectId
 }
+'''
