@@ -1,30 +1,41 @@
 ## Database Schema
 
-USERS
+UserSchema: {
+  _id: ObjectId,
+  firstName: String,
+  lastName: String,
+  email: String,
+  password: String,
+  age: Integer,
+  image: String,
+  phone: String,
+  address: String,
+  date: Date
+}
 
-| column name     |   type   |        details |
-| --------------- | :------: | -------------: |
-| \_id            | ObjectId |    not_null/PK |
-| name            |  string  |       not_null |
-| email           |  string  |       not_null |
-| password_digest |  string  |       not_null |
-| isBarber        | boolean  | default: false |
-| session_token   |  string  |              ? |
+EventSchema: {
+  _id: ObjectId,
+  organizer: [User(s)],
+  title: String,
+  date: Date,
+  image: String,
+  description: String,
+  location: String,
+  items: [Item(s)]
+}
 
-IMAGES
+ItemSchema: {
+  _id: ObjectId,
+  name: String,
+  description: String,
+  quantity: Integer,
+  owner: [User(s)]
+}
 
-| column name |   type   |          details |
-| ----------- | :------: | ---------------: |
-| \_id        | ObjectId |      not_null/PK |
-| title       |  string  | not_null/indexed |
-| userId      | ObjectId |      not_nulL/FK |
-| url         |  string  |         not_null |
-
-VIDEOS
-
-| column name |   type   |     details |
-| ----------- | :------: | ----------: |
-| \_id        | ObjectId | not_null/PK |
-| title       |  string  |    not_null |
-| userId      | ObjectId | not_nulL/FK |
-| url         |  string  |    not_null |
+ImageSchema: {
+  _id: ObjectId,
+  url: String,
+  description: String,
+  userId: ObjectId,
+  eventId: ObjectId
+}
