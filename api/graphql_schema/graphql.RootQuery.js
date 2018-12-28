@@ -4,7 +4,8 @@ const {
  userGetAll,
  userLogin,
  addUser,
- testQuery
+ testQuery,
+ currentUser
 } = require('../graphql_Queries/user.Queries/user.Query.js');
 
 const RootQuery = new GraphQLObjectType({
@@ -12,7 +13,8 @@ const RootQuery = new GraphQLObjectType({
  fields: {
   userGetAll,
   userLogin,
-  testQuery
+  testQuery,
+  currentUser
  }
 });
 

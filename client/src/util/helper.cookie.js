@@ -9,7 +9,7 @@ class SetGetCookie {
   // this shit doesnt work! so i used max-age
   //Expires=${day}, ${date} ${month} ${year} ${hours}:00:00 GMT
   // by default max age is set to four hours
-  document.cookie = `${this.keyName}=${value}; Max-Age=14,400`;
+  document.cookie = `${this.keyName}=${value}; Max-Age=14400000`;
  }
 
  /**

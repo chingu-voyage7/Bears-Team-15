@@ -29,6 +29,16 @@ const userLogin = gql`
   }
 `;
 
+const currUser = gql`
+  query($id: String = "")
+  {
+    currentUser(id:$id) {
+    email,
+    isSuccess
+    }
+  }
+`;
+
 const addUser = gql`
   mutation($firstName: String = "", $lastName: String = "", $email: String = "", $password: String = "", $passwordTwo: String = "") 
   {
@@ -41,4 +51,4 @@ const addUser = gql`
 }
 `
 
-export { testUserQuery, userLogin, test, addUser };
+export { testUserQuery, userLogin, test, addUser, currUser };

@@ -81,6 +81,15 @@ module.exports = {
         });
     }
   },
+  currentUser: {
+    type: UserType,
+    args: {
+      id: { type: GraphQLString }
+    },
+    async resolve(parent, args) {
+      return await usersCtrl.getCurrentUser(args);
+    }
+  },
   testQuery: {
     type: UserType,
     resolve(parent, args) {

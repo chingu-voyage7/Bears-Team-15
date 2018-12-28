@@ -32,8 +32,8 @@ class LoginForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email    : '',
-			password : ''
+			email: '',
+			password: ''
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleClick = this.handleClick.bind(this);
@@ -43,7 +43,7 @@ class LoginForm extends Component {
 	handleChange(e) {
 		const { value, name } = e.target;
 		this.setState({
-			[name] : value
+			[name]: value
 		});
 	}
 
@@ -56,10 +56,10 @@ class LoginForm extends Component {
 		const { auth, login, client } = this.props;
 		client
 			.query({
-				query     : userLogin,
-				variables : {
-					email    : email,
-					password : password
+				query: userLogin,
+				variables: {
+					email: email,
+					password: password
 				}
 			})
 			.then(({ data }) => {
@@ -70,10 +70,6 @@ class LoginForm extends Component {
 					login(token);
 					auth(true);
 					this.props.closeModal();
-					// method in setting token into cookies
-					// const hashToken = getCookie('tokenizer');
-					// console.log(hashToken);
-					// console.log(decodeJWT(hashToken));
 				} else {
 					console.log(msg, statusCode, isSuccess);
 				}
@@ -112,16 +108,16 @@ class LoginForm extends Component {
 const mapStateToProps = (state) => {
 	return {
 		// errors: state.errors.sessionErrors,
-		formType : 'login',
-		client   : state.client
+		formType: 'login',
+		client: state.client
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		login      : (args) => dispatch(login(args)),
-		closeModal : () => dispatch(closeModal()),
-		auth       : (args) => dispatch(auth(args))
+		login: (args) => dispatch(login(args)),
+		closeModal: () => dispatch(closeModal()),
+		auth: (args) => dispatch(auth(args))
 	};
 };
 

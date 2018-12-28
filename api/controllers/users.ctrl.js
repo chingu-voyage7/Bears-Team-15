@@ -181,11 +181,24 @@ module.exports = {
  },
 
  // Fetch current user
- getCurrentUser: (req, res) => {
-  res.json({
-   id: req.user.id,
-   name: req.user.firstName,
-   email: req.user.email
-  });
+ getCurrentUser: async (data) => {
+
+  const currUser = await User.findOne({ _id: data.id });
+  if (currUser) {
+   const status = {
+    statusCode: 200,
+    isSuccess: true,
+    msg: 'correct credentials',
+
+   }
+   return { ...currUser._doc, ...status }
+  } else {
+   const status = {
+    statusCode: 400,
+    isSuccess: false,
+    msg: 'incorrect credentials'
+   }
+   return { ...currUser._doc, ...status }
+  }
  }
 };
