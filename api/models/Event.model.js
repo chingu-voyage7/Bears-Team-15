@@ -13,7 +13,7 @@ const ItemSchema = new Schema({
     type: String
   },
   quantity: {
-    type: Integer,
+    type: Number,
     default: 0
   },
   owner: [User]

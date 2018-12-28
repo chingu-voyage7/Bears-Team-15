@@ -6,7 +6,7 @@ UserSchema: {
   lastName: String,
   email: String,
   password: String,
-  age: Integer,
+  age: Number,
   image: String,
   phone: String,
   address: String,
@@ -28,7 +28,7 @@ ItemSchema: {
   _id: ObjectId,
   name: String,
   description: String,
-  quantity: Integer,
+  quantity: Number,
   owner: [User(s)]
 }
 

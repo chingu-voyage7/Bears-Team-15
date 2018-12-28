@@ -21,7 +21,7 @@ const UserSchema = new Schema({
     required: [true, 'Password cannot be blank']
   },
   age: {
-    type: Integer
+    type: Number
   },
   image: {
     type: String
