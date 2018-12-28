@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bp = require('body-parser');
 const passport = require('passport');
+const path= require('path');
 // ! dependencies ===================
 
 // ! dev dependencies ===================
@@ -29,25 +30,6 @@ app.use(bp.urlencoded({extended: false}));
 app.use(bp.json());
 // ! middleware =========================
 
-// // ! custom routes =======================
-// const mainRoute = require('./api/routes/main.routes.js');
-// // ! custom routes =======================
-
-// // ! rest API route ====================
-// app.use('/api', mainRoute);
-// // ! rest API route ====================
-
-// // ! local mongo connection ====================
-// mongoose.connect(
-//   'mongodb://localhost/bbs_db',
-//   {useNewUrlParser: true},
-//   function(err) {
-//     if (err) console.error(err);
-//     console.log('--< Connection successful');
-//   }
-// );
-// // ! local mongo connection ====================
-
 // ! remote mongo connection ====================
 mongoose
  .connect(
@@ -64,7 +46,8 @@ const mainRoute = require('./api/routes/main.routes.js');
 // Passport
 app.use(passport.initialize());
 require('./config/passport')(passport);
-
+app.use(express.static("client/build"));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', mainRoute);
 
 // ! graphql route testing ====================

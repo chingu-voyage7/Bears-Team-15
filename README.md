@@ -1,11 +1,9 @@
 # Bears-Team-15
 
-
 ARC - Activity And Resource Coordinator for Everyone!
 
 ARC allows you to create events, assign tasks, assign roles, and create supply lists for your events.
 Assign volunteers or allow attendees to pick up these tasks to coordinate an event.
-
 
 #### Features we propose:
 1. Authentication
