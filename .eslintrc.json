@@ -3,9 +3,12 @@
   "rules": {
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
-    "indent": ["error", 1],
+    "indent": ["error", 2],
     "comma-dangle": ["error", "never"],
-    "new-cap": ["error", {"capIsNew": false}]
+    "new-cap": ["error", {
+      "capIsNew": false
+    }],
+    "eol-last": ["error", "never"]
   },
   "parserOptions": {
     "ecmaVersion": 2017
