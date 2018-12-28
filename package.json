@@ -41,6 +41,8 @@
     "validator": "^10.9.0"
   },
   "devDependencies": {
+    "eslint": "^5.11.1",
+    "eslint-config-google": "^0.11.0",
     "nodemon": "^1.18.7"
   }
 }
