@@ -14,6 +14,11 @@ import {
 import { testUserQuery } from '../../util/graphQLQuery';
 
 class Test extends Component {
+
+  state = {
+    user: [],
+  }
+
   handleClick = () => {
     const items = [...this.props.test];
     items.push('yolo');
@@ -34,7 +39,16 @@ class Test extends Component {
     // console.log(this.props.incDec);
     const num = this.props.incDec;
     this.props.decrement(num);
+    this.props.testingUserQuery.refetch();
+    console.log(this.props.testingUserQuery);
   };
+
+  componentWillMount = () => {
+    console.log('testing', 'in this component it should query the users');
+    // const { userGetAll, loading } = this.props.data;
+    console.log(this.props.testingUserQuery)
+    // loading ? console.log(userGetAll) : console.log(userGetAll);
+  }
 
   getAllUsers = () => {
     const { userGetAll } = this.props.data;
@@ -53,7 +67,7 @@ class Test extends Component {
   };
 
   render() {
-    const { loading } = this.props.data;
+    // const { loading } = this.props.data;
     return (
       <div>
         <h1>TESTING</h1>
@@ -65,7 +79,7 @@ class Test extends Component {
         <button onClick={this.handleAdd}>+</button>
         <button onClick={this.handleDec}>-</button>
         <div>
-          {!loading ? this.getAllUsers() : ''}
+          {/* {!loading ? this.getAllUsers() : ''} */}
           <button onClick={this.handleGrabUsers}>Users</button>
         </div>
       </div>
@@ -107,5 +121,5 @@ export default compose(
     mapDispatchToProps
   ),
   // graphql query
-  graphql(testUserQuery)
+  graphql(testUserQuery, { name: 'testingUserQuery' })
 )(Test);
