@@ -6,12 +6,12 @@ const {
     addUser,
     testQuery,
     currentUser,
-} = require('../graphql_Queries/user.Query.js');
+} = require('../graphql_Resolvers/user.Resolver.js');
 
 const {
     getAllEvents,
     addNewEvent,
-} = require('../graphql_Queries/event.Query.js');
+} = require('../graphql_Resolvers/event.Resolver.js');
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQuery',
