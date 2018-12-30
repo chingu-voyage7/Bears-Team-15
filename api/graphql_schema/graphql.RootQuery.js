@@ -8,7 +8,10 @@ const {
     currentUser,
 } = require('../graphql_Queries/user.Query.js');
 
-const {getAllEvents} = require('../graphql_Queries/event.Query.js');
+const {
+    getAllEvents,
+    addNewEvent,
+} = require('../graphql_Queries/event.Query.js');
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQuery',
@@ -28,7 +31,12 @@ const RootQuery = new GraphQLObjectType({
 const mutate = new GraphQLObjectType({
     name: 'mutateQuery',
     fields: {
+        // ! user start
         addUser,
+        // ! user end
+        // ! event start
+        addNewEvent,
+        // ! event end
     },
 });
 
