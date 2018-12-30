@@ -35,6 +35,10 @@ const ItemSchema = new Schema({
 
 const EventSchema = new Schema({
     // organizer: [User],
+    // ! temporary change. for testing
+    organizer: {
+        type: String,
+    },
     title: {
         type: String,
         required: [true, 'Title cannot be blank'],
