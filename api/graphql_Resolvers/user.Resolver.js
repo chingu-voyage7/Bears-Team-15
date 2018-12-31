@@ -27,7 +27,6 @@ const {UserType} = require('../graphql_typedef/userTypeDef.js');
 // });
 
 module.exports = {
-    UserType,
     userGetAll: {
         type: new GraphQLList(UserType),
         // no arguments because where getting every user in the db

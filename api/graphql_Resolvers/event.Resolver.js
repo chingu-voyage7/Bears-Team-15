@@ -43,7 +43,6 @@ module.exports = {
     getAllEvents: {
         type: new GraphQLList(eventType),
         async resolve(parent, args) {
-            console.log(parent, 'parent');
             return await eventCtrl.getAllEvents();
         },
     },

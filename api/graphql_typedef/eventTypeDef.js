@@ -9,6 +9,7 @@ const {
 } = require('graphql');
 
 const {UserType} = require('./userTypeDef');
+const {getCurrentUser, getUsers} = require('../controllers/users.ctrl');
 
 module.exports = {
     eventType: new GraphQLObjectType({
@@ -26,9 +27,14 @@ module.exports = {
             // ! type relation
             userRelatedToEvent: {
                 type: UserType,
-                resolve(parent, args) {
-                    console.log(parent, 'yooow');
-                    return {id: 'mia khalifa'};
+                async resolve(parent, args) {
+                    const id = {
+                        id: parent.organizer,
+                    };
+                    const test = await getCurrentUser(id);
+                    // console.log(Buffer.from(test._id.id).toString());
+                    console.log(test._id);
+                    return {...test, ...id};
                 },
             },
         }),
