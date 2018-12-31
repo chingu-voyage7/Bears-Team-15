@@ -13,9 +13,11 @@ const {
     addNewEvent,
 } = require('../graphql_Resolvers/event.Resolver.js');
 
+// const {EventType} = require('../graphql_typedef/eventTypeDef.js');
+
 const RootQuery = new GraphQLObjectType({
     name: 'RootQuery',
-    fields: {
+    fields: () => ({
         // ! user resolvers start
         userGetAll,
         userLogin,
@@ -25,19 +27,19 @@ const RootQuery = new GraphQLObjectType({
         // ! event query start
         getAllEvents,
         // ! event query end
-    },
+    }),
 });
 
 const mutate = new GraphQLObjectType({
     name: 'mutateQuery',
-    fields: {
+    fields: () => ({
         // ! user start
         addUser,
         // ! user end
         // ! event start
         addNewEvent,
         // ! event end
-    },
+    }),
 });
 
 module.exports = new GraphQLSchema({
