@@ -31,7 +31,7 @@ module.exports = {
         type: new GraphQLList(UserType),
         // no arguments because where getting every user in the db
         // args: {id: {type: GraphQLID}},
-        resolve(parent, args) {
+        resolve: (parent, args) => {
             // code to get data in db mongodb query goes here.
             return usersCtrl.getUsers();
         },
@@ -42,7 +42,7 @@ module.exports = {
             email: {type: new GraphQLNonNull(GraphQLString)},
             password: {type: new GraphQLNonNull(GraphQLString)},
         },
-        resolve(parent, args) {
+        resolve: (parent, args) => {
             return usersCtrl
                 .loginUser(args)
                 .then((result) => {
@@ -63,7 +63,7 @@ module.exports = {
             password: {type: GraphQLString},
             passwordTwo: {type: GraphQLString},
         },
-        resolve(parent, args) {
+        resolve: (parent, args) => {
             const newUser = {
                 firstName: args.firstName,
                 lastName: args.lastName,
@@ -86,13 +86,13 @@ module.exports = {
         args: {
             id: {type: GraphQLString},
         },
-        async resolve(parent, args) {
+        resolve: async (parent, args) => {
             return await usersCtrl.getCurrentUser(args);
         },
     },
     testQuery: {
         type: UserType,
-        resolve(parent, args) {
+        resolve: (parent, args) => {
             return {
                 test: 'testing',
             };

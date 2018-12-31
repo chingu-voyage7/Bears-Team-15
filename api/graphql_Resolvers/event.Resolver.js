@@ -8,7 +8,7 @@ const {
     GraphQLBoolean,
 } = require('graphql');
 
-const {eventType} = require('../graphql_typedef/eventTypeDef');
+const {EventType} = require('../graphql_typedef/eventTypeDef');
 const eventCtrl = require('../controllers/event.ctrl');
 
 // const eventType = new GraphQLObjectType({
@@ -41,13 +41,13 @@ const eventCtrl = require('../controllers/event.ctrl');
 
 module.exports = {
     getAllEvents: {
-        type: new GraphQLList(eventType),
-        async resolve(parent, args) {
+        type: new GraphQLList(EventType),
+        resolve: async (parent, args) => {
             return await eventCtrl.getAllEvents();
         },
     },
     addNewEvent: {
-        type: eventType,
+        type: EventType,
         args: {
             organizer: {type: GraphQLString},
             title: {type: GraphQLString},
@@ -56,7 +56,7 @@ module.exports = {
             location: {type: GraphQLString},
             // items: {type: GraphQLInt},
         },
-        async resolve(parent, args) {
+        resolve: async (parent, args) => {
             return await eventCtrl.addEvent(args);
         },
     },
