@@ -15,7 +15,9 @@ module.exports = {
             location: data.location,
             // items: [data.items],
         });
-
         return await newEvent.save();
+    },
+    getEventWithUserId: async (data) => {
+        return await Event.findOne({_id: data.event});
     },
 };
