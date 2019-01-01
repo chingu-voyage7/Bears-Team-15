@@ -63,7 +63,7 @@ class Event extends React.Component {
                         </p>
                         <h2>Event Details</h2>
                         <p>{this.state.event.eventDetails}</p>
-                        <h2>Supplies <img src={checked} /> fulfilled <img src={exclamation} /> needs supplies</h2>
+                        <h2>Supplies <img src={checked} alt="checkmark"/> fulfilled <img src={exclamation} alt="exclamation mark"/> needs supplies</h2>
                         <ul className="event-supply-list">
                             {this.state.event.supplies.map((supply) => {
                                 const total = supply.volunteers.reduce((total, nextVal) => {
