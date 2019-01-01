@@ -1,31 +1,48 @@
-const { GraphQLObjectType, GraphQLSchema } = require('graphql');
+const {GraphQLObjectType, GraphQLSchema} = require('graphql');
 
 const {
- userGetAll,
- userLogin,
- addUser,
- testQuery,
- currentUser
-} = require('../graphql_Queries/user.Queries/user.Query.js');
+    userGetAll,
+    userLogin,
+    addUser,
+    testQuery,
+    currentUser,
+} = require('../graphql_Resolvers/user.Resolver.js');
+
+const {
+    getAllEvents,
+    addNewEvent,
+} = require('../graphql_Resolvers/event.Resolver.js');
+
+// const {EventType} = require('../graphql_typedef/eventTypeDef.js');
 
 const RootQuery = new GraphQLObjectType({
- name: 'RootQuery',
- fields: {
-  userGetAll,
-  userLogin,
-  testQuery,
-  currentUser
- }
+    name: 'RootQuery',
+    fields: () => ({
+        // ! user resolvers start
+        userGetAll,
+        userLogin,
+        testQuery,
+        currentUser,
+        // ! user resolvers end
+        // ! event query start
+        getAllEvents,
+        // ! event query end
+    }),
 });
 
 const mutate = new GraphQLObjectType({
- name: 'userAdd',
- fields: {
-  addUser
- }
+    name: 'mutateQuery',
+    fields: () => ({
+        // ! user start
+        addUser,
+        // ! user end
+        // ! event start
+        addNewEvent,
+        // ! event end
+    }),
 });
 
 module.exports = new GraphQLSchema({
- query: RootQuery,
- mutation: mutate
+    query: RootQuery,
+    mutation: mutate,
 });
