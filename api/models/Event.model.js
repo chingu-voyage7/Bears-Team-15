@@ -41,7 +41,11 @@ const EventSchema = new Schema({
     type: String
     // required: [true, 'Address cannot be blank']
   },
-  items: [ItemSchema]
+  attendees:[{
+     type: Schema.Types.ObjectId, ref: 'users' 
+  }],
+  supplies: [ItemSchema]
+  
 });
 
 module.exports = Event = mongoose.model('events', EventSchema);
