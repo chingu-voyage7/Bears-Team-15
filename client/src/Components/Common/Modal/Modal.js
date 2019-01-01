@@ -10,6 +10,8 @@ function Modal({ modal, closeModal }) {
   if (!modal) {
     return null;
   }
+
+  // case "add-Items" => itemform,case "edit-event"=> editform 
   let component;
   switch (modal) {
     case "login":

@@ -21,11 +21,15 @@ class Header extends Component {
 
 	render() {
 		const loggedInLinks = () => {
-			return (
+			return (<span>
+				<span>
+				<Link to="/profile"> Profile </Link>
+				</span>
 				<span className="login-link" onClick={() => this.handleLogout()}>
 					Logout
 				</span>
-			);
+				
+			</span>);
 		};
 
 		const loggedOutLinks = () => {
@@ -64,12 +68,9 @@ class Header extends Component {
           <span className="login-link" onClick={() => this.props.openModal("signup")}>
             Signup
             </span>{" "} */}
-					{this.props.state.isAuth ? loggedInLinks() : loggedOutLinks()}
+					
 					<Link to="/test">Test</Link>
-					<Link to="/about">About</Link>
-					<Link default to="/">
-						Getting Started
-					</Link>
+					{this.props.state.isAuth ? loggedInLinks() : loggedOutLinks()}
 					{/* <span className="login-link" onClick={() => this.handleLogout()}>
             Logout
             </span>{" "} */}
