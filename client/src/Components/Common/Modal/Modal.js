@@ -16,7 +16,7 @@ function Modal({ modal, closeModal }) {
   let component;
   switch (modal) {
     case "supplies":
-      component = <SuppliesForm/>
+      component = <SuppliesForm />
       break;
     case "login":
       component = <LoginForm />;
