@@ -5,6 +5,9 @@ import image from '../../Images/gaming-group.jpg'
 import checked from '../../Icons/CheckedCircle.svg'
 import exclamation from '../../Icons/ExclamationCircle.svg'
 import cat from '../../Images/cat.jpg'
+import {connect} from 'react-redux'
+import {openModal} from '../../../reduxes/actions/modal_actions.js'
+
 class Event extends React.Component {
     constructor(props) {
         super(props);
@@ -41,7 +44,9 @@ class Event extends React.Component {
 
         this.setState({ tooltip: event.currentTarget.alt });
     }
-
+    supplyModal=()=>{
+        // show supply modal to volunteer.
+    }
 
     render() {
         return (
@@ -69,14 +74,14 @@ class Event extends React.Component {
                                 const total = supply.volunteers.reduce((total, nextVal) => {
                                     return total.qty + nextVal.qty;
                                 });
-                                return <li className="event-supply-item">{supply.item}<img src={total >= supply.quantity ? checked : exclamation} alt="some text"></img></li>
+                                return <li className="event-supply-item" onClick={()=>{this.props.openModal("supplies")}}>{supply.item}<img src={total >= supply.quantity ? checked : exclamation} alt="some text"></img></li>
                             })}
                             {/* "toast" + usericon for user if task is picked up */}
                         </ul>
                         <h2>Attendees</h2>
                         <div className="event-attendees">
                             {this.state.event.attendees.map((attendee) => {
-                                return <div className="event-attendee"><p>{attendee.role}</p> <img className="event-attendee-image" onMouseEnter={(event) => this.tooltip(event)} src={attendee.image} alt={attendee.username} />
+                                return <div className="event-attendee"><p>{attendee.role}</p> <img className="event-attendee-image" src={attendee.image} alt={attendee.username} />
                                     <p>{attendee.username}</p>
                                 </div>
                             })
@@ -90,8 +95,6 @@ class Event extends React.Component {
                         <img className="event-organizor-image" src={this.state.event.organizor.image} alt="organizor" />
                         <p>{this.state.event.organizor.username}</p>
                     </div>
-
-
                 </div>
                 <div>
                     google map
@@ -103,5 +106,14 @@ class Event extends React.Component {
 
 }
 
-export default Event
+const mapStateToProps=(state)=>({
+
+});
+const mapDispatchToProps=(dispatch)=>({
+    openModal : (modal) => dispatch(openModal(modal))
+});
+
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Event);
 

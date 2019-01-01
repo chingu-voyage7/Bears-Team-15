@@ -5,6 +5,7 @@ import { closeModal } from "../../../reduxes/actions/modal_actions";
 import LoginForm from "../../Pages/Session/LoginForm.jsx";
 import SignupForm from "../../Pages/Session/SignupForm.jsx";
 import './modal.css';
+import SuppliesForm from "../../Modules/Forms/SuppliesForm";
 
 function Modal({ modal, closeModal }) {
   if (!modal) {
@@ -14,6 +15,9 @@ function Modal({ modal, closeModal }) {
   // case "add-Items" => itemform,case "edit-event"=> editform 
   let component;
   switch (modal) {
+    case "supplies":
+      component = <SuppliesForm/>
+      break;
     case "login":
       component = <LoginForm />;
       break;
