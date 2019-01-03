@@ -34,7 +34,7 @@ module.exports = {
       location: {type: GraphQLString},
       //   attendees: {type: GraphQLString},
       attendeesId: {type: new GraphQLList(GraphQLID)},
-      supplies: {type: new GraphQLList(GraphQLID)}
+      supplies: {type: new GraphQLList(GraphQLString)}
     },
     resolve: async (parent, args) => {
       return await eventCtrl.addEvent(args);
