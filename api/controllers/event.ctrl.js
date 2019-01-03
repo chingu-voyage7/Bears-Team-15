@@ -26,7 +26,7 @@ module.exports = {
     console.log(newEvent, 'newEvent');
     return await newEvent.save();
   },
-  getEventWithUserId: async (data) => {
+  getEventWithEventId: async (data) => {
     return await Event.findOne({_id: data.event});
   }
 };
