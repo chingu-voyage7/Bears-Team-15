@@ -16,9 +16,9 @@ module.exports = {
     type: new GraphQLList(UserType),
     // no arguments because where getting every user in the db
     // args: {id: {type: GraphQLID}},
-    resolve: (parent, args) => {
+    resolve: async (parent, args) => {
       // code to get data in db mongodb query goes here.
-      return usersCtrl.getUsers();
+      return await usersCtrl.getUsers();
     }
   },
   userLogin: {
