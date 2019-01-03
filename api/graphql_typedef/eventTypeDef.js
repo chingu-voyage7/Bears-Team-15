@@ -24,18 +24,16 @@ module.exports = {
       items: {type: GraphQLInt},
       date: {type: GraphQLString},
       attendeesId: {type: new GraphQLList(GraphQLID)},
-      supplies: {type: new GraphQLList(GraphQLID)},
+      supplies: {type: new GraphQLList(GraphQLString)},
       test: {type: GraphQLString},
       // ! type relation
       userRelatedToEvent: {
         type: UserType,
         resolve: async (parent, args) => {
           const id = {
-            id: parent.organizer
+            id: parent.organizerId
           };
-          const test = await getCurrentUser(id);
-          // console.log(Buffer.from(test._id.id).toString());
-          return {...test, ...id};
+          return await getCurrentUser(id);
         }
       }
     })
