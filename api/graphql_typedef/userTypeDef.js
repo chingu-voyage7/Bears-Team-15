@@ -9,7 +9,10 @@ const {
 } = require('graphql');
 
 // const {EventType} = require('./eventTypeDef');
-const {getAllEvents, getEventWithUserId} = require('../controllers/event.ctrl');
+const {
+  getAllEvents,
+  getEventWithEventId
+} = require('../controllers/event.ctrl');
 
 module.exports = {
   UserType: new GraphQLObjectType({
@@ -24,7 +27,7 @@ module.exports = {
       image: {type: GraphQLString},
       phone: {type: GraphQLInt},
       address: {type: GraphQLString},
-      eventId: {type: GraphQLString}, // <-- this will be the query for userRelatedToUser
+      eventsId: {type: new GraphQLList(GraphQLID)}, // <-- this will be the query for userRelatedToUser
       statusCode: {type: GraphQLInt},
       isSuccess: {type: GraphQLBoolean},
       msg: {type: GraphQLString},
@@ -34,11 +37,10 @@ module.exports = {
         // TODO: fuck this shit!!!
         type: require('./eventTypeDef').EventType,
         resolve: async (parent, args) => {
-          // console.log(parent.event, 'parent');
           const event = {
-            event: parent.eventId
+            event: parent.eventsId
           };
-          return await getEventWithUserId(event);
+          return await getEventWithEventId(event);
         }
       }
     })
