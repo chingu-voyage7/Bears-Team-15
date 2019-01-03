@@ -16,11 +16,12 @@ const ItemSchema = new Schema({
     type: Number,
     default: 0
   },
-  owner: [User]
+  ownerId: [{type: Schema.Types.ObjectId, ref: 'users'}]
 });
 
 const EventSchema = new Schema({
-  organizer: [User],
+  //   organizer: [User],
+  organizerId: [{type: Schema.Types.ObjectId, ref: 'users'}],
   title: {
     type: String,
     required: [true, 'Title cannot be blank']
@@ -41,12 +42,7 @@ const EventSchema = new Schema({
     type: String
     // required: [true, 'Address cannot be blank']
   },
-  attendees: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'users'
-    }
-  ],
+  attendeesId: [{type: Schema.Types.ObjectId, ref: 'users'}],
   supplies: [ItemSchema]
 });
 
