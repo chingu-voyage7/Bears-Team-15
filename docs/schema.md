@@ -1,4 +1,5 @@
 ## Database Schema
+
 ```JavaScript
 UserSchema: {
   _id: ObjectId,
@@ -11,6 +12,7 @@ UserSchema: {
   phone: String,
   address: String,
   date: Date
+  events: [EVENT]
 }
 
 EventSchema: {
