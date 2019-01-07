@@ -8,18 +8,18 @@ ObjectId.prototype.valueOf = function() {
 
 module.exports = {
   getAllEvents: async (data) => {
-    return await Event.find();
+    return await Event.find().populate('attendees organizer');
   },
   // TODO: Fix item here. ask ujwal
   addEvent: async (data) => {
     const newEvent = new Event({
-      organizerId: data.organizerId,
+      organizer: data.organizer,
       title: data.title,
       date: new Date(),
       image: data.image,
       description: data.description,
       location: data.location,
-      attendeesId: data.attendeesId,
+      attendees: data.attendees,
       supplies: data.supplies
     });
 

@@ -16,26 +16,29 @@ module.exports = {
     name: 'Event',
     fields: () => ({
       id: {type: GraphQLID},
-      organizerId: {type: new GraphQLList(GraphQLID)},
+      organizer: {type: new GraphQLList(UserType)},
       title: {type: GraphQLString},
       image: {type: GraphQLString},
       description: {type: GraphQLString},
       location: {type: GraphQLString},
       items: {type: GraphQLInt},
       date: {type: GraphQLString},
-      attendeesId: {type: new GraphQLList(GraphQLID)},
+      attendees: {type: new GraphQLList(UserType)},
       supplies: {type: new GraphQLList(GraphQLString)},
       test: {type: GraphQLString},
+      // firstName: {type: GraphQLString},
+      // lastName: {type: GraphQLString},
       // ! type relation
-      userRelatedToEvent: {
-        type: UserType,
-        resolve: async (parent, args) => {
-          const id = {
-            id: parent.organizerId
-          };
-          return await getCurrentUser(id);
-        }
-      }
+      // userRelatedToEvent: {
+      //   type: UserType,
+      //   resolve: async (parent, args) => {
+      //     console.log("myData:",parent.attendeesId);
+      //     // const id = {
+      //     //   id: parent.organizerId
+      //     // };
+      //     return await getCurrentUser(id);
+      //   }
+      // }
     })
   })
 };

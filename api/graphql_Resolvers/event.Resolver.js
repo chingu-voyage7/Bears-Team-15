@@ -7,7 +7,7 @@ const {
   GraphQLInt,
   GraphQLBoolean
 } = require('graphql');
-
+const UserType= require('../graphql_typedef/userTypeDef');
 const {EventType} = require('../graphql_typedef/eventTypeDef');
 const eventCtrl = require('../controllers/event.ctrl');
 
@@ -27,13 +27,13 @@ module.exports = {
     type: EventType,
     args: {
       //   organizerId: {type: GraphQLString},
-      organizerId: {type: new GraphQLList(GraphQLID)},
+      organizer: {type: new GraphQLList(GraphQLID)},
       title: {type: GraphQLString},
       image: {type: GraphQLString},
       description: {type: GraphQLString},
       location: {type: GraphQLString},
       //   attendees: {type: GraphQLString},
-      attendeesId: {type: new GraphQLList(GraphQLID)},
+      attendees: {type: new GraphQLList(GraphQLID)},
       supplies: {type: new GraphQLList(GraphQLString)}
     },
     resolve: async (parent, args) => {
