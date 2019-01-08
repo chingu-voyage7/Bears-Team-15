@@ -1,54 +1,84 @@
-import { gql } from 'apollo-boost';
+import {gql} from 'apollo-boost';
 
 const testUserQuery = gql`
-  {
-    userGetAll {
-      firstName
-      id
+    {
+        userGetAll {
+            firstName
+            id
+        }
     }
-  }
 `;
 
 const test = gql`
-  {
-    testQuery {
-      test
+    {
+        testQuery {
+            test
+        }
     }
-  }
 `;
 
 const userLogin = gql`
-  query($email: String = "", $password: String = "")
-  {
-    userLogin(email:$email, password:$password) {
-      token,
-      statusCode,
-      isSuccess,
-      msg
+    query($email: String = "", $password: String = "") {
+        userLogin(email: $email, password: $password) {
+            token
+            statusCode
+            isSuccess
+            msg
+        }
     }
-  }
 `;
 
 const currUser = gql`
-  query($id: String = "")
-  {
-    currentUser(id:$id) {
-    email,
-    isSuccess
+    query($id: String = "") {
+        currentUser(id: $id) {
+            email
+            isSuccess
+        }
     }
-  }
+`;
+
+const getAllEvents = gql`
+    {
+        getAllEvents {
+            id
+            title
+            date
+            image
+            description
+            location
+            organizer {
+                id
+                firstName
+            }
+            attendees {
+                lastName
+            }
+            supplies
+        }
+    }
 `;
 
 const addUser = gql`
-  mutation($firstName: String = "", $lastName: String = "", $email: String = "", $password: String = "", $passwordTwo: String = "") 
-  {
-  addUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password, passwordTwo: $passwordTwo) {
-    token,
-    statusCode,
-    isSuccess,
-    msg
-  }
-}
-`
+    mutation(
+        $firstName: String = ""
+        $lastName: String = ""
+        $email: String = ""
+        $password: String = ""
+        $passwordTwo: String = ""
+    ) {
+        addUser(
+            firstName: $firstName
+            lastName: $lastName
+            email: $email
+            password: $password
+            passwordTwo: $passwordTwo
+        ) {
+            token
+            statusCode
+            isSuccess
+            msg
+        }
+    }
+`;
 
-export { testUserQuery, userLogin, test, addUser, currUser };
+export {testUserQuery, userLogin, test, addUser, currUser, getAllEvents};
