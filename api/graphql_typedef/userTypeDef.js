@@ -14,6 +14,8 @@ const {
     getEventWithEventId,
 } = require('../controllers/event.ctrl');
 
+const {getCurrentUser, getUsers} = require('../controllers/users.ctrl');
+
 module.exports = {
     UserType: new GraphQLObjectType({
         name: 'User',
