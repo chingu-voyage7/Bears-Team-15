@@ -62,11 +62,15 @@ const SearchWrapper = styled.div`
         .search-event {
             border: 1px solid gray;
             margin: 6px;
+            
             padding: 10px;
             height: fit-content;
             width: 250px;
             box-sizing: border-box;
             border-radius: 5px;
+        }
+        .search-container{
+            margin: auto;
         }
     }
 `;
