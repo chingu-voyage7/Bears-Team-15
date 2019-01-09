@@ -18,5 +18,5 @@ export default combineReducers({
     modal: modal,
     client: client,
     isAuth: isAuth,
-    allEvents: getAllEvents,
+    dataAllEvents: getAllEvents,
 });
