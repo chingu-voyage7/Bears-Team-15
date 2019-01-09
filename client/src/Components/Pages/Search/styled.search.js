@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const SearchWrapper = styled.div`
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -54,6 +54,7 @@ const SearchWrapper = styled.div`
     .search__results {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         height: 100%;
         width: 74%;
         box-sizing: border-box;
