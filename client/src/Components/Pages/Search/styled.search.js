@@ -54,7 +54,7 @@ const SearchWrapper = styled.div`
     .search__results {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        flex-grow: 1;
         height: 100%;
         width: 74%;
         box-sizing: border-box;
