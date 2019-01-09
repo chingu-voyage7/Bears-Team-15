@@ -2,74 +2,83 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {graphql, compose} from 'react-apollo';
 
-import {getAllEvents} from '../../../util/graphQLQuery';
 import {allEvents} from '../../../reduxes/actions/allEvents.action';
+import SearchWrapper from './styled.search';
 
-import './search.css';
 class Search extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            search: '',
-            sampleData: [],
-            data: [],
-            sampleSchema: {
-                title: 'event',
-                description: 'description',
-                date: Date(Date.now()).toString(),
-                location: 'Long Beach, CA',
-            },
+            searchEvent: '',
         };
     }
 
-    componentDidMount = async () => {
-        this.setState({sampleData: this.setData()});
+    handleChangeSearch = (e) => {
+        const {name, value} = e.target;
+        this.setState({
+            [name]: value,
+        });
+    };
+
+    // on page render grab all events data
+    componentDidMount = () => {
         const {client} = this.props.state;
         const {dispatch} = this.props;
         dispatch(allEvents(client));
-
-        // const response = await client.query({
-        //     query: getAllEvents,
-        // });
     };
 
-    setData = () => {
-        let dataset = [];
-        for (let i = 0; i < 10; i++) {
-            dataset.push(this.state.sampleSchema);
-        }
+    getEventsData = () => {
+        const {dataAllEvents} = this.props.state;
 
-        return dataset;
-    };
-
-    // search=(event)=>{
-    // let search= event.target.input;
-    // console.log(event);
-
-    // //search()
-    // }
-
-    render() {
-        return (
-            <div>
-                <form>
-                    <div className="search-form">
-                        <label>Search</label>
-                        <input />
-                        <button>Go!</button>
-                    </div>
-                </form>
-                {this.state.sampleData.map((item, i) => {
-                    return (
-                        <div key={i} className="search-event">
+        if (dataAllEvents.length <= 0) {
+            return (
+                <div className="wrapper__loading">
+                    <p>LOADING...</p>
+                </div>
+            );
+        } else {
+            return (
+                <div className="search__results">
+                    {dataAllEvents.map((item) => (
+                        <div key={item.id} className="search-event">
                             <h1>{item.title}</h1>
                             <p>{item.description}</p>
                             <p>{item.date}</p>
+                            <div>
+                                <h4>attendee:</h4>
+                                <div>
+                                    {item.attendees.map((attendee, i) => (
+                                        <p key={i}>{attendee.lastName}</p>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
-                    );
-                })}
-            </div>
+                    ))}
+                </div>
+            );
+        }
+    };
+
+    render() {
+        const {searchEvent} = this.state;
+        return (
+            <SearchWrapper>
+                <form className="wrapper__form_search">
+                    <div className="search-form">
+                        <label>Search</label>
+                        <div className="input_btn_wrapper">
+                            <input
+                                name="searchEvent"
+                                value={searchEvent}
+                                onChange={this.handleChangeSearch}
+                            />
+                            <button>Go!</button>
+                        </div>
+                    </div>
+                </form>
+                <h1 className="search_header">EVENTS</h1>
+                {this.getEventsData()}
+            </SearchWrapper>
         );
     }
 }
