@@ -27,22 +27,22 @@ module.exports = {
       image: {type: GraphQLString},
       phone: {type: GraphQLInt},
       address: {type: GraphQLString},
-      eventsId: {type: new GraphQLList(GraphQLID)}, // <-- this will be the query for userRelatedToUser
+      eventsId: {type: new GraphQLList(require('./eventTypeDef').EventType)}, // <-- this will be the query for userRelatedToUser
       statusCode: {type: GraphQLInt},
       isSuccess: {type: GraphQLBoolean},
       msg: {type: GraphQLString},
       test: {type: GraphQLString}, // testing query
       // errors: { type: GraphQ LString },
-      eventRelatedToUser: {
-        // TODO: fuck this shit!!!
-        type: require('./eventTypeDef').EventType,
-        resolve: async (parent, args) => {
-          const event = {
-            event: parent.eventsId
-          };
-          return await getEventWithEventId(event);
-        }
-      }
+      // eventRelatedToUser: {
+      //   // TODO: fuck this shit!!!
+      //   type: require('./eventTypeDef').EventType,
+      //   resolve: async (parent, args) => {
+      //     const event = {
+      //       event: parent.eventsId
+      //     };
+      //     return await getEventWithEventId(event);
+      //   }
+      // }
     })
   })
 };

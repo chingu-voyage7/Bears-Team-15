@@ -14,7 +14,9 @@ module.exports = {
   getUsers: async () => {
     return await User.find();
   },
-
+  getUser: async(data)=>{
+    return await User.findById(data.id).populate("eventsId");
+  },
   // Sign up a new user
   registerUser: async (dataNewUser, res) => {
     const {errors, isValid} = validateRegisterInput(dataNewUser);
