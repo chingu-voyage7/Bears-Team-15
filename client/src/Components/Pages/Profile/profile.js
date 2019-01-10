@@ -71,8 +71,8 @@ class Profile extends React.Component {
                         </div>
                     </div> */}
 
-                    <div>
-                        <h2>Upcoming Events</h2>
+                    <div className="profile-list">
+                        <h2 className="profile-list-title">Upcoming Events</h2>
                         <div className="profile-rule"></div>
                         <div className="profile-events">
                             {this.state.user.upcomingEvents.map((item) => {

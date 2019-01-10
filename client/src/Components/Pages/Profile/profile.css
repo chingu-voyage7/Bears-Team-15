@@ -8,7 +8,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  
+    min-height: 100vh;
+}
+.profile-list{
+margin: 20px;
+}
+.profile-list-title{
+    text-align: center;
+
 }
 .profile-user h1,.profile-user img{
     margin: auto;
@@ -20,8 +27,7 @@
    
 }
 .profile-rule{
-    width: 100%;
-    max-width: 100%;
+    width: 100vw;
     height:2px;
     background-color: #a7a7a9;
 
@@ -32,13 +38,29 @@
     justify-items: center;
     flex-wrap: wrap;
 }
+.profile-content>*{
+    display: flex;
+    flex-direction: column;
+
+}
 .profile-menu ul{
     list-style: none;
     padding: 0px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+}
+@media screen and (max-width:600px){
+    .profile-menu ul{
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-menu ul li{
+        
+    }
 }
 .profile-menu ul li{
-    display: inline;
+    width: 150px;
     font-size: 28px;
     border: 2px solid #a7a7a9;
     border-radius: 3px;
@@ -59,8 +81,8 @@
     width: 250px;
     height: 250px;
     border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
+    margin-top: 20px;
     box-shadow: 0px 0px 3px 1px #8f8f91;
     display: flex;
     justify-content: space-between;
@@ -71,6 +93,7 @@
 }
 .profile-event-card>*{
     width: 100%;
+
 }
 
 .profile-event-details{

@@ -58,11 +58,9 @@ const SearchWrapper = styled.div`
         height: 100%;
         width: 74%;
         box-sizing: border-box;
-
         .search-event {
             border: 1px solid gray;
             margin: 6px;
-            
             padding: 10px;
             height: fit-content;
             width: 250px;
@@ -70,9 +68,12 @@ const SearchWrapper = styled.div`
             border-radius: 5px;
         }
         .search-container{
-            margin: auto;
+     
         }
-    }
+    
+        } 
+      
+     }
 `;
 
 export default SearchWrapper;
