@@ -23,10 +23,10 @@ class Profile extends React.Component {
             username: "CoolGuy",
             avatar: avatar,
             events: [
-            { title: "Event1", date: timestamp, location:"Some Streen San Jose, California", visibility: "Public" },
-            { title: "Event2", date: timestamp, location:"Some Streen San Jose, California", visibility: "Public" },
-            { title: "Event3", date: timestamp, location:"Some Streen San Jose, California", visibility: "Public" },
-            { title: "Event4", date: timestamp, location:"Some Streen San Jose, California", visibility: "Public" }]
+            { title: "Event1", date: timestamp, location:"Some Street San Jose, California", visibility: "Public" },
+            { title: "Event2", date: timestamp, location:"Some Street San Jose, California", visibility: "Public" },
+            { title: "Event3", date: timestamp, location:"Some Street San Jose, California", visibility: "Public" },
+            { title: "Event4", date: timestamp, location:"Some Street San Jose, California", visibility: "Public" }]
         }
 
         this.initializeProfile(defaultUser);
