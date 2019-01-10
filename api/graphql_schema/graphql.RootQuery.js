@@ -2,6 +2,7 @@ const {GraphQLObjectType, GraphQLSchema} = require('graphql');
 
 const {
     userGetAll,
+    userGet,
     userLogin,
     addUser,
     testQuery,
@@ -23,6 +24,7 @@ const RootQuery = new GraphQLObjectType({
         userLogin,
         testQuery,
         currentUser,
+        userGet,
         // ! user resolvers end
         // ! event query start
         getAllEvents,

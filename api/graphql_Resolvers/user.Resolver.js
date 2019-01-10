@@ -10,7 +10,7 @@ const {
 
 const usersCtrl = require('../controllers/users.ctrl.js');
 const {UserType} = require('../graphql_typedef/userTypeDef.js');
-
+const {EventType} = require('../graphql_typedef/eventTypeDef');
 module.exports = {
   userGetAll: {
     type: new GraphQLList(UserType),
@@ -21,6 +21,16 @@ module.exports = {
       return await usersCtrl.getUsers();
     }
   },
+  userGet:{
+    type: UserType,
+    args: {
+      id: {type:GraphQLString}
+    },
+    resolve: async (parent, args)=>{
+      return await usersCtrl.getUser(args)
+    }
+  }
+  ,
   userLogin: {
     type: UserType,
     args: {

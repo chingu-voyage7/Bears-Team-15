@@ -39,7 +39,7 @@ class Search extends React.Component {
         } else {
             return (
                 <div className="search__results">
-                    {dataAllEvents.map((item) => (
+                    {dataAllEvents.map((item) => (<div className="search-container">
                         <div key={item.id} className="search-event">
                             <h1>{item.title}</h1>
                             <p>{item.description}</p>
@@ -53,9 +53,11 @@ class Search extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        </div>
                     ))}
+               
                 </div>
-            );
+            ); 
         }
     };
 

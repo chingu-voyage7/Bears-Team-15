@@ -23,10 +23,10 @@ class Profile extends React.Component {
             username: "CoolGuy",
             avatar: avatar,
             events: [
-            { title: "Event1", date: timestamp, location:"Some Streen San Jose, California", visibility: "Public" },
-            { title: "Event2", date: timestamp, location:"Some Streen San Jose, California", visibility: "Public" },
-            { title: "Event3", date: timestamp, location:"Some Streen San Jose, California", visibility: "Public" },
-            { title: "Event4", date: timestamp, location:"Some Streen San Jose, California", visibility: "Public" }]
+            { title: "Event1", date: timestamp, location:"Some Street San Jose, California", visibility: "Public" },
+            { title: "Event2", date: timestamp, location:"Some Street San Jose, California", visibility: "Public" },
+            { title: "Event3", date: timestamp, location:"Some Street San Jose, California", visibility: "Public" },
+            { title: "Event4", date: timestamp, location:"Some Street San Jose, California", visibility: "Public" }]
         }
 
         this.initializeProfile(defaultUser);
@@ -71,8 +71,8 @@ class Profile extends React.Component {
                         </div>
                     </div> */}
 
-                    <div>
-                        <h2>Upcoming Events</h2>
+                    <div className="profile-list">
+                        <h2 className="profile-list-title">Upcoming Events</h2>
                         <div className="profile-rule"></div>
                         <div className="profile-events">
                             {this.state.user.upcomingEvents.map((item) => {
