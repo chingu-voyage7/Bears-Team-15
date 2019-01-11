@@ -16,7 +16,6 @@ const SearchWrapper = styled.div`
     .wrapper__form_search {
         padding: 10px;
         box-sizing: border-box;
-        margin-bottom: auto;
         text-align:center;
         ${'' /* display: flex; */}
         ${'' /* flex-direction: column; */}
@@ -32,11 +31,12 @@ const SearchWrapper = styled.div`
                 display: flex;
 
                 input {
-                  border: 1px solid #ccc;
+                     border: 1px solid #ccc;
                     border-radius: 5px;
                     font-size: 20px;
                     height: 25px;
                     width: 300px;
+                    padding-left: 10px;
                 }
 
                 button {
@@ -48,7 +48,7 @@ const SearchWrapper = styled.div`
     }
 
     .wrapper__loading {
-        margin: 20px 0 0 0;
+        margin: 20px 0 auto 0;
     }
 
     .search__results {
@@ -58,6 +58,7 @@ const SearchWrapper = styled.div`
         height: 100%;
         width: 74%;
         box-sizing: border-box;
+        margin-bottom: 25px;
         .search-event {
             border: 1px solid gray;
             margin: 6px;
