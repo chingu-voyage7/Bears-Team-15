@@ -12,6 +12,7 @@ const {
 const {
     getAllEvents,
     addNewEvent,
+    filterEvent,
 } = require('../graphql_Resolvers/event.Resolver.js');
 
 // const {EventType} = require('../graphql_typedef/eventTypeDef.js');
@@ -28,6 +29,7 @@ const RootQuery = new GraphQLObjectType({
         // ! user resolvers end
         // ! event query start
         getAllEvents,
+        filterEvent,
         // ! event query end
     }),
 });

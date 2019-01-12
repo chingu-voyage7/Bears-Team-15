@@ -2,7 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {graphql, compose} from 'react-apollo';
 
-import {allEvents} from '../../../reduxes/actions/allEvents.action';
+import {
+    allEvents,
+    filterEvents,
+} from '../../../reduxes/actions/allEvents.action';
 import SearchWrapper from './styled.search';
 
 class Search extends React.Component {
@@ -10,26 +13,29 @@ class Search extends React.Component {
         super(props);
         this.state = {
             searchEvent: '',
+            events: [],
         };
     }
 
     handleChangeSearch = (e) => {
+        const {client} = this.props.state;
+        const {dispatch} = this.props;
         const {name, value} = e.target;
         this.setState({
             [name]: value,
         });
+        dispatch(filterEvents(client, value));
     };
 
     // on page render grab all events data
-    componentDidMount = () => {
+    componentWillMount() {
         const {client} = this.props.state;
         const {dispatch} = this.props;
         dispatch(allEvents(client));
-    };
+    }
 
     getEventsData = () => {
         const {dataAllEvents} = this.props.state;
-
         if (dataAllEvents.length <= 0) {
             return (
                 <div className="wrapper__loading">
@@ -39,25 +45,25 @@ class Search extends React.Component {
         } else {
             return (
                 <div className="search__results">
-                    {dataAllEvents.map((item) => (<div className="search-container">
-                        <div key={item.id} className="search-event">
-                            <h1>{item.title}</h1>
-                            <p>{item.description}</p>
-                            <p>{item.date}</p>
-                            <div>
-                                <h4>attendee:</h4>
+                    {dataAllEvents.map((item, i) => (
+                        <div key={item.id} className="search-container">
+                            <div className="search-event">
+                                <h1>{item.title}</h1>
+                                <p>{item.description}</p>
+                                <p>{item.date}</p>
                                 <div>
-                                    {item.attendees.map((attendee, i) => (
-                                        <p key={i}>{attendee.lastName}</p>
-                                    ))}
+                                    <h4>attendee:</h4>
+                                    <div>
+                                        {item.attendees.map((attendee, i) => (
+                                            <p key={i}>{attendee.lastName}</p>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        </div>
                     ))}
-               
                 </div>
-            ); 
+            );
         }
     };
 
@@ -73,6 +79,7 @@ class Search extends React.Component {
                                 name="searchEvent"
                                 value={searchEvent}
                                 onChange={this.handleChangeSearch}
+                                placeholder="NAME OF EVENT"
                             />
                             <button>Go!</button>
                         </div>

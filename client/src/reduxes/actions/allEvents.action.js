@@ -1,5 +1,5 @@
 import * as types from './types';
-import {getAllEvents} from '../../util/graphQLQuery';
+import {getAllEvents, queryFilterEvents} from '../../util/graphQLQuery';
 
 export const receiveAllEvents = (args) => {
     return {
@@ -15,8 +15,18 @@ export const allEvents = (client) => async (dispatch) => {
     const data = await response.data.getAllEvents;
 
     // !! testing rendering loading to be removed!
-    // setTimeout(function() {
-    //     console.log('timing');
+    setTimeout(function() {
+        dispatch(receiveAllEvents(data));
+    }, 10000);
+};
+
+export const filterEvents = (client, char) => async (dispatch) => {
+    const response = await client.query({
+        query: queryFilterEvents,
+        variables: {
+            char: char,
+        },
+    });
+    const data = await response.data.filterEvent;
     dispatch(receiveAllEvents(data));
-    // }, 10000);
 };
