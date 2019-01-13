@@ -2,8 +2,9 @@ import React from 'react';
 import avatar from '../../Images/CoolGuy.jpg'
 import './profile.css';
 import { Link } from '@reach/router'
-import edit from '../../Icons/edit.svg'
-
+import {connect} from 'react-redux';
+import {graphql, compose} from 'react-apollo';
+import {getUser} from '../../../util/graphQLQuery' 
 
 class Profile extends React.Component {
     constructor(props) {
@@ -14,12 +15,22 @@ class Profile extends React.Component {
                 avatar: '',
                 upcomingEvents: [],
             }
-       
         }
     }
 
+    
+
     componentDidMount() {
         // unecessary with redux just use props
+        console.log(this.props.user.id);
+        this.props.client.query({
+            query: getUser,
+            variables: {
+                id: this.props.user.id}
+        }).then(data=> console.log(data));
+        
+
+        // console.log("from GraphQL",);
         const timestamp=Date(Date.now()).toString();
         const defaultUser = {
             username: "CoolGuy",
@@ -77,8 +88,8 @@ class Profile extends React.Component {
                         <h2 className="profile-list-title">Upcoming Events</h2>
                         <div className="profile-rule"></div>
                         <div className="profile-events">
-                            {this.state.user.upcomingEvents.map((item) => {
-                                return (<Link to={"/group/event"}><div className="profile-event-card">
+                            {this.state.user.upcomingEvents.map((item,i) => {
+                                return (<Link key= {i} to={"/group/event"}><div className="profile-event-card">
                                    <p>{item.title}</p>
                                     <div className="profile-event-details">
                                         <p>{item.date}</p>
@@ -97,4 +108,13 @@ class Profile extends React.Component {
 
 }
 
-export default Profile
+const mapStateToProps=(state)=>({
+    client: state.client,
+    user: state.currentUser
+});
+const mapDispatchToProps=(dispatch)=>({
+    dispatch
+});
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Profile)

@@ -109,7 +109,7 @@ class App extends Component {
               <Auth path="/test" component={Test} />
               <Auth path="/about" component={About} />
               <Search path="/search" />
-              <Profile path="/profile" />
+              <Auth path="/profile" component={Profile}/>
               <Event path="/group/event" />
             </Router>
           </Layout>
