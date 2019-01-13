@@ -14,11 +14,11 @@ const globalInitialState = {
   client: ApClient,
 };
 
-if (process.env.NODE_ENV !== 'production') {
-  // must use 'require' (import only allowed at top of file)
-  const { logger } = require('redux-logger');
-  middleWares.push(logger);
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   // must use 'require' (import only allowed at top of file)
+//   const { logger } = require('redux-logger');
+//   middleWares.push(logger);
+// }
 // store will will take 3 args
 // 1st is the reducers from mainReducer file
 // 2nd main state

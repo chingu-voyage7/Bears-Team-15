@@ -15,11 +15,10 @@ export const allEvents = (client) => async (dispatch) => {
     const data = await response.data.getAllEvents;
 
     // !! testing rendering loading to be removed!
-    setTimeout(function() {
+    // setTimeout(function() {
         dispatch(receiveAllEvents(data));
-    }, 10000);
+    // }, 10000);
 };
-
 export const filterEvents = (client, char) => async (dispatch) => {
     const response = await client.query({
         query: queryFilterEvents,

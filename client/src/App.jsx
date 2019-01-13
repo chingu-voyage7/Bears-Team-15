@@ -109,8 +109,8 @@ class App extends Component {
               <Auth path="/test" component={Test} />
               <Auth path="/about" component={About} />
               <Search path="/search" />
-              <Profile path="/profile" />
-              <Event path="/group/event" />
+              <Auth path="/profile" component={Profile}/>
+              <Event path="/event/:EventId" />
             </Router>
           </Layout>
         </Provider>

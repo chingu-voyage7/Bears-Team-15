@@ -3,7 +3,8 @@ import SetGetCookie from '../../util/helper.cookie';
 
 const {
   setCookie,
-  deleteCookie
+  deleteCookie,
+  getCookie
 } = new SetGetCookie('tokenizer');
 
 // export const login = (args) => {
