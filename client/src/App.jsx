@@ -110,7 +110,7 @@ class App extends Component {
               <Auth path="/about" component={About} />
               <Search path="/search" />
               <Auth path="/profile" component={Profile}/>
-              <Event path="/group/event" />
+              <Event path="/event/:EventId" />
             </Router>
           </Layout>
         </Provider>

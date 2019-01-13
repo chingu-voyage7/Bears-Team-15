@@ -14,7 +14,8 @@ class Profile extends React.Component {
                 username: '',
                 avatar: '',
                 upcomingEvents: [],
-            }
+            },
+            events:[]
         }
     }
 
@@ -27,8 +28,11 @@ class Profile extends React.Component {
             query: getUser,
             variables: {
                 id: this.props.user.id}
-        }).then(data=> console.log(data));
-        
+        }).then(data=> {
+            this.setState({events: data.data.getUser.eventsId});
+            console.log(this.state.events);
+        });
+
 
         // console.log("from GraphQL",);
         const timestamp=Date(Date.now()).toString();
@@ -88,8 +92,8 @@ class Profile extends React.Component {
                         <h2 className="profile-list-title">Upcoming Events</h2>
                         <div className="profile-rule"></div>
                         <div className="profile-events">
-                            {this.state.user.upcomingEvents.map((item,i) => {
-                                return (<Link key= {i} to={"/group/event"}><div className="profile-event-card">
+                            {this.state.events.map((item,i) => {
+                                return (<Link key= {i} to={"/event/"+item.id}><div className="profile-event-card">
                                    <p>{item.title}</p>
                                     <div className="profile-event-details">
                                         <p>{item.date}</p>

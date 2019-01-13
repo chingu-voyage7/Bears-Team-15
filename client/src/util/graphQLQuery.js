@@ -42,7 +42,9 @@ const getUser = gql`
             firstName
             email
             eventsId{
+                id
                 title
+                
             }
         }
     }

@@ -12,7 +12,6 @@ class Auth extends Component {
 
  checkAuthenticate = () => {
   const { component: Component, path, isAuth } = this.props;
-  console.log('auth',isAuth);
 
   if (isAuth) {
     // this.props.setCurrentUser();
