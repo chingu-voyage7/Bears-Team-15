@@ -35,10 +35,10 @@ class Header extends Component {
 		const loggedOutLinks = () => {
 			return (
 				<span>
-					<span className="login-link" onClick={() => this.props.openModal('login')}>
+					<span className="login-link" onClick={() => this.props.openModal('LOGIN')}>
 						Login
 					</span>
-					<span className="login-link" onClick={() => this.props.openModal('signup')}>
+					<span className="login-link" onClick={() => this.props.openModal('SIGNUP')}>
 						Signup
 					</span>
 				</span>

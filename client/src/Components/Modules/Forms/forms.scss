@@ -1,8 +1,25 @@
-.supplies{
+.modal-form{
     background-color: white;
     padding: 20px;
     border-radius: 5px;
 }
-.supplies>*{
+.modal-form>*{
     margin: 10px;
+}
+
+.modal-event{
+    display: flex;
+    flex-direction: column;    
+}
+.modal-event h2{
+    margin: auto;
+}
+
+.modal-event-field{
+    display: flex;
+    justify-content: space-between;
+}
+.modal-event-field label{
+ margin-left: auto;
+ margin-right: 20px;
 }

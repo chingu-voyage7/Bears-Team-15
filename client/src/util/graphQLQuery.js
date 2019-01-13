@@ -53,8 +53,12 @@ const getEventById = gql`
     query($id: String){
         getEventById(id: $id){
             title
-            attendees
-            organizer
+            attendees{
+                firstName
+            }
+            organizer{
+                firstName
+            }
         }
     }
 `;

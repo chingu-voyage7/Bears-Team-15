@@ -6,6 +6,7 @@ import LoginForm from "../../Pages/Session/LoginForm.jsx";
 import SignupForm from "../../Pages/Session/SignupForm.jsx";
 import './modal.css';
 import SuppliesForm from "../../Modules/Forms/SuppliesForm";
+import EventForm from "../../Modules/Forms/EventForm.js";
 
 function Modal({ modal, closeModal }) {
   if (!modal) {
@@ -15,13 +16,16 @@ function Modal({ modal, closeModal }) {
   // case "add-Items" => itemform,case "edit-event"=> editform 
   let component;
   switch (modal) {
-    case "supplies":
+    case "NEW_EVENT_FORM":
+    component = <EventForm/>
+    break;
+    case "SUPPLIES": 
       component = <SuppliesForm />
       break;
-    case "login":
+    case "LOGIN":
       component = <LoginForm />;
       break;
-    case "signup":
+    case "SIGNUP":
       component = <SignupForm />;
       break;
     default:

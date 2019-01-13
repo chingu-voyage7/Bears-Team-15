@@ -7,11 +7,12 @@ import exclamation from '../../Icons/ExclamationCircle.svg'
 import cat from '../../Images/cat.jpg'
 import { connect } from 'react-redux'
 import { openModal } from '../../../reduxes/actions/modal_actions.js'
-
+import { getEventById } from "../../../util/graphQLQuery";
 class Event extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            admin: false,
             event: {
                 title: "Beach Cleanup",
                 organization: "Portland Volunteers NW",
@@ -36,7 +37,16 @@ class Event extends React.Component {
     // attendees form 
     componentDidMount() {
         // set state unecessary with redux just use props
-
+        console.log(this.props.EventId)
+        this.props.client.query({
+            query: getEventById,
+            variables: {
+                id:this.props.EventId
+            }
+        }).then(data=>{
+            console.log(data);
+        });
+        
 
     }
 
@@ -56,8 +66,8 @@ class Event extends React.Component {
                 </div> */}
                 <img className="event-banner" src={image} alt="event banner"></img>
                 <div className="event-navigation">
-                    <h1>{this.state.event.title}</h1><h1>{this.state.event.organization}</h1>
-                    <h1>Volunteer</h1>
+                    <h1>{this.state.event.title}</h1><h1>{this.state.event.organization}</h1> 
+                    <h1>{this.state.admin?'edit': ''}</h1>
                 </div>
                 <div className="profile-rule"></div>
                 <div className="event-content">
@@ -74,7 +84,7 @@ class Event extends React.Component {
                                 const total = supply.volunteers.reduce((total, nextVal) => {
                                     return total.qty + nextVal.qty;
                                 });
-                                return <li className="event-supply-item" onClick={() => { this.props.openModal("supplies") }}>{supply.item}<img src={total >= supply.quantity ? checked : exclamation} alt="some text"></img></li>
+                                return <li className="event-supply-item" onClick={() => { this.props.openModal("SUPPLIES") }}>{supply.item}<img src={total >= supply.quantity ? checked : exclamation} alt="some text"></img></li>
                             })}
                             {/* "toast" + usericon for user if task is picked up */}
                         </ul>
@@ -107,7 +117,7 @@ class Event extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-
+    client: state.client
 });
 const mapDispatchToProps = (dispatch) => ({
     openModal: (modal) => dispatch(openModal(modal))
