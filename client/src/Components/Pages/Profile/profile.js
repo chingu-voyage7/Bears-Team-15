@@ -3,6 +3,8 @@ import avatar from '../../Images/CoolGuy.jpg'
 import './profile.css';
 import { Link } from '@reach/router'
 import edit from '../../Icons/edit.svg'
+
+
 class Profile extends React.Component {
     constructor(props) {
         super(props);

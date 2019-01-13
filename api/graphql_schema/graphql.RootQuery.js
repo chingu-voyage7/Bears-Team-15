@@ -10,7 +10,8 @@ const {
 } = require('../graphql_Resolvers/user.Resolver.js');
 
 const {
-    getAllEvents,
+    getAllEvents, 
+    getEventById,
     addNewEvent,
     filterEvent,
 } = require('../graphql_Resolvers/event.Resolver.js');
@@ -26,8 +27,10 @@ const RootQuery = new GraphQLObjectType({
         testQuery,
         currentUser,
         userGet,
+     
         // ! user resolvers end
-        // ! event query start
+        // ! event query start   
+        getEventById,
         getAllEvents,
         filterEvent,
         // ! event query end
