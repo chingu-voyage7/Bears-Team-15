@@ -9,7 +9,11 @@ ObjectId.prototype.valueOf = function() {
 
 module.exports = {
     getAllEvents: async (data) => {
-        return await Event.find().populate('attendees organizer');
+        try {
+            return await Event.find().populate('attendees organizer');
+        } catch (error) {
+            return error;
+        }
     },
     // TODO: Fix item here. ask ujwal
     addEvent: async (data) => {
@@ -31,8 +35,25 @@ module.exports = {
         return await Event.findOne({_id: data.event});
     },
     filteredEventWith: async (data) => {
-        return await Event.find({
-            title: {$regex: '.*' + data.char + '.*', $options: 'i'},
-        }).populate('attendees organizer');
+        try {
+            const events = await Event.find({
+                title: {$regex: '.*' + data.char + '.*', $options: 'i'},
+            }).populate('attendees organizer');
+
+            // const users = await User.find({
+            //     firstName: {$regex: '.*' + data.char + '.*', $options: 'i'},
+            // }).populate('eventsId');
+
+            return [...events];
+        } catch (error) {
+            return [
+                {
+                    isEventError: true,
+                    message: error,
+                    error,
+                    statusCode: 400,
+                },
+            ];
+        }
     },
 };
