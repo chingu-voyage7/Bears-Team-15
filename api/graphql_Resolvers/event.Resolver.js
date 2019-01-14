@@ -23,6 +23,15 @@ module.exports = {
             return await eventCtrl.getAllEvents();
         },
     },
+    getEventById:{
+        type: EventType,
+        args: {
+            id: {type: GraphQLString}
+        },
+        resolve: async (parent,args)=>{
+            return await eventCtrl.getEventById(args);
+        }
+    },
     addNewEvent: {
         type: EventType,
         args: {

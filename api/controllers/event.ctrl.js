@@ -16,7 +16,10 @@ module.exports = {
         }
     },
     // TODO: Fix item here. ask ujwal
+    // 
     addEvent: async (data) => {
+
+        console.log("data from ADDevent",data);
         const newEvent = new Event({
             organizer: data.organizer,
             title: data.title,
@@ -31,8 +34,9 @@ module.exports = {
         console.log(newEvent, 'newEvent');
         return await newEvent.save();
     },
-    getEventWithEventId: async (data) => {
-        return await Event.findOne({_id: data.event});
+    getEventById: async (data) => {
+        console.log(data);
+        return await Event.findOne({_id: data.id}).populate('attendees organizer');
     },
     filteredEventWith: async (data) => {
         try {

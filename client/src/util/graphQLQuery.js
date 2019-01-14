@@ -36,7 +36,28 @@ const currUser = gql`
         }
     }
 `;
-
+const getUser = gql`
+    query($id: String){
+        getUser(id: $id){
+            firstName
+            email
+            eventsId{
+                id
+                title
+                
+            }
+        }
+    }
+`;
+const getEventById = gql`
+    query($id: String){
+        getEventById(id: $id){
+            title
+            attendees
+            organizer
+        }
+    }
+`;
 const queryFilterEvents = gql`
     query($char: String) {
         filterEvent(char: $char) {
@@ -108,5 +129,7 @@ export {
     addUser,
     currUser,
     getAllEvents,
+    getEventById,
+    getUser,
     queryFilterEvents,
 };

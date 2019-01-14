@@ -38,8 +38,8 @@ export const allEvents = (client) => async (dispatch) => {
             dispatch(receiveAllEvents(dataEvents));
         }, 5000);
     }
-};
 
+};
 export const filterEvents = (client, char) => async (dispatch) => {
     const dataEvents = {
         events: [],
