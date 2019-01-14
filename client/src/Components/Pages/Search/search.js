@@ -13,48 +13,71 @@ class Search extends React.Component {
         super(props);
         this.state = {
             searchEvent: '',
-            events: [],
+            isFetching: false,
         };
     }
 
     handleChangeSearch = (e) => {
-        const {client} = this.props.state;
-        const {dispatch} = this.props;
         const {name, value} = e.target;
         this.setState({
             [name]: value,
         });
-        dispatch(filterEvents(client, value));
     };
 
-    // on page render grab all events data
     componentWillMount() {
         const {client} = this.props.state;
         const {dispatch} = this.props;
         dispatch(allEvents(client));
+        this.setState({
+            isFetching: true,
+        });
     }
 
-    getEventsData = () => {
-        const {dataAllEvents} = this.props.state;
-        if (dataAllEvents.length <= 0) {
+    handleSubmitQuery = (e) => {
+        e.preventDefault();
+        const {client} = this.props.state;
+        const {dispatch} = this.props;
+        const {searchEvent} = this.state;
+        dispatch(filterEvents(client, searchEvent));
+        this.setState({
+            isFetching: true,
+        });
+    };
+
+    handleStatus = () => {
+        const {isFetching} = this.state;
+        const {isQueryEventSuccess, events} = this.props.state.dataAllEvents;
+        if (isFetching && !isQueryEventSuccess && events !== null) {
             return (
                 <div className="wrapper__loading">
                     <p>LOADING...</p>
                 </div>
             );
-        } else {
+        } else if (!isQueryEventSuccess && events === null) {
+            return (
+                <div className="wrapper__loading">
+                    <p>SOMETHING IS WRONG CONTACT PROVIDER!</p>
+                </div>
+            );
+        }
+    };
+
+    getEventsData = () => {
+        const {events, isQueryEventSuccess} = this.props.state.dataAllEvents;
+
+        if (isQueryEventSuccess && events.length > 0) {
             return (
                 <div className="search__results">
-                    {dataAllEvents.map((item, i) => (
-                        <div key={item.id} className="search-container">
+                    {events.map((event, i) => (
+                        <div key={event.id} className="search-container">
                             <div className="search-event">
-                                <h1>{item.title}</h1>
-                                <p>{item.description}</p>
-                                <p>{item.date}</p>
+                                <h1>{event.title}</h1>
+                                <p>{event.description}</p>
+                                <p>{event.date}</p>
                                 <div>
                                     <h4>attendee:</h4>
                                     <div>
-                                        {item.attendees.map((attendee, i) => (
+                                        {event.attendees.map((attendee, i) => (
                                             <p key={i}>{attendee.lastName}</p>
                                         ))}
                                     </div>
@@ -64,6 +87,12 @@ class Search extends React.Component {
                     ))}
                 </div>
             );
+        } else if (isQueryEventSuccess && events.length <= 0) {
+            return (
+                <div className="wrapper__loading">
+                    <p>SORRY NO SUCH NAME</p>
+                </div>
+            );
         }
     };
 
@@ -71,7 +100,9 @@ class Search extends React.Component {
         const {searchEvent} = this.state;
         return (
             <SearchWrapper>
-                <form className="wrapper__form_search">
+                <form
+                    className="wrapper__form_search"
+                    onSubmit={this.handleSubmitQuery}>
                     <div className="search-form">
                         <label>Search</label>
                         <div className="input_btn_wrapper">
@@ -86,6 +117,7 @@ class Search extends React.Component {
                     </div>
                 </form>
                 <h1 className="search_header">EVENTS</h1>
+                {this.handleStatus()}
                 {this.getEventsData()}
             </SearchWrapper>
         );
