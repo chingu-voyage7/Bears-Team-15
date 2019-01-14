@@ -16,7 +16,23 @@ const test = gql`
         }
     }
 `;
-
+// const addEvent = gql`
+// mutation($event: {
+//     Title: String,
+//     Organization: String,
+//     Descritpino: String,
+//     Address: String,
+//     City: String,
+//     State: String,
+//     Zip: String,
+//     Time: String,
+//     Category: String
+// }){
+//     addEvent(event:$event){
+//        title
+//     }
+// }
+// `;
 const userLogin = gql`
     query($email: String = "", $password: String = "") {
         userLogin(email: $email, password: $password) {
