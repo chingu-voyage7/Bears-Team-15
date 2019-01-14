@@ -46,14 +46,7 @@ module.exports = {
 
             return [...events];
         } catch (error) {
-            return [
-                {
-                    isEventError: true,
-                    message: error,
-                    error,
-                    statusCode: 400,
-                },
-            ];
+            return error;
         }
     },
 };
