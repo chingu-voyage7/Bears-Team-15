@@ -4,29 +4,67 @@ import {getAllEvents, queryFilterEvents} from '../../util/graphQLQuery';
 export const receiveAllEvents = (args) => {
     return {
         type: types.ALL_EVENTS,
-        payload: args,
+        payload: {
+            events: args.events,
+            isQueryEventSuccess: args.isQueryEventSuccess,
+        },
     };
 };
 
 export const allEvents = (client) => async (dispatch) => {
-    const response = await client.query({
-        query: getAllEvents,
-    });
-    const data = await response.data.getAllEvents;
+    const dataEvents = {
+        events: [],
+        isQueryEventSuccess: false,
+    };
+    dispatch(receiveAllEvents(dataEvents));
+    try {
+        const response = await client.query({
+            query: getAllEvents,
+        });
+        const data = await response.data.getAllEvents;
 
-    // !! testing rendering loading to be removed!
-    setTimeout(function() {
-        dispatch(receiveAllEvents(data));
-    }, 10000);
+        const allEvents = {
+            events: data,
+            isQueryEventSuccess: true,
+        };
+        // !! testing rendering loading to be removed!
+        setTimeout(function() {
+            dispatch(receiveAllEvents(allEvents));
+        }, 5000);
+    } catch (error) {
+        dataEvents.events = null;
+        dataEvents.isQueryEventSuccess = false;
+        setTimeout(function() {
+            dispatch(receiveAllEvents(dataEvents));
+        }, 5000);
+    }
 };
 
 export const filterEvents = (client, char) => async (dispatch) => {
-    const response = await client.query({
-        query: queryFilterEvents,
-        variables: {
-            char: char,
-        },
-    });
-    const data = await response.data.filterEvent;
-    dispatch(receiveAllEvents(data));
+    const dataEvents = {
+        events: [],
+        isQueryEventSuccess: false,
+    };
+    dispatch(receiveAllEvents(dataEvents));
+
+    try {
+        const response = await client.query({
+            query: queryFilterEvents,
+            variables: {
+                char: char,
+            },
+        });
+        const data = await response.data.filterEvent;
+        dataEvents.events = data;
+        dataEvents.isQueryEventSuccess = true;
+        setTimeout(function() {
+            dispatch(receiveAllEvents(dataEvents));
+        }, 10000);
+    } catch (error) {
+        dataEvents.events = null;
+        dataEvents.isQueryEventSuccess = false;
+        setTimeout(function() {
+            dispatch(receiveAllEvents(dataEvents));
+        }, 10000);
+    }
 };
