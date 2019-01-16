@@ -2,7 +2,7 @@ const {GraphQLObjectType, GraphQLSchema} = require('graphql');
 
 const {
     userGetAll,
-    userGet,
+    getUser,
     userLogin,
     addUser,
     testQuery,
@@ -10,8 +10,10 @@ const {
 } = require('../graphql_Resolvers/user.Resolver.js');
 
 const {
-    getAllEvents,
+    getAllEvents, 
+    getEventById,
     addNewEvent,
+    filterEvent,
 } = require('../graphql_Resolvers/event.Resolver.js');
 
 // const {EventType} = require('../graphql_typedef/eventTypeDef.js');
@@ -24,10 +26,13 @@ const RootQuery = new GraphQLObjectType({
         userLogin,
         testQuery,
         currentUser,
-        userGet,
+        getUser,
+     
         // ! user resolvers end
-        // ! event query start
+        // ! event query start   
+        getEventById,
         getAllEvents,
+        filterEvent,
         // ! event query end
     }),
 });

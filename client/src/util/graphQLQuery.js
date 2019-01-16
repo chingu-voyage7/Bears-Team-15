@@ -36,6 +36,47 @@ const currUser = gql`
         }
     }
 `;
+const getUser = gql`
+    query($id: String){
+        getUser(id: $id){
+            firstName
+            email
+            eventsId{
+                id
+                title
+                
+            }
+        }
+    }
+`;
+const getEventById = gql`
+    query($id: String){
+        getEventById(id: $id){
+            title
+            attendees
+            organizer
+        }
+    }
+`;
+const queryFilterEvents = gql`
+    query($char: String) {
+        filterEvent(char: $char) {
+            id
+            title
+            date
+            image
+            description
+            location
+            organizer {
+                id
+                firstName
+            }
+            attendees {
+                lastName
+            }
+        }
+    }
+`;
 
 const getAllEvents = gql`
     {
@@ -81,4 +122,14 @@ const addUser = gql`
     }
 `;
 
-export {testUserQuery, userLogin, test, addUser, currUser, getAllEvents};
+export {
+    testUserQuery,
+    userLogin,
+    test,
+    addUser,
+    currUser,
+    getAllEvents,
+    getEventById,
+    getUser,
+    queryFilterEvents,
+};

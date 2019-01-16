@@ -21,7 +21,7 @@ module.exports = {
       return await usersCtrl.getUsers();
     }
   },
-  userGet:{
+  getUser:{
     type: UserType,
     args: {
       id: {type:GraphQLString}
