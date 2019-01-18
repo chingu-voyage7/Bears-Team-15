@@ -9,6 +9,7 @@ const {
 } = require('graphql');
 
 const {UserType} = require('./userTypeDef');
+const {SuppliesType} = require('./suppliesTypeDef');
 const {getCurrentUser, getUsers} = require('../controllers/users.ctrl');
 
 module.exports = {
@@ -24,8 +25,8 @@ module.exports = {
             items: {type: GraphQLInt},
             date: {type: GraphQLString},
             attendees: {type: new GraphQLList(UserType)},
-            supplies: {type: new GraphQLList(GraphQLString)},
-            test: {type: GraphQLString},
+            supplies: {type: new GraphQLList(SuppliesType)},
+            // test: {type: GraphQLString},
             // firstName: {type: GraphQLString},
             // lastName: {type: GraphQLString},
             // ! type relation
