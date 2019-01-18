@@ -37,24 +37,36 @@ const currUser = gql`
     }
 `;
 const getUser = gql`
-    query($id: String){
-        getUser(id: $id){
+    query($id: String) {
+        getUser(id: $id) {
             firstName
             email
-            eventsId{
+            eventsId {
                 id
                 title
-                
             }
         }
     }
 `;
 const getEventById = gql`
-    query($id: String){
-        getEventById(id: $id){
+    query($id: String) {
+        getEventById(id: $id) {
             title
-            attendees
-            organizer
+            image
+            description
+            location
+            date
+            organizer {
+                firstName
+            }
+            attendees {
+                firstName
+            }
+            supplies {
+                name
+                description
+                quantity
+            }
         }
     }
 `;
