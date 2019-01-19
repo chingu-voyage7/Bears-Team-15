@@ -36,14 +36,13 @@ module.exports = {
     addNewEvent: {
         type: EventType,
         args: {
-            //   organizerId: {type: GraphQLString},
-            organizer: {type: new GraphQLList(GraphQLID)},
+            organizer: {type: GraphQLID},
             title: {type: GraphQLString},
             image: {type: GraphQLString},
             description: {type: GraphQLString},
             location: {type: GraphQLString},
-            //   attendees: {type: GraphQLString},
             attendees: {type: new GraphQLList(GraphQLID)},
+            //   attendees: {type: GraphQLString},
             // supplies: {type: new GraphQLList(SuppliesType)},
         },
         resolve: async (parent, args) => {
@@ -57,6 +56,16 @@ module.exports = {
         },
         resolve: async (parent, args) => {
             return await eventCtrl.filteredEventWith(args);
+        },
+    },
+    deleteEvent: {
+        type: new GraphQLList(EventType),
+        args: {
+            eventId: {type: GraphQLID},
+            userId: {type: GraphQLID},
+        },
+        resolve: async (parent, args) => {
+            return await eventCtrl.deleteEvent(args);
         },
     },
 };
