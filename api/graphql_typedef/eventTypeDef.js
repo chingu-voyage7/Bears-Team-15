@@ -17,7 +17,7 @@ module.exports = {
         name: 'Event',
         fields: () => ({
             id: {type: GraphQLID},
-            organizer: {type: new GraphQLList(UserType)},
+            organizer: {type: UserType},
             title: {type: GraphQLString},
             image: {type: GraphQLString},
             description: {type: GraphQLString},
