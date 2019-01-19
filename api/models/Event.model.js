@@ -22,7 +22,7 @@ const ItemSchema = new Schema({
 
 const EventSchema = new Schema({
     //   organizer: [User],
-    organizer: [{type: Schema.Types.ObjectId, ref: 'users'}],
+    organizer: {type: Schema.Types.ObjectId, ref: 'users'},
     title: {
         type: String,
         required: [true, 'Title cannot be blank'],
