@@ -12,7 +12,7 @@ class Event extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            admin: false,
+            admin: true,
             event: {
                 title: "Beach Cleanup",
                 organization: "Portland Volunteers NW",

@@ -6,8 +6,9 @@ const {
     GraphQLNonNull,
     GraphQLInt,
     GraphQLBoolean,
+    GraphQLInputObjectType
 } = require('graphql');
-
+const {AddressType} = require('./addressTypeDef');
 const {UserType} = require('./userTypeDef');
 const {getCurrentUser, getUsers} = require('../controllers/users.ctrl');
 
@@ -20,7 +21,7 @@ module.exports = {
             title: {type: GraphQLString},
             image: {type: GraphQLString},
             description: {type: GraphQLString},
-            location: {type: GraphQLString},
+            location: {type: AddressType},
             items: {type: GraphQLInt},
             date: {type: GraphQLString},
             attendees: {type: new GraphQLList(UserType)},

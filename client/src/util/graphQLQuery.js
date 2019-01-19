@@ -97,7 +97,19 @@ const queryFilterEvents = gql`
         }
     }
 `;
-
+const addNewEvent= gql`
+mutation addNewEvent($organizer: ID $title: String $address: String $city: String){
+    addNewEvent(organizer: $organizer title: $title location:{address: $address city: $city }){
+        title
+        location{
+            address
+            city
+            
+        }
+    }
+}
+`
+;
 const getAllEvents = gql`
     {
         getAllEvents {
@@ -148,6 +160,7 @@ export {
     test,
     addUser,
     currUser,
+    addNewEvent,
     getAllEvents,
     getEventById,
     getUser,
