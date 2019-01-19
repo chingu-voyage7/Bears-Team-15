@@ -9,6 +9,7 @@ const {
 } = require('graphql');
 const {UserType} = require('../graphql_typedef/userTypeDef');
 const {EventType} = require('../graphql_typedef/eventTypeDef');
+const {SuppliesType} = require('../graphql_typedef/suppliesTypeDef.js');
 const eventCtrl = require('../controllers/event.ctrl');
 
 // ! testing
@@ -23,14 +24,14 @@ module.exports = {
             return await eventCtrl.getAllEvents();
         },
     },
-    getEventById:{
+    getEventById: {
         type: EventType,
         args: {
-            id: {type: GraphQLString}
+            id: {type: GraphQLString},
         },
-        resolve: async (parent,args)=>{
+        resolve: async (parent, args) => {
             return await eventCtrl.getEventById(args);
-        }
+        },
     },
     addNewEvent: {
         type: EventType,
@@ -43,7 +44,7 @@ module.exports = {
             location: {type: GraphQLString},
             //   attendees: {type: GraphQLString},
             attendees: {type: new GraphQLList(GraphQLID)},
-            supplies: {type: new GraphQLList(GraphQLString)},
+            // supplies: {type: new GraphQLList(SuppliesType)},
         },
         resolve: async (parent, args) => {
             return await eventCtrl.addEvent(args);
