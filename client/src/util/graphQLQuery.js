@@ -54,6 +54,7 @@ const getEventById = gql`
             title
             image
             description
+<<<<<<< HEAD
             location {
                 address
                 city
@@ -62,6 +63,15 @@ const getEventById = gql`
             }
             date
             organizer {
+=======
+            location{
+                address,
+                city,
+                state,
+                zip,
+            }
+            organizer{
+>>>>>>> profileRedux
                 firstName
                 lastName
                 image

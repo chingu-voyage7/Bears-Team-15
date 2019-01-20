@@ -14,10 +14,12 @@ class Event extends React.Component {
         super(props);
         this.state = {
             admin: true,
-            event: {
+            event: {},
+            exists: false,
+            defaultEvent: {
                 title: 'Beach Cleanup',
                 organization: 'Portland Volunteers NW',
-                organizor: {
+                organizer: {
                     username: 'CoolGuy',
                     role: 'Organizor',
                     image: avatar,
@@ -57,17 +59,16 @@ class Event extends React.Component {
     }
     // attendees form
     async componentDidMount() {
-        const {client} = this.props.state;
-        const {EventId} = this.props;
-        console.log(EventId, 'id');
+        const EventId = this.props.EventId;
+       if(!EventId.length){ this.setState({exists: true});}
 
-        const data = await client.query({
+        const data = await this.props.client.query({
             query: getEventById,
             variables: {
                 id: EventId,
-            },
+            }
         });
-        console.log(data.data);
+        console.log(data.data.getEventById);
         // const {title} = data.data.getEventById;
         // console.log(title);
         this.handleSetData(data.data.getEventById);
@@ -77,6 +78,7 @@ class Event extends React.Component {
         this.setState({
             event,
         });
+        console.log(this.state.event.location.address);
     };
 
     tooltip = (event) => {
@@ -92,7 +94,7 @@ class Event extends React.Component {
     };
 
     render() {
-        const {EventId} = this.props;
+        if(this.state.event.organizer){
         return (
             <div className="event-container">
                 {/* <div className="event-title">
@@ -108,7 +110,7 @@ class Event extends React.Component {
                 <div className="event-content">
                     <div className="event-content-middle">
                         <h2>Location</h2>
-                        <p>{this.state.event.location}</p>
+                        <p>{this.state.event.location.address+this.state.event.location.city+this.state.event.location.state}</p>
                         <h2>Event Details</h2>
                         <p>{this.state.event.eventDetails}</p>
                         <h2>
@@ -117,7 +119,7 @@ class Event extends React.Component {
                             <img src={exclamation} alt="exclamation mark" />{' '}
                             needs supplies
                         </h2>
-                        <button onClick={() => this.handleEditClick(EventId)}>
+                        <button onClick={() => this.handleEditClick(this.props.EventId)}>
                             EDIT
                         </button>
                         {/* <ul className="event-supply-list">
@@ -177,7 +179,11 @@ class Event extends React.Component {
                 </div>
                 <div>google map</div>
             </div>
-        );
+        );}
+        if(!this.state.exists|| !this.state.event.organizer){
+            return(<div>Page Not Found</div>)
+        }
+        else{return(<div></div>)}
     }
 }
 
