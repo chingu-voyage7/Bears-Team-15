@@ -33,10 +33,11 @@ module.exports = {
             );
 
         console.log(newEvent, 'newEvent');
-        newEvent.save(function(err,data){
+      return await newEvent.save(function(err,data){
             User.findById(data.organizer,function(err,user){
                 user.eventsId.push(newEvent);
-             return await user.save();
+                console.log(user);
+                user.save();
         });
     })},
     getEventById: async (data) => {
