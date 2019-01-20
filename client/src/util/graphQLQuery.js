@@ -54,10 +54,17 @@ const getEventById = gql`
             title
             image
             description
-            location
+            location {
+                address
+                city
+                state
+                zip
+            }
             date
             organizer {
                 firstName
+                lastName
+                image
             }
             attendees {
                 firstName
@@ -70,6 +77,7 @@ const getEventById = gql`
         }
     }
 `;
+
 const queryFilterEvents = gql`
     query($char: String) {
         filterEvent(char: $char) {
@@ -89,7 +97,32 @@ const queryFilterEvents = gql`
         }
     }
 `;
-
+const addNewEvent = gql`
+    mutation addNewEvent(
+        $organizer: ID
+        $organization: String
+        $title: String
+        $address: String
+        $city: String
+        $state: String
+        $zip: Int
+        $category: String
+    ) {
+        addNewEvent(
+            organizer: $organizer
+            organization: $organization
+            title: $title
+            location: {address: $address, city: $city, state: $state, zip: $zip}
+            category: $category
+        ) {
+            title
+            location {
+                address
+                city
+            }
+        }
+    }
+`;
 const getAllEvents = gql`
     {
         getAllEvents {
@@ -140,6 +173,7 @@ export {
     test,
     addUser,
     currUser,
+    addNewEvent,
     getAllEvents,
     getEventById,
     getUser,

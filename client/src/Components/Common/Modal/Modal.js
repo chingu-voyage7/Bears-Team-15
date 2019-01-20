@@ -7,6 +7,7 @@ import SignupForm from '../../Pages/Session/SignupForm.jsx';
 import './modal.css';
 import SuppliesForm from '../../Modules/Forms/SuppliesForm';
 import EventEdit from '../../Modules/EventEdit/EventEdit';
+import EventForm from '../../Modules/Forms/EventForm.js';
 
 function Modal({modal, closeModal, data}) {
     if (!modal) {
@@ -16,16 +17,19 @@ function Modal({modal, closeModal, data}) {
     // case "add-Items" => itemform,case "edit-event"=> editform
     let component;
     switch (modal) {
-        case 'supplies':
+        case 'NEW_EVENT_FORM':
+            component = <EventForm />;
+            break;
+        case 'SUPPLIES':
             component = <SuppliesForm />;
             break;
-        case 'login':
+        case 'LOGIN':
             component = <LoginForm />;
             break;
-        case 'signup':
+        case 'SIGNUP':
             component = <SignupForm />;
             break;
-        case 'eventEdit':
+        case 'EVENT_EDIT':
             component = <EventEdit eventData={data} />;
             break;
         default:

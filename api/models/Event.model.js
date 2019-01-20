@@ -2,7 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // ! EVENT SCHEMA HERE
-
+const addressSchema = new Schema({
+    address: {type: String},
+    city: {type: String},
+    state: {type: String},
+    zip: {type: Number},
+    country: {type: String},
+});
 const ItemSchema = new Schema({
     name: {
         type: String,
@@ -23,6 +29,7 @@ const ItemSchema = new Schema({
 const EventSchema = new Schema({
     //   organizer: [User],
     organizer: {type: Schema.Types.ObjectId, ref: 'users'},
+    orginization: {type: String},
     title: {
         type: String,
         required: [true, 'Title cannot be blank'],
@@ -39,9 +46,10 @@ const EventSchema = new Schema({
         type: String,
         // required: [true, 'Description cannot be blank']
     },
-    location: {
+    location: addressSchema,
+    // required: [true, 'Address cannot be blank']
+    category: {
         type: String,
-        // required: [true, 'Address cannot be blank']
     },
     attendees: [{type: Schema.Types.ObjectId, ref: 'users'}],
     supplies: [ItemSchema],

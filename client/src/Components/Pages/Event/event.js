@@ -13,6 +13,7 @@ class Event extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            admin: true,
             event: {
                 title: 'Beach Cleanup',
                 organization: 'Portland Volunteers NW',
@@ -72,21 +73,9 @@ class Event extends React.Component {
         this.handleSetData(data.data.getEventById);
     }
 
-    handleSetData = ({title, description, location, attendees, supplies}) => {
+    handleSetData = (event) => {
         this.setState({
-            event: {
-                title,
-                organization: 'Portland Volunteers NW',
-                organizor: {
-                    username: 'CoolGuy',
-                    role: 'Organizor',
-                    image: avatar,
-                },
-                eventDetails: description,
-                location,
-                attendees,
-                supplies,
-            },
+            event,
         });
     };
 
@@ -98,12 +87,8 @@ class Event extends React.Component {
     };
 
     handleEditClick = () => {
-        const data = {
-            shit: 'bull',
-        };
-        const {dispatch} = this.props;
-        console.log(this.props.client);
-        this.props.openModal('eventEdit', data);
+        const {event} = this.state;
+        this.props.openModal('EVENT_EDIT', event);
     };
 
     render() {
@@ -117,7 +102,7 @@ class Event extends React.Component {
                 <div className="event-navigation">
                     <h1>{this.state.event.title}</h1>
                     <h1>{this.state.event.organization}</h1>
-                    <h1>Volunteer</h1>
+                    <h1>{this.state.admin ? 'edit' : ''}</h1>
                 </div>
                 <div className="profile-rule" />
                 <div className="event-content">

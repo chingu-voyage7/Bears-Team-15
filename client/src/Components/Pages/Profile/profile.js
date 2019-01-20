@@ -4,8 +4,8 @@ import './profile.css';
 import {Link} from '@reach/router';
 import {connect} from 'react-redux';
 import {graphql, compose} from 'react-apollo';
-import {getUser} from '../../../util/graphQLQuery';
-
+import {getUser} from '../../../util/graphQLQuery' 
+import { openModal } from '../../../reduxes/actions/modal_actions.js'
 class Profile extends React.Component {
     constructor(props) {
         super(props);
@@ -96,7 +96,7 @@ class Profile extends React.Component {
                     <div className="profile-menu">
                         <ul>
                             <li>Edit Profile</li>
-                            <li>Create Events</li>
+                            <li onClick={()=>this.props.openModal('NEW_EVENT_FORM')}>Create Events</li>
                             <li>Past Events</li>
                         </ul>
                     </div>
@@ -140,8 +140,8 @@ const mapStateToProps = (state) => ({
     client: state.client,
     user: state.currentUser,
 });
-const mapDispatchToProps = (dispatch) => ({
-    dispatch,
+const mapDispatchToProps=(dispatch)=>({
+    openModal:(args)=>dispatch(openModal(args))
 });
 
 export default connect(

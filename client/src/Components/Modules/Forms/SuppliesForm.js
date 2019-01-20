@@ -2,7 +2,7 @@ import React from "react"
 import {connect} from "react-redux"
 import "./forms.scss"
 const SuppliesForm=(supplies,addSupplies,removeSupplies)=>{
-return(<div className="supplies">
+return(<div className="modal-form">
 <div><h2>Bags</h2><p>needed: 24</p><p>fulfilled: 12</p></div>
 <p>We need bags bigger than 2l for carrying trash</p>
 <div>

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-const EventEdit = ({data}) => {
-    console.log(this.props);
+const EventEdit = ({eventData}) => {
+    console.log(eventData);
     return (
         <div>
             <h1>about bullshit</h1>
