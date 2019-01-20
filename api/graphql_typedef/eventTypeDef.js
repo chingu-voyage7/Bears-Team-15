@@ -19,6 +19,7 @@ module.exports = {
         fields: () => ({
             id: {type: GraphQLID},
             organizer: {type: new GraphQLList(UserType)},
+            orgization: {type: GraphQLString},
             title: {type: GraphQLString},
             image: {type: GraphQLString},
             description: {type: GraphQLString},
@@ -27,6 +28,7 @@ module.exports = {
             date: {type: GraphQLString},
             attendees: {type: new GraphQLList(UserType)},
             supplies: {type: new GraphQLList(SuppliesType)},
+            category: {type: GraphQLString}
             // test: {type: GraphQLString},
             // firstName: {type: GraphQLString},
             // lastName: {type: GraphQLString},

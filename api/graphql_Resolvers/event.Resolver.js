@@ -39,6 +39,7 @@ module.exports = {
         args: {
             //   organizerId: {type: GraphQLString},
             organizer: { type: GraphQLID },
+            organization: {type: GraphQLString},
             title: { type: GraphQLString },
             image: { type: GraphQLString },
             description: { type: GraphQLString },
@@ -54,6 +55,7 @@ module.exports = {
             })},
             //   attendees: {type: GraphQLString},
             attendees: {type: new GraphQLList(GraphQLID)},
+            category: {type: GraphQLString},
             // supplies: {type: new GraphQLList(SuppliesType)},
         },
         resolve: async (parent, args) => {

@@ -1,4 +1,4 @@
-import {gql} from 'apollo-boost';
+import { gql } from 'apollo-boost';
 
 const testUserQuery = gql`
     {
@@ -16,23 +16,7 @@ const test = gql`
         }
     }
 `;
-// const addEvent = gql`
-// mutation($event: {
-//     Title: String,
-//     Organization: String,
-//     Descritpino: String,
-//     Address: String,
-//     City: String,
-//     State: String,
-//     Zip: String,
-//     Time: String,
-//     Category: String
-// }){
-//     addEvent(event:$event){
-//        title
-//     }
-// }
-// `;
+
 const userLogin = gql`
     query($email: String = "", $password: String = "") {
         userLogin(email: $email, password: $password) {
@@ -105,9 +89,28 @@ const queryFilterEvents = gql`
         }
     }
 `;
-const addNewEvent= gql`
-mutation addNewEvent($organizer: ID $title: String $address: String $city: String){
-    addNewEvent(organizer: $organizer title: $title location:{address: $address city: $city }){
+const addNewEvent = gql`
+mutation addNewEvent(
+    $organizer: ID 
+    $organization: String 
+    $title: String 
+    $address: String 
+    $city: String 
+    $state: String 
+    $zip: Int 
+    $category: String){
+    addNewEvent(
+        organizer: $organizer 
+        organization: $organization 
+        title: $title 
+        location:{
+            address: $address 
+            city: $city 
+            state: $state
+            zip: $zip
+         }
+         category: $category
+         ){
         title
         location{
             address
@@ -117,7 +120,7 @@ mutation addNewEvent($organizer: ID $title: String $address: String $city: Strin
     }
 }
 `
-;
+    ;
 const getAllEvents = gql`
     {
         getAllEvents {

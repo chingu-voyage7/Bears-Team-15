@@ -29,6 +29,7 @@ const ItemSchema = new Schema({
 const EventSchema = new Schema({
   //   organizer: [User],
   organizer: {type: Schema.Types.ObjectId, ref: 'users'},
+  orginization: {type: String},
   title: {
     type: String,
     required: [true, 'Title cannot be blank']
@@ -47,6 +48,10 @@ const EventSchema = new Schema({
   },
   location: addressSchema 
   // required: [true, 'Address cannot be blank']
+ ,
+ category: {
+     type: String
+ }
  ,
   attendees: [{type: Schema.Types.ObjectId, ref: 'users'}],
   supplies: [ItemSchema]

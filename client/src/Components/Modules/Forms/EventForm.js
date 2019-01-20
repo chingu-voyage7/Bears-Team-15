@@ -1,8 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
 import "./forms.scss"
-import{addNewEvent} from "../../../util/graphQLQuery"
-const EventForm = ({ event,client,currentUser }) => {
+import { addNewEvent } from "../../../util/graphQLQuery"
+const EventForm = ({ event, client, currentUser }) => {
     let form = {
         title: '',
         organizer: currentUser.id,
@@ -12,7 +12,6 @@ const EventForm = ({ event,client,currentUser }) => {
         city: '',
         state: '',
         zip: '',
-        date: '',
         category: ''
     }
 
@@ -27,11 +26,20 @@ const EventForm = ({ event,client,currentUser }) => {
     const onSubmit = (event) => {
         event.preventDefault();
         client.mutate({
-            variables: {organizer: form.organizer, title: form.title, address: form.address, city: form.city },
-            mutation:   addNewEvent
-          }).then((data)=>{
-            console.log('success:',data);
-          });
+            variables: { 
+                organizer: form.organizer, 
+                organization: form.organization, 
+                title: form.title, 
+                address: form.address, 
+                city: form.city,
+                state: form.state,
+                zip: parseInt(form.zip),
+                category: form.category
+             },
+            mutation: addNewEvent
+        }).then((data) => {
+            console.log('success:', data);
+        });
 
     }
     return (<div className="modal-form">
@@ -44,7 +52,7 @@ const EventForm = ({ event,client,currentUser }) => {
             <div className="modal-event-field"><label>City</label><input name="city" onChange={onChange} required /></div>
             <div className="modal-event-field"><label>State</label><input name="state" onChange={onChange} required /></div>
             <div className="modal-event-field"><label>Zip</label><input name="zip" onChange={onChange} required /></div>
-            <div className="modal-event-field"><label>Time</label><input name="time" onChange={onChange} required /></div>
+            {/* <div className="modal-event-field"><label>Time</label><input name="time" onChange={onChange} required /></div> */}
             <div className="modal-event-field"><label>Category</label><input name="category" onChange={onChange} required /></div>
             {/*public or private needs field */}
             <button>Submit</button>
