@@ -97,7 +97,17 @@ class Event extends React.Component {
         // show supply modal to volunteer.
     };
 
+    handleEditClick = () => {
+        const data = {
+            shit: 'bull',
+        };
+        const {dispatch} = this.props;
+        console.log(this.props.client);
+        this.props.openModal('eventEdit', data);
+    };
+
     render() {
+        const {EventId} = this.props;
         return (
             <div className="event-container">
                 {/* <div className="event-title">
@@ -122,6 +132,9 @@ class Event extends React.Component {
                             <img src={exclamation} alt="exclamation mark" />{' '}
                             needs supplies
                         </h2>
+                        <button onClick={() => this.handleEditClick(EventId)}>
+                            EDIT
+                        </button>
                         {/* <ul className="event-supply-list">
                             {this.state.event.supplies.map((supply, i) => {
                                 const total = supply.volunteers.reduce(
@@ -184,10 +197,11 @@ class Event extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+    client: state.client,
     state,
 });
 const mapDispatchToProps = (dispatch) => ({
-    openModal: (modal) => dispatch(openModal(modal)),
+    openModal: (modal, data) => dispatch(openModal(modal, data)),
 });
 
 export default connect(
