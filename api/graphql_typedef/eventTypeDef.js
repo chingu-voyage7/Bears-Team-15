@@ -6,7 +6,7 @@ const {
     GraphQLNonNull,
     GraphQLInt,
     GraphQLBoolean,
-    GraphQLInputObjectType
+    GraphQLInputObjectType,
 } = require('graphql');
 const {AddressType} = require('./addressTypeDef');
 const {UserType} = require('./userTypeDef');
@@ -18,7 +18,7 @@ module.exports = {
         name: 'Event',
         fields: () => ({
             id: {type: GraphQLID},
-            organizer: {type: new GraphQLList(UserType)},
+            organizer: {type: UserType},
             orgization: {type: GraphQLString},
             title: {type: GraphQLString},
             image: {type: GraphQLString},
@@ -28,7 +28,7 @@ module.exports = {
             date: {type: GraphQLString},
             attendees: {type: new GraphQLList(UserType)},
             supplies: {type: new GraphQLList(SuppliesType)},
-            category: {type: GraphQLString}
+            category: {type: GraphQLString},
             // test: {type: GraphQLString},
             // firstName: {type: GraphQLString},
             // lastName: {type: GraphQLString},

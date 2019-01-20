@@ -14,6 +14,7 @@ const {
     getEventById,
     addNewEvent,
     filterEvent,
+    deleteEvent,
 } = require('../graphql_Resolvers/event.Resolver.js');
 
 const {addSupplies} = require('../graphql_Resolvers/supply.Resolver');
@@ -47,6 +48,7 @@ const mutate = new GraphQLObjectType({
         // ! user end
         // ! event start
         addNewEvent,
+        deleteEvent,
         // ! event end
         // ! supply start
         addSupplies,

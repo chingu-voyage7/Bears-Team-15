@@ -15,34 +15,25 @@ module.exports = {
             return error;
         }
     },
-    // TODO: Fix item here. ask ujwal
-    // 
+
+    // TODO: when adding a new event put the event ID to a user
     addEvent: async (data) => {
-
-        console.log("data from ADDevent",data);
-        const newEvent = new Event(
-            data
-                // organizer: data.organizer,
-                // title: data.title,
-                // date: new Date(),
-                // image: data.image,
-                // description: data.description,
-                // location: data.location,
-                // attendees: data.attendees,
-                // supplies: data.supplies,
-            );
-
-        console.log(newEvent, 'newEvent');
-      return await newEvent.save(function(err,data){
-            User.findById(data.organizer,function(err,user){
-                user.eventsId.push(newEvent);
-                console.log(user);
-                user.save();
-        });
-    })},
+        try {
+            const user = await User.findById(data.organizer);
+            const newEvent = new Event(data);
+            const event = await newEvent.save();
+            user.eventsId.push(event._id);
+            user.save();
+            return event;
+        } catch (error) {
+            return error;
+        }
+    },
     getEventById: async (data) => {
         console.log(data);
-        return await Event.findOne({_id: data.id}).populate('attendees organizer');
+        return await Event.findOne({_id: data.id}).populate(
+            'attendees organizer'
+        );
     },
     filteredEventWith: async (data) => {
         try {
@@ -55,6 +46,19 @@ module.exports = {
             // }).populate('eventsId');
 
             return [...events];
+        } catch (error) {
+            return error;
+        }
+    },
+    deleteEvent: async (data) => {
+        try {
+            const user = await User.findById(data.userId).populate('eventsId');
+            await user.eventsId.remove(data.eventId);
+            await Event.deleteOne({_id: data.eventId});
+            const test = await user.save();
+            const event = await Event.findById(data.eventId);
+            console.log(event);
+            return await [user];
         } catch (error) {
             return error;
         }

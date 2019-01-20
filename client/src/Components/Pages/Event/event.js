@@ -73,21 +73,9 @@ class Event extends React.Component {
         this.handleSetData(data.data.getEventById);
     }
 
-    handleSetData = ({title, description, location, attendees, supplies}) => {
+    handleSetData = (event) => {
         this.setState({
-            event: {
-                title,
-                organization: 'Portland Volunteers NW',
-                organizor: {
-                    username: 'CoolGuy',
-                    role: 'Organizor',
-                    image: avatar,
-                },
-                eventDetails: description,
-                location,
-                attendees,
-                supplies,
-            },
+            event,
         });
     };
 
@@ -98,7 +86,13 @@ class Event extends React.Component {
         // show supply modal to volunteer.
     };
 
+    handleEditClick = () => {
+        const {event} = this.state;
+        this.props.openModal('EVENT_EDIT', event);
+    };
+
     render() {
+        const {EventId} = this.props;
         return (
             <div className="event-container">
                 {/* <div className="event-title">
@@ -106,8 +100,9 @@ class Event extends React.Component {
                 </div> */}
                 <img className="event-banner" src={image} alt="event banner" />
                 <div className="event-navigation">
-                    <h1>{this.state.event.title}</h1><h1>{this.state.event.organization}</h1> 
-                    <h1>{this.state.admin?'edit': ''}</h1>
+                    <h1>{this.state.event.title}</h1>
+                    <h1>{this.state.event.organization}</h1>
+                    <h1>{this.state.admin ? 'edit' : ''}</h1>
                 </div>
                 <div className="profile-rule" />
                 <div className="event-content">
@@ -122,6 +117,9 @@ class Event extends React.Component {
                             <img src={exclamation} alt="exclamation mark" />{' '}
                             needs supplies
                         </h2>
+                        <button onClick={() => this.handleEditClick(EventId)}>
+                            EDIT
+                        </button>
                         {/* <ul className="event-supply-list">
                             {this.state.event.supplies.map((supply, i) => {
                                 const total = supply.volunteers.reduce(
@@ -185,10 +183,10 @@ class Event extends React.Component {
 
 const mapStateToProps = (state) => ({
     client: state.client,
-    state
+    state,
 });
 const mapDispatchToProps = (dispatch) => ({
-    openModal: (modal) => dispatch(openModal(modal)),
+    openModal: (modal, data) => dispatch(openModal(modal, data)),
 });
 
 export default connect(
