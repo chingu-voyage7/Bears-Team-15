@@ -10,11 +10,13 @@ const {
 } = require('../graphql_Resolvers/user.Resolver.js');
 
 const {
-    getAllEvents, 
+    getAllEvents,
     getEventById,
     addNewEvent,
     filterEvent,
 } = require('../graphql_Resolvers/event.Resolver.js');
+
+const {addSupplies} = require('../graphql_Resolvers/supply.Resolver');
 
 // const {EventType} = require('../graphql_typedef/eventTypeDef.js');
 
@@ -27,9 +29,9 @@ const RootQuery = new GraphQLObjectType({
         testQuery,
         currentUser,
         getUser,
-     
+
         // ! user resolvers end
-        // ! event query start   
+        // ! event query start
         getEventById,
         getAllEvents,
         filterEvent,
@@ -46,6 +48,9 @@ const mutate = new GraphQLObjectType({
         // ! event start
         addNewEvent,
         // ! event end
+        // ! supply start
+        addSupplies,
+        // ! supply end
     }),
 });
 

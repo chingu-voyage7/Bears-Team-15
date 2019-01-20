@@ -8,8 +8,9 @@ const {
     GraphQLBoolean,
     GraphQLInputObjectType
 } = require('graphql');
-const { UserType } = require('../graphql_typedef/userTypeDef');
-const { EventType } = require('../graphql_typedef/eventTypeDef');
+const {UserType} = require('../graphql_typedef/userTypeDef');
+const {EventType} = require('../graphql_typedef/eventTypeDef');
+const {SuppliesType} = require('../graphql_typedef/suppliesTypeDef.js');
 const eventCtrl = require('../controllers/event.ctrl');
 const { AddressType } = require('../graphql_typedef/addressTypeDef');
 // ! testing
@@ -31,7 +32,7 @@ module.exports = {
         },
         resolve: async (parent, args) => {
             return await eventCtrl.getEventById(args);
-        }
+        },
     },
     addNewEvent: {
         type: EventType,
@@ -52,8 +53,8 @@ module.exports = {
                     })
             })},
             //   attendees: {type: GraphQLString},
-            attendees: { type: new GraphQLList(GraphQLID) },
-            supplies: { type: new GraphQLList(GraphQLString) },
+            attendees: {type: new GraphQLList(GraphQLID)},
+            // supplies: {type: new GraphQLList(SuppliesType)},
         },
         resolve: async (parent, args) => {
             console.log(parent);

@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const User = require('./main.model');
-
 // ! EVENT SCHEMA HERE
 const addressSchema= new Schema({
   address: {type: String},
@@ -12,17 +10,20 @@ const addressSchema= new Schema({
   country:{type: String}
 });
 const ItemSchema = new Schema({
-  name: {
-    type: String
-  },
-  description: {
-    type: String
-  },
-  quantity: {
-    type: Number,
-    default: 0
-  },
-  ownerId: [{type: Schema.Types.ObjectId, ref: 'users'}]
+    name: {
+        type: String,
+    },
+    description: {
+        type: String,
+    },
+    quantity: {
+        type: Number,
+        default: 0,
+    },
+    fulfilled: {
+        type: Number,
+    },
+    ownerId: [{type: Schema.Types.ObjectId, ref: 'users'}],
 });
 
 const EventSchema = new Schema({
