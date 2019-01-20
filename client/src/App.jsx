@@ -12,6 +12,7 @@ import {
   Search,
   Profile,
   Event,
+  NotFound,
   // Login,
   LoginForm
 } from './Components/Pages/index';
@@ -102,7 +103,8 @@ class App extends Component {
         <Provider store={this.props.store}>
           <Layout>
             <Router>
-              <IndexPage default path="/" />
+            <NotFound default />
+              <IndexPage path="/" />
               <Drives path="/drives" />
               {/* <Locations path="/locations" /> */}
               <LoginForm path="/login" />

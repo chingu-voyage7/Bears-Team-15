@@ -54,9 +54,13 @@ const getEventById = gql`
             title
             image
             description
-            location
-            date
-            organizer {
+            location{
+                address,
+                city,
+                state,
+                zip,
+            }
+            organizer{
                 firstName
             }
             attendees {

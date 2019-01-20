@@ -38,7 +38,7 @@ module.exports = {
         type: EventType,
         args: {
             //   organizerId: {type: GraphQLString},
-            organizer: { type: GraphQLID },
+            organizer: { type: GraphQLID},
             organization: {type: GraphQLString},
             title: { type: GraphQLString },
             image: { type: GraphQLString },
