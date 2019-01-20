@@ -13,6 +13,7 @@ class Event extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            admin: true,
             event: {
                 title: 'Beach Cleanup',
                 organization: 'Portland Volunteers NW',
@@ -105,9 +106,8 @@ class Event extends React.Component {
                 </div> */}
                 <img className="event-banner" src={image} alt="event banner" />
                 <div className="event-navigation">
-                    <h1>{this.state.event.title}</h1>
-                    <h1>{this.state.event.organization}</h1>
-                    <h1>Volunteer</h1>
+                    <h1>{this.state.event.title}</h1><h1>{this.state.event.organization}</h1> 
+                    <h1>{this.state.admin?'edit': ''}</h1>
                 </div>
                 <div className="profile-rule" />
                 <div className="event-content">
@@ -184,7 +184,8 @@ class Event extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    state,
+    client: state.client,
+    state
 });
 const mapDispatchToProps = (dispatch) => ({
     openModal: (modal) => dispatch(openModal(modal)),

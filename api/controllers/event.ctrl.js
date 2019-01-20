@@ -20,20 +20,26 @@ module.exports = {
     addEvent: async (data) => {
 
         console.log("data from ADDevent",data);
-        const newEvent = new Event({
-            organizer: data.organizer,
-            title: data.title,
-            date: new Date(),
-            image: data.image,
-            description: data.description,
-            location: data.location,
-            attendees: data.attendees,
-            supplies: data.supplies,
-        });
+        const newEvent = new Event(
+            data
+                // organizer: data.organizer,
+                // title: data.title,
+                // date: new Date(),
+                // image: data.image,
+                // description: data.description,
+                // location: data.location,
+                // attendees: data.attendees,
+                // supplies: data.supplies,
+            );
 
         console.log(newEvent, 'newEvent');
-        return await newEvent.save();
-    },
+      return await newEvent.save(function(err,data){
+            User.findById(data.organizer,function(err,user){
+                user.eventsId.push(newEvent);
+                console.log(user);
+                user.save();
+        });
+    })},
     getEventById: async (data) => {
         console.log(data);
         return await Event.findOne({_id: data.id}).populate('attendees organizer');

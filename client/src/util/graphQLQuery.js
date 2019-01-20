@@ -1,4 +1,4 @@
-import {gql} from 'apollo-boost';
+import { gql } from 'apollo-boost';
 
 const testUserQuery = gql`
     {
@@ -89,7 +89,38 @@ const queryFilterEvents = gql`
         }
     }
 `;
-
+const addNewEvent = gql`
+mutation addNewEvent(
+    $organizer: ID 
+    $organization: String 
+    $title: String 
+    $address: String 
+    $city: String 
+    $state: String 
+    $zip: Int 
+    $category: String){
+    addNewEvent(
+        organizer: $organizer 
+        organization: $organization 
+        title: $title 
+        location:{
+            address: $address 
+            city: $city 
+            state: $state
+            zip: $zip
+         }
+         category: $category
+         ){
+        title
+        location{
+            address
+            city
+            
+        }
+    }
+}
+`
+    ;
 const getAllEvents = gql`
     {
         getAllEvents {
@@ -140,6 +171,7 @@ export {
     test,
     addUser,
     currUser,
+    addNewEvent,
     getAllEvents,
     getEventById,
     getUser,
