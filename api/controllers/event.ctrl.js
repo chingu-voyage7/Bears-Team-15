@@ -63,4 +63,22 @@ module.exports = {
             return error;
         }
     },
+    updateEvent: async (data) => {
+        const {title, organization, description, location, date} = data;
+        try {
+            const event = await Event.findById(data.id);
+            event.location.address = location.address;
+            event.location.city = location.city;
+            event.location.state = location.state;
+            event.location.zip = location.zip;
+            event.set({
+                title,
+                organization,
+                description,
+            });
+            event.save();
+        } catch (error) {
+            return error;
+        }
+    },
 };

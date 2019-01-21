@@ -5,10 +5,10 @@ import image from '../../Images/gaming-group.jpg';
 import checked from '../../Icons/CheckedCircle.svg';
 import exclamation from '../../Icons/ExclamationCircle.svg';
 import cat from '../../Images/cat.jpg';
-import { connect } from 'react-redux';
-import { openModal } from '../../../reduxes/actions/modal_actions.js';
-import { getEventById } from '../../../util/graphQLQuery';
-import { withApollo,graphql, compose } from 'react-apollo';
+import {connect} from 'react-redux';
+import {openModal} from '../../../reduxes/actions/modal_actions.js';
+import {getEventById} from '../../../util/graphQLQuery';
+import {withApollo, graphql, compose} from 'react-apollo';
 class Event extends React.Component {
     constructor(props) {
         super(props);
@@ -26,28 +26,28 @@ class Event extends React.Component {
                 },
                 eventDetails:
                     'Join us Saturday, Jan 24th @9AM for a beach cleanup',
-                location: 'seaside townhall, some addresss',
+                // location: 'seaside townhall, some addresss',
                 attendees: [
-                    { username: 'CoolGuy', role: 'Organizor', image: avatar },
-                    { username: 'T0mCat', role: 'Volunteer', image: cat },
-                    { username: 'Rawf', role: 'Volunteer', image: cat },
-                    { username: 'SumDude', role: 'Attendee', image: cat },
+                    {username: 'CoolGuy', role: 'Organizor', image: avatar},
+                    {username: 'T0mCat', role: 'Volunteer', image: cat},
+                    {username: 'Rawf', role: 'Volunteer', image: cat},
+                    {username: 'SumDude', role: 'Attendee', image: cat},
                 ],
                 supplies: [
                     {
                         item: 'bags',
                         quantity: 24,
                         volunteers: [
-                            { user: 'T0mCat', qty: 12 },
-                            { user: 'Rawf', qty: 12 },
+                            {user: 'T0mCat', qty: 12},
+                            {user: 'Rawf', qty: 12},
                         ],
                     },
                     {
                         item: 'shovels',
                         quantity: 24,
                         volunteers: [
-                            { user: 'T0mCat', qty: 2 },
-                            { user: 'Rawf', qty: 3 },
+                            {user: 'T0mCat', qty: 2},
+                            {user: 'Rawf', qty: 3},
                         ],
                     },
                 ],
@@ -60,13 +60,15 @@ class Event extends React.Component {
     // attendees form
     async componentDidMount() {
         const EventId = this.props.EventId;
-        if (!EventId.length) { this.setState({ exists: true }); }
+        if (!EventId.length) {
+            this.setState({exists: true});
+        }
 
         const data = await this.props.client.query({
             query: getEventById,
             variables: {
                 id: EventId,
-            }
+            },
         });
         console.log(data.data.getEventById);
         // const {title} = data.data.getEventById;
@@ -82,14 +84,14 @@ class Event extends React.Component {
     };
 
     tooltip = (event) => {
-        this.setState({ tooltip: event.currentTarget.alt });
+        this.setState({tooltip: event.currentTarget.alt});
     };
     supplyModal = () => {
         // show supply modal to volunteer.
     };
 
     handleEditClick = () => {
-        const { event } = this.state;
+        const {event} = this.state;
         this.props.openModal('EVENT_EDIT', event);
     };
 
@@ -100,7 +102,11 @@ class Event extends React.Component {
                     {/* <div className="event-title">
                     
                 </div> */}
-                    <img className="event-banner" src={image} alt="event banner" />
+                    <img
+                        className="event-banner"
+                        src={image}
+                        alt="event banner"
+                    />
                     <div className="event-navigation">
                         <h1>{this.state.event.title}</h1>
                         <h1>{this.state.event.organization}</h1>
@@ -110,7 +116,11 @@ class Event extends React.Component {
                     <div className="event-content">
                         <div className="event-content-middle">
                             <h2>Location</h2>
-                            <p>{this.state.event.location.address + this.state.event.location.city + this.state.event.location.state}</p>
+                            <p>
+                                {this.state.event.location.address +
+                                    this.state.event.location.city +
+                                    this.state.event.location.state}
+                            </p>
                             <h2>Event Details</h2>
                             <p>{this.state.event.eventDetails}</p>
                             <h2>
@@ -118,8 +128,11 @@ class Event extends React.Component {
                                 fulfilled{' '}
                                 <img src={exclamation} alt="exclamation mark" />{' '}
                                 needs supplies
-                        </h2>
-                            <button onClick={() => this.handleEditClick(this.props.EventId)}>
+                            </h2>
+                            <button
+                                onClick={() =>
+                                    this.handleEditClick(this.props.EventId)
+                                }>
                                 EDIT
                             </button>
                             {/* <ul className="event-supply-list">
@@ -182,32 +195,35 @@ class Event extends React.Component {
             );
         }
         if (!this.state.exists || !this.state.event.organizer) {
-            return (<div>Page Not Found</div>)
+            return <div>Page Not Found</div>;
+        } else {
+            return <div />;
         }
-        else { return (<div></div>) }
     }
 }
-
-
 
 const mapStateToProps = (state) => ({
     client: state.client,
     state,
+    currentUser: state.currentUser,
 });
 const mapDispatchToProps = (dispatch) => ({
     openModal: (modal, data) => dispatch(openModal(modal, data)),
 });
 
-export default compose(connect(
-    mapStateToProps,
-    mapDispatchToProps
-), graphql(getEventById, {
-    name: "getEventById", options: (props) => {
-       
-        return {
-            variables: {
-                id: props.EventId
-            }
-        }
-    }
-}))(withApollo(Event));
+export default compose(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    ),
+    graphql(getEventById, {
+        name: 'getEventById',
+        options: (props) => {
+            return {
+                variables: {
+                    id: props.EventId,
+                },
+            };
+        },
+    })
+)(withApollo(Event));
