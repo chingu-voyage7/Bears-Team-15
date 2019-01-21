@@ -41,6 +41,7 @@ const getUser = gql`
         getUser(id: $id) {
             firstName
             email
+            image
             eventsId {
                 id
                 title
@@ -54,14 +55,13 @@ const getEventById = gql`
             title
             image
             description
-            location {
-                address
-                city
-                state
-                zip
+            location{
+                address,
+                city,
+                state,
+                zip,
             }
-            date
-            organizer {
+            organizer{
                 firstName
                 lastName
                 image

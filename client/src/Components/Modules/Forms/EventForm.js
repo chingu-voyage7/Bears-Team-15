@@ -2,7 +2,11 @@ import React from "react"
 import { connect } from "react-redux"
 import "./forms.scss"
 import { addNewEvent } from "../../../util/graphQLQuery"
-const EventForm = ({ event, client, currentUser }) => {
+import { closeModal } from "../../../reduxes/actions/modal_actions";
+import { graphql, compose } from 'react-apollo';
+import { getUser } from '../../../util/graphQLQuery';
+import { withApollo } from 'react-apollo'
+const EventForm = ({ event, client, currentUser, closeModal }) => {
     let form = {
         title: '',
         organizer: currentUser.id,
@@ -18,27 +22,28 @@ const EventForm = ({ event, client, currentUser }) => {
     const onChange = (event) => {
         console.log('name', event.target.name);
         console.log('input', event.target.value);
-
         form[event.target.name] = event.target.value;
-        console.log(form);
 
     }
     const onSubmit = (event) => {
         event.preventDefault();
+        closeModal();
         client.mutate({
-            variables: { 
-                organizer: form.organizer, 
-                organization: form.organization, 
-                title: form.title, 
-                address: form.address, 
+            mutation: addNewEvent,
+            variables: {
+                organizer: form.organizer,
+                organization: form.organization,
+                title: form.title,
+                address: form.address,
                 city: form.city,
                 state: form.state,
                 zip: parseInt(form.zip),
                 category: form.category
-             },
-            mutation: addNewEvent
-        }).then((data) => {
-            console.log('success:', data);
+            },
+            refetchQueries: [{
+                query: getUser,
+                variables: { id: currentUser.id },
+            }],
         });
 
     }
@@ -61,11 +66,22 @@ const EventForm = ({ event, client, currentUser }) => {
 }
 
 const mapStateToProps = (state) => ({
-    // get supplies list
     currentUser: state.currentUser,
-    client: state.client
 });
 const mapDispatchToProps = (dispatch) => ({
-    // update supplies list
+    closeModal: () => { dispatch(closeModal()); }
 });
-export default connect(mapStateToProps, mapDispatchToProps)(EventForm)
+export default compose(connect(
+    mapStateToProps,
+    mapDispatchToProps
+    // replace with edit user
+), graphql(getUser, {
+    name: "getUser", options: (props) => {
+        console.log("graphprops", props)
+        return {
+            variables: {
+                id: props.currentUser.id
+            }
+        }
+    }
+}))(withApollo(EventForm));

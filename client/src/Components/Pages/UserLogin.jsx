@@ -1,7 +1,7 @@
 // ! imported dependencies
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {graphql, compose} from 'react-apollo';
+import {withApollo,graphql, compose} from 'react-apollo';
 
 // ! imported files
 import Input from '../Common/Input/input';
@@ -21,7 +21,11 @@ class Login extends Component {
         password: '',
     };
 
+    componentDidMount(){
+         console.log('from Props', this.props);
+    }
     handleChange = (e) => {
+       
         const {value, name} = e.target;
         this.setState({
             [name]: value,
@@ -30,6 +34,7 @@ class Login extends Component {
 
     handleClick = () => {
         const {email, password} = this.state;
+        
         this.props.client
             .query({
                 query: userLogin,
@@ -62,10 +67,12 @@ class Login extends Component {
                     name="email"
                 />
                 <Input
+                    label="Password"
                     value={password}
                     onChange={this.handleChange}
                     placeholder="password"
                     name="password"
+                    type="password"
                 />
                 <Button onClick={this.handleClick}> Login </Button>
             </div>
@@ -104,4 +111,4 @@ export default compose(
     //     }
     //   }
     // )
-)(Login);
+)(withApollo(Login));
