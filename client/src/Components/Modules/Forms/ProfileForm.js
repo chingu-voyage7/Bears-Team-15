@@ -1,11 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
+import { graphql, compose } from 'react-apollo';
+import {getUser} from '../../../util/graphQLQuery';
 import "./forms.scss"
-import { addNewEvent } from "../../../util/graphQLQuery"
 import {closeModal} from "../../../reduxes/actions/modal_actions";
-import {Redirect} from "@reach/router"
-import { stat } from "fs";
-import Modal from "../../Common/Modal/Modal";
 const EventForm = ({ event, client, currentUser,data}) => {
     let form = {
         firstName: '',
@@ -43,6 +41,7 @@ const EventForm = ({ event, client, currentUser,data}) => {
     </div>);
 }
 
+
 const mapStateToProps = (state) => ({
     // get supplies list
     currentUser: state.currentUser,
@@ -52,4 +51,19 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     closeModal: ()=>{dispatch(closeModal());}
 });
-export default connect(mapStateToProps, mapDispatchToProps)(EventForm)
+
+
+export default compose(connect(
+  mapStateToProps,
+  mapDispatchToProps
+  // replace with edit user
+), graphql(getUser, {
+  name: "getUser", options: (props) => {
+      console.log("graphprops", props)
+      return {
+          variables: {
+              id: props.currentUser.id
+          }
+      }
+  }
+}))(EventForm);

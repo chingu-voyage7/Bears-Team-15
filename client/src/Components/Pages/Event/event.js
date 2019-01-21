@@ -8,7 +8,7 @@ import cat from '../../Images/cat.jpg';
 import { connect } from 'react-redux';
 import { openModal } from '../../../reduxes/actions/modal_actions.js';
 import { getEventById } from '../../../util/graphQLQuery';
-
+import { withApollo,graphql, compose } from 'react-apollo';
 class Event extends React.Component {
     constructor(props) {
         super(props);
@@ -188,6 +188,8 @@ class Event extends React.Component {
     }
 }
 
+
+
 const mapStateToProps = (state) => ({
     client: state.client,
     state,
@@ -196,7 +198,16 @@ const mapDispatchToProps = (dispatch) => ({
     openModal: (modal, data) => dispatch(openModal(modal, data)),
 });
 
-export default connect(
+export default compose(connect(
     mapStateToProps,
     mapDispatchToProps
-)(Event);
+), graphql(getEventById, {
+    name: "getEventById", options: (props) => {
+       
+        return {
+            variables: {
+                id: props.EventId
+            }
+        }
+    }
+}))(withApollo(Event));

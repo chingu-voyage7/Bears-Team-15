@@ -28,31 +28,41 @@ import Auth from './Components/Common/Auth/Auth'
 // ! action
 import { auth } from './reduxes/actions/isAuthAction.js';
 import { closeModal } from './reduxes/actions/modal_actions';
-
-// ! query
+import ApolloClient from 'apollo-boost';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
 import { currUser } from './util/graphQLQuery';
+const cache = new InMemoryCache();
+
+const client = new ApolloClient({
+  uri: '/graph',
+  link: new HttpLink(),
+  cache
+});
+// ! query
+
 
 const { getCookie } = new SetGetCookie('tokenizer');
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      client: {},
-    }
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     client: {},
+  //   }
+  // }
 
   componentWillMount() {
-    this.setState({
-      client: this.props.store.getState().client
-    })
+    // this.setState({
+    //   client: this.props.store.getState().client
+    // })
   }
 
   componentDidMount() {
 
     // TODO: make a condition that checks the token.
     // ! if token returns true then query, if not then let user login
-    const { client } = this.props.state;
+    // const { client } = this.props.state;
     // takes hashtoken from cookie
     const hashToken = getCookie();
 
@@ -99,7 +109,7 @@ class App extends Component {
   render() {
 
     return (
-      <ApolloProvider client={this.state.client}>
+      <ApolloProvider client={client}>
         <Provider store={this.props.store}>
           <Layout>
             <Router>

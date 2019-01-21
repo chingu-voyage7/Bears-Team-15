@@ -1,7 +1,7 @@
 // ! imported dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { graphql, compose } from 'react-apollo';
+import { withApollo,graphql, compose } from 'react-apollo';
 
 // ! imported files
 import Input from '../../Common/Input/input';
@@ -97,6 +97,7 @@ class LoginForm extends Component {
 						onChange={this.handleChange}
 						placeholder="password"
 						name="password"
+						type="password"
 					/>
 					<Button onClick={this.handleClick}> Login </Button>
 				</div>
@@ -109,7 +110,7 @@ const mapStateToProps = (state) => {
 	return {
 		// errors: state.errors.sessionErrors,
 		formType: 'login',
-		client: state.client
+	
 	};
 };
 
@@ -139,4 +140,4 @@ export default compose(
 	//     }
 	//   }
 	// )
-)(LoginForm);
+)(withApollo(LoginForm));
