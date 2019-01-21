@@ -2,7 +2,9 @@ import React from "react"
 import { connect } from "react-redux"
 import "./forms.scss"
 import { addNewEvent } from "../../../util/graphQLQuery"
-const EventForm = ({ event, client, currentUser }) => {
+import {closeModal} from "../../../reduxes/actions/modal_actions";
+import {Redirect} from "@reach/router"
+const EventForm = ({ event, client, currentUser,closeModal }) => {
     let form = {
         title: '',
         organizer: currentUser.id,
@@ -38,7 +40,8 @@ const EventForm = ({ event, client, currentUser }) => {
              },
             mutation: addNewEvent
         }).then((data) => {
-            console.log('success:', data);
+            closeModal();
+           
         });
 
     }
@@ -66,6 +69,6 @@ const mapStateToProps = (state) => ({
     client: state.client
 });
 const mapDispatchToProps = (dispatch) => ({
-    // update supplies list
+    closeModal: ()=>{dispatch(closeModal());}
 });
 export default connect(mapStateToProps, mapDispatchToProps)(EventForm)

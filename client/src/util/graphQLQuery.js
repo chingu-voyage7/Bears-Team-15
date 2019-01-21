@@ -41,6 +41,7 @@ const getUser = gql`
         getUser(id: $id) {
             firstName
             email
+            image
             eventsId {
                 id
                 title
@@ -54,16 +55,6 @@ const getEventById = gql`
             title
             image
             description
-<<<<<<< HEAD
-            location {
-                address
-                city
-                state
-                zip
-            }
-            date
-            organizer {
-=======
             location{
                 address,
                 city,
@@ -71,7 +62,6 @@ const getEventById = gql`
                 zip,
             }
             organizer{
->>>>>>> profileRedux
                 firstName
                 lastName
                 image

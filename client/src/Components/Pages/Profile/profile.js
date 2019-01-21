@@ -13,72 +13,71 @@ class Profile extends React.Component {
             user: {
                 username: '',
                 avatar: '',
-                upcomingEvents: [],
+                eventsId: [],
             },
-            events: [],
+            
         };
     }
 
-    componentDidMount() {
+   async componentDidMount() {
         // unecessary with redux just use props
         console.log(this.props.user.id);
-        this.props.client
+        const user= await this.props.client
             .query({
                 query: getUser,
                 variables: {
                     id: this.props.user.id,
                 },
-            })
-            .then((data) => {
-                console.log(data);
-                this.setState({events: data.data.getUser.eventsId});
-                // console.log(this.state.events, 'haha');
             });
+            // .then((data) => {
+            //     console.log("setting state",data.data.getUser);
+               
+            //     console.log(this.state.user);
+            // });
+            this.initializeProfile(user.data.getUser);
 
         // console.log("from GraphQL",);
-        const timestamp = Date(Date.now()).toString();
-        const defaultUser = {
-            username: 'CoolGuy',
-            avatar: avatar,
-            events: [
-                {
-                    title: 'Event1',
-                    date: timestamp,
-                    location: 'Some Street San Jose, California',
-                    visibility: 'Public',
-                },
-                {
-                    title: 'Event2',
-                    date: timestamp,
-                    location: 'Some Street San Jose, California',
-                    visibility: 'Public',
-                },
-                {
-                    title: 'Event3',
-                    date: timestamp,
-                    location: 'Some Street San Jose, California',
-                    visibility: 'Public',
-                },
-                {
-                    title: 'Event4',
-                    date: timestamp,
-                    location: 'Some Street San Jose, California',
-                    visibility: 'Public',
-                },
-            ],
-        };
+        // const timestamp = Date(Date.now()).toString();
+        // const defaultUser = {
+        //     username: 'CoolGuy',
+        //     avatar: avatar,
+        //     events: [
+        //         {
+        //             title: 'Event1',
+        //             date: timestamp,
+        //             location: 'Some Street San Jose, California',
+        //             visibility: 'Public',
+        //         },
+        //         {
+        //             title: 'Event2',
+        //             date: timestamp,
+        //             location: 'Some Street San Jose, California',
+        //             visibility: 'Public',
+        //         },
+        //         {
+        //             title: 'Event3',
+        //             date: timestamp,
+        //             location: 'Some Street San Jose, California',
+        //             visibility: 'Public',
+        //         },
+        //         {
+        //             title: 'Event4',
+        //             date: timestamp,
+        //             location: 'Some Street San Jose, California',
+        //             visibility: 'Public',
+        //         },
+        //     ],
+        // };
 
-        this.initializeProfile(defaultUser);
+        // this.initializeProfile(defaultUser);
     }
 
     initializeProfile = (user) => {
+        console.log(user);
         this.setState({
-            user: {
-                username: user.username,
-                avatar: user.avatar,
-                upcomingEvents: user.events,
-            },
+            user,
         });
+        console.log('fromState',this.state.user.eventsId);
     };
 
     render() {
@@ -95,8 +94,8 @@ class Profile extends React.Component {
                 <div className="profile-content">
                     <div className="profile-menu">
                         <ul>
-                            <li>Edit Profile</li>
-                            <li onClick={()=>this.props.openModal('NEW_EVENT_FORM')}>Create Events</li>
+                            <li onClick={()=>this.props.openModal('EDIT_PROFILE_FORM',this.state.user)}>Edit Profile</li>
+                            <li onClick={()=>this.props.openModal('NEW_EVENT_FORM',this.props.user.id)}>Create Events</li>
                             <li>Past Events</li>
                         </ul>
                     </div>
@@ -114,7 +113,7 @@ class Profile extends React.Component {
                         <h2 className="profile-list-title">Upcoming Events</h2>
                         <div className="profile-rule" />
                         <div className="profile-events">
-                            {this.state.events.map((item, i) => {
+                            {this.state.user.eventsId.map((item, i) => {
                                 return (
                                     <Link key={i} to={`/event/${item.id}`}>
                                         <div className="profile-event-card">
@@ -141,7 +140,7 @@ const mapStateToProps = (state) => ({
     user: state.currentUser,
 });
 const mapDispatchToProps=(dispatch)=>({
-    openModal:(args)=>dispatch(openModal(args))
+    openModal:(args,data)=>dispatch(openModal(args,data))
 });
 
 export default connect(
