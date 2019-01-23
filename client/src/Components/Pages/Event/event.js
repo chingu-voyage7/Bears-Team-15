@@ -70,7 +70,6 @@ class Event extends React.Component {
                 id: EventId,
             },
         });
-        console.log(data.data.getEventById);
         // const {title} = data.data.getEventById;
         // console.log(title);
         this.handleSetData(data.data.getEventById);
@@ -80,7 +79,6 @@ class Event extends React.Component {
         this.setState({
             event,
         });
-        console.log(this.state.event.location.address);
     };
 
     tooltip = (event) => {
@@ -95,110 +93,72 @@ class Event extends React.Component {
         this.props.openModal('EVENT_EDIT', event);
     };
 
-    render() {
-        if (this.state.event.organizer) {
+    renderData = () => {
+        const event = this.props.getEventById;
+
+        // console.log('test:', event.getEventById);
+
+        if (event.loading) {
+            return <div>LOADING...</div>;
+        } else {
+            const {
+                description,
+                img,
+                location,
+                supplies,
+                title,
+            } = event.getEventById;
             return (
                 <div className="event-container">
-                    {/* <div className="event-title">
-                    
-                </div> */}
                     <img
                         className="event-banner"
                         src={image}
                         alt="event banner"
                     />
                     <div className="event-navigation">
-                        <h1>{this.state.event.title}</h1>
-                        <h1>{this.state.event.organization}</h1>
-                        <h1>{this.state.admin ? 'edit' : ''}</h1>
+                        <h1>{title}</h1>
+                        {/* <h1>{organization}</h1> */}
+                        <h1>
+                            {this.state.admin ? (
+                                <button
+                                    onClick={() =>
+                                        this.handleEditClick(this.props.EventId)
+                                    }>
+                                    EDIT
+                                </button>
+                            ) : (
+                                ''
+                            )}
+                        </h1>
                     </div>
                     <div className="profile-rule" />
                     <div className="event-content">
                         <div className="event-content-middle">
                             <h2>Location</h2>
                             <p>
-                                {this.state.event.location.address +
-                                    this.state.event.location.city +
-                                    this.state.event.location.state}
+                                {location.address +
+                                    location.city +
+                                    location.state}
                             </p>
                             <h2>Event Details</h2>
-                            <p>{this.state.event.eventDetails}</p>
+                            <p>{description}</p>
                             <h2>
                                 Supplies <img src={checked} alt="checkmark" />{' '}
                                 fulfilled{' '}
                                 <img src={exclamation} alt="exclamation mark" />{' '}
                                 needs supplies
                             </h2>
-                            <button
-                                onClick={() =>
-                                    this.handleEditClick(this.props.EventId)
-                                }>
-                                EDIT
-                            </button>
-                            {/* <ul className="event-supply-list">
-                            {this.state.event.supplies.map((supply, i) => {
-                                const total = supply.volunteers.reduce(
-                                    (total, nextVal) => {
-                                        return total.qty + nextVal.qty;
-                                    }
-                                );
-                                return (
-                                    <li
-                                        key={i}
-                                        className="event-supply-item"
-                                        onClick={() => {
-                                            this.props.openModal('supplies');
-                                        }}>
-                                        {supply.item}
-                                        <img
-                                            src={
-                                                total >= supply.quantity
-                                                    ? checked
-                                                    : exclamation
-                                            }
-                                            alt="some text"
-                                        />
-                                    </li>
-                                );
-                            })} */}
-                            {/* "toast" + usericon for user if task is picked up */}
-                            {/* </ul> */}
                             <h2>Attendees</h2>
-                            {/* <div className="event-attendees">
-                            {this.state.event.attendees.map((attendee, i) => {
-                                return (
-                                    <div key={i} className="event-attendee">
-                                        <p>{attendee.role}</p>{' '}
-                                        <img
-                                            className="event-attendee-image"
-                                            src={attendee.image}
-                                            alt={attendee.username}
-                                        />
-                                        <p>{attendee.username}</p>
-                                    </div>
-                                );
-                            })}
-                        </div> */}
                         </div>
-                        {/* <div className="event-organizor">
-                        <h1>{this.state.event.organizor.role}</h1>
-                        <img
-                            className="event-organizor-image"
-                            src={this.state.event.organizor.image}
-                            alt="organizor"
-                        />
-                        <p>{this.state.event.organizor.username}</p>
-                    </div> */}
+                        <div>google map</div>
                     </div>
-                    <div>google map</div>
                 </div>
             );
         }
-        if (!this.state.exists || !this.state.event.organizer) {
-            return <div>Page Not Found</div>;
-        } else {
-            return <div />;
-        }
+    };
+
+    render() {
+        return <div>{this.renderData()}</div>;
     }
 }
 
