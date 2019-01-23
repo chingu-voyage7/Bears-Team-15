@@ -37,27 +37,47 @@ const currUser = gql`
     }
 `;
 const getUser = gql`
-    query($id: String){
-        getUser(id: $id){
+    query($id: String) {
+        getUser(id: $id) {
             firstName
             email
-            eventsId{
+            image
+            eventsId {
                 id
                 title
-                
             }
         }
     }
 `;
 const getEventById = gql`
-    query($id: String){
-        getEventById(id: $id){
+    query($id: String) {
+        getEventById(id: $id) {
             title
-            attendees
-            organizer
+            image
+            description
+            location{
+                address,
+                city,
+                state,
+                zip,
+            }
+            organizer{
+                firstName
+                lastName
+                image
+            }
+            attendees {
+                firstName
+            }
+            supplies {
+                name
+                description
+                quantity
+            }
         }
     }
 `;
+
 const queryFilterEvents = gql`
     query($char: String) {
         filterEvent(char: $char) {
@@ -77,7 +97,32 @@ const queryFilterEvents = gql`
         }
     }
 `;
-
+const addNewEvent = gql`
+    mutation addNewEvent(
+        $organizer: ID
+        $organization: String
+        $title: String
+        $address: String
+        $city: String
+        $state: String
+        $zip: Int
+        $category: String
+    ) {
+        addNewEvent(
+            organizer: $organizer
+            organization: $organization
+            title: $title
+            location: {address: $address, city: $city, state: $state, zip: $zip}
+            category: $category
+        ) {
+            title
+            location {
+                address
+                city
+            }
+        }
+    }
+`;
 const getAllEvents = gql`
     {
         getAllEvents {
@@ -128,6 +173,7 @@ export {
     test,
     addUser,
     currUser,
+    addNewEvent,
     getAllEvents,
     getEventById,
     getUser,

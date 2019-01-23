@@ -1,17 +1,13 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers/rootReducer';
-import ApolloClient from 'apollo-boost';
 
-const ApClient = new ApolloClient({
-  uri: '/graph',
-});
+
 
 const middleWares = [thunk];
 const globalInitialState = {
   incDec: 0,
   allUsers: [],
-  client: ApClient,
 };
 
 // if (process.env.NODE_ENV !== 'production') {

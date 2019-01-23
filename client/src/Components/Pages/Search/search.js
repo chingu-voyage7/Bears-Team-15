@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {graphql, compose} from 'react-apollo';
+import {graphql, compose, withApollo} from 'react-apollo';
 
 import {
     allEvents,
@@ -25,20 +25,18 @@ class Search extends React.Component {
     };
 
     componentWillMount() {
-        const {client} = this.props.state;
         const {dispatch} = this.props;
-        dispatch(allEvents(client));
+        dispatch(allEvents(this.props.client));
         this.setState({
             isFetching: true,
         });
     }
 
     handleSubmitQuery = (e) => {
-        e.preventDefault();
-        const {client} = this.props.state;
+        e.preventDefault();    
         const {dispatch} = this.props;
         const {searchEvent} = this.state;
-        dispatch(filterEvents(client, searchEvent));
+        dispatch(filterEvents(this.props.client, searchEvent));
         this.setState({
             isFetching: true,
         });
@@ -135,4 +133,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Search);
+)(withApollo(Search));
