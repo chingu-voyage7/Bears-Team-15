@@ -1,7 +1,7 @@
 // ! imported dependencies
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withApollo,graphql, compose} from 'react-apollo';
+import {withApollo, graphql, compose} from 'react-apollo';
 
 // ! imported files
 import Input from '../Common/Input/input';
@@ -21,11 +21,10 @@ class Login extends Component {
         password: '',
     };
 
-    componentDidMount(){
-         console.log('from Props', this.props);
+    componentDidMount() {
+        console.log('from Props', this.props);
     }
     handleChange = (e) => {
-       
         const {value, name} = e.target;
         this.setState({
             [name]: value,
@@ -34,7 +33,7 @@ class Login extends Component {
 
     handleClick = () => {
         const {email, password} = this.state;
-        
+
         this.props.client
             .query({
                 query: userLogin,
@@ -44,13 +43,12 @@ class Login extends Component {
                 },
             })
             .then(({data}) => {
-                const {setCookie, getCookie} = new SetGetCookie();
+                const {setCookie, getCookie} = new SetGetCookie('tokenizer');
                 const {decodeJWT} = new JWTHelpers();
                 const {token} = data.userLogin;
                 this.props.login(token);
-                setCookie('tokenizer', token);
-
-                const hashToken = getCookie('tokenizer');
+                setCookie(token);
+                const hashToken = getCookie();
                 console.log(decodeJWT(hashToken), 'fasdfs');
             })
             .catch((error) => console.error(error));
