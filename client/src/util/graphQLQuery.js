@@ -56,13 +56,13 @@ const getEventById = gql`
             title
             image
             description
-            location{
-                address,
-                city,
-                state,
-                zip,
+            location {
+                address
+                city
+                state
+                zip
             }
-            organizer{
+            organizer {
                 firstName
                 lastName
                 image
@@ -156,21 +156,29 @@ const updateEvent = gql`
         $address: String
         $city: String
         $state: String
-        $zip: Int
-    ) # $category: String
-    {
+        $zip: Int # $category: String
+    ) {
         updateEvent(
             id: $id
             title: $title
             organization: $organization
             description: $description
-            location: {address: $address, city: $city, state: $state, zip: $zip}
-        ) # category: $category
-        {
+            location: {address: $address, city: $city, state: $state, zip: $zip} # category: $category
+        ) {
             title
             location {
                 address
                 city
+            }
+        }
+    }
+`;
+
+const deleteEvent = gql`
+    mutation($eventId: ID, $userId: ID) {
+        deleteEvent(eventId: $eventId, userId: $userId) {
+            organizer {
+                firstName
             }
         }
     }
@@ -211,4 +219,5 @@ export {
     getUser,
     queryFilterEvents,
     updateEvent,
+    deleteEvent,
 };
