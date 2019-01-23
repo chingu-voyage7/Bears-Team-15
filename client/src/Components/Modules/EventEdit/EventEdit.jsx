@@ -1,11 +1,24 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {updateEvent} from '../../../util/graphQLQuery';
 import {closeModal} from '../../../reduxes/actions/modal_actions';
-import {Link, navigate} from '@reach/router';
+import {Redirect, navigate} from '@reach/router';
+import {graphql, withApollo} from 'react-apollo';
+import {compose} from 'redux';
+import {
+    updateEvent,
+    getEventById,
+    deleteEvent,
+    getUser,
+} from '../../../util/graphQLQuery';
 
-const EventEdit = ({eventData, state, dispatch}) => {
-    console.log(eventData);
+const EventEdit = ({
+    eventData,
+    state,
+    dispatch,
+    updateThisEvent,
+    client,
+    deleteThisEvent,
+}) => {
     let form = {
         title: '',
         organization: '',
@@ -22,11 +35,10 @@ const EventEdit = ({eventData, state, dispatch}) => {
     };
 
     const handleUpdateEvent = async (event) => {
+        console.log(client.cache);
         event.preventDefault();
-        const {client} = state;
-        console.log(client);
         try {
-            const updatedEvent = await client.mutate({
+            updateThisEvent({
                 variables: {
                     id: eventData.id,
                     title: form.title,
@@ -39,20 +51,40 @@ const EventEdit = ({eventData, state, dispatch}) => {
                     // organizer: form.organizer,
                     // category: form.category,
                 },
-                mutation: updateEvent,
+                refetchQueries: [
+                    {
+                        query: getEventById,
+                        variables: {id: eventData.id},
+                    },
+                ],
             });
             dispatch(closeModal());
-            //TODO: temporary solution
-            window.location.reload();
-            console.log(updatedEvent);
         } catch (error) {
             //TODO: handle error here
         }
     };
 
     const handleDeleteEvent = (event) => {
+        const {id} = state.currentUser;
         event.preventDefault();
-        console.log(eventData.id, 'del');
+        try {
+            deleteThisEvent({
+                variables: {
+                    eventId: eventData.id,
+                    userId: id,
+                },
+                refetchQueries: [
+                    {
+                        query: getUser,
+                        variables: {id: id},
+                    },
+                ],
+            });
+            dispatch(closeModal());
+            navigate('/profile');
+        } catch (error) {
+            //TODO: handle error here
+        }
     };
 
     return (
@@ -115,7 +147,21 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch,
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EventEdit);
+// export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(EventEdit);
+
+export default compose(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    ),
+    // graphql query
+    graphql(updateEvent, {
+        name: 'updateThisEvent',
+    }),
+    graphql(deleteEvent, {
+        name: 'deleteThisEvent',
+    })
+)(withApollo(EventEdit));
