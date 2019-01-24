@@ -67,8 +67,10 @@ class App extends Component {
 
         // checker if the theres a token in the cookie
         if (hashToken === '0' || !hashToken) {
+            console.log(this.props.state.isAuth, 'fooo', hashToken);
             return;
         }
+        console.log(this.props.state.isAuth, 'fooo');
         this.props.auth(true);
         this.props.setCurrUser(jwtDecode(hashToken));
         this.props.closeModal();

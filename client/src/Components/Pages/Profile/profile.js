@@ -1,20 +1,17 @@
 import React from 'react';
 import avatar from '../../Images/CoolGuy.jpg';
 import './profile.css';
-import { Link } from '@reach/router';
-import { connect } from 'react-redux';
-import { graphql, compose } from 'react-apollo';
-import { getUser } from '../../../util/graphQLQuery'
-import { openModal } from '../../../reduxes/actions/modal_actions.js'
+import {Link} from '@reach/router';
+import {connect} from 'react-redux';
+import {graphql, compose} from 'react-apollo';
+import {getUser} from '../../../util/graphQLQuery';
+import {openModal} from '../../../reduxes/actions/modal_actions.js';
 
 class Profile extends React.Component {
-
     renderLoading = () => {
         if (this.props.getUser.loading === true) {
-            return (<div>loading</div>);
-        }
-        else {
-            console.log(this.props.getUser.getUser);
+            return <div>loading</div>;
+        } else {
             const user = this.props.getUser.getUser;
             return (
                 <div className="profile-container">
@@ -29,13 +26,31 @@ class Profile extends React.Component {
                     <div className="profile-content">
                         <div className="profile-menu">
                             <ul>
-                                <li onClick={() => this.props.openModal('EDIT_PROFILE_FORM', user)}>Edit Profile</li>
-                                <li onClick={() => this.props.openModal('NEW_EVENT_FORM', user.id)}>Create Events</li>
+                                <li
+                                    onClick={() =>
+                                        this.props.openModal(
+                                            'EDIT_PROFILE_FORM',
+                                            user
+                                        )
+                                    }>
+                                    Edit Profile
+                                </li>
+                                <li
+                                    onClick={() =>
+                                        this.props.openModal(
+                                            'NEW_EVENT_FORM',
+                                            user.id
+                                        )
+                                    }>
+                                    Create Events
+                                </li>
                                 <li>Past Events</li>
                             </ul>
                         </div>
                         <div className="profile-list">
-                            <h2 className="profile-list-title">Upcoming Events</h2>
+                            <h2 className="profile-list-title">
+                                Upcoming Events
+                            </h2>
                             <div className="profile-rule" />
                             <div className="profile-events">
                                 {user.eventsId.map((item, i) => {
@@ -57,36 +72,34 @@ class Profile extends React.Component {
                     </div>
                 </div>
             );
-
         }
-    }
+    };
 
     render() {
-
-
-        return (<div>{this.renderLoading()}</div>)
+        return <div>{this.renderLoading()}</div>;
     }
-
 }
-
 
 const mapStateToProps = (state) => ({
     user: state.currentUser,
 });
 const mapDispatchToProps = (dispatch) => ({
-    openModal: (args, data) => dispatch(openModal(args, data))
+    openModal: (args, data) => dispatch(openModal(args, data)),
 });
 
-export default compose(connect(
-    mapStateToProps,
-    mapDispatchToProps
-), graphql(getUser, {
-    name: "getUser", options: (props) => {
-        console.log("graphprops", props)
-        return {
-            variables: {
-                id: props.user.id
-            }
-        }
-    }
-}))(Profile);
+export default compose(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    ),
+    graphql(getUser, {
+        name: 'getUser',
+        options: (props) => {
+            return {
+                variables: {
+                    id: props.user.id,
+                },
+            };
+        },
+    })
+)(Profile);

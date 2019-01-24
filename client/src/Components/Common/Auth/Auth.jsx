@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import { Redirect } from '@reach/router';
+import {Redirect, navigate} from '@reach/router';
 import {compose} from 'react-apollo';
 import {connect} from 'react-redux';
 import {openModal} from '../../../reduxes/actions/modal_actions';
@@ -10,16 +10,22 @@ import SetGetCookie from '../../../util/helper.cookie';
 
 class Auth extends Component {
     checkAuthenticate = () => {
-        const {component: Component, path, isAuth} = this.props;
+        const {
+            component: Component,
+            path,
+            isAuth,
+            currentUser,
+            setCurrentUser,
+        } = this.props;
 
-        console.log(isAuth);
-        if (isAuth) {
-            const {getCookie} = new SetGetCookie('tokenizer');
+        console.log('auth.jsx', isAuth);
+        if (isAuth === true) {
+            // const {getCookie} = new SetGetCookie('tokenizer');
 
-            const hashToken = getCookie();
-            if (!this.props.currentUser.id) {
-                this.props.setCurrentUser(jwtDecode(hashToken));
-            }
+            // const hashToken = getCookie();
+            // if (!currentUser.id) {
+            //     // setCurrentUser(jwtDecode(hashToken));
+            // }
 
             return <Component path={path} />;
         } else {
@@ -31,7 +37,7 @@ class Auth extends Component {
     };
 
     render() {
-        return <>{this.checkAuthenticate()}</>;
+        return <div>{this.checkAuthenticate()}</div>;
     }
 }
 
