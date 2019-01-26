@@ -32,6 +32,7 @@ import ApolloClient from 'apollo-boost';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {HttpLink} from 'apollo-link-http';
 import {setCurrentUser} from './reduxes/actions/session_actions';
+import {navigate} from '@reach/router/lib/history';
 
 const cache = new InMemoryCache();
 
@@ -67,11 +68,12 @@ class App extends Component {
 
         // checker if the theres a token in the cookie
         if (hashToken === '0' || !hashToken) {
+            navigate('/');
             console.log(this.props.state.isAuth, 'fooo', hashToken);
             return;
         }
-        console.log(this.props.state.isAuth, 'fooo');
         this.props.auth(true);
+        console.log(this.props.state.isAuth, 'fooo');
         this.props.setCurrUser(jwtDecode(hashToken));
         this.props.closeModal();
         // decode the token and grab the ID
