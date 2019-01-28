@@ -52,17 +52,16 @@ const getUser = gql`
 const getEventById = gql`
     query($id: String) {
         getEventById(id: $id) {
-            id
             title
             image
             description
-            location {
-                address
-                city
-                state
-                zip
+            location{
+                address,
+                city,
+                state,
+                zip,
             }
-            organizer {
+            organizer{
                 firstName
                 lastName
                 image
@@ -98,7 +97,6 @@ const queryFilterEvents = gql`
         }
     }
 `;
-
 const addNewEvent = gql`
     mutation addNewEvent(
         $organizer: ID
@@ -125,7 +123,6 @@ const addNewEvent = gql`
         }
     }
 `;
-
 const getAllEvents = gql`
     {
         getAllEvents {
@@ -143,49 +140,6 @@ const getAllEvents = gql`
                 lastName
             }
             supplies
-        }
-    }
-`;
-
-const updateEvent = gql`
-    mutation addNewEvent(
-        $id: ID
-        $title: String
-        $organization: String
-        $description: String
-        $address: String
-        $city: String
-        $state: String
-        $zip: Int # $category: String
-    ) {
-        updateEvent(
-            id: $id
-            title: $title
-            organization: $organization
-            description: $description
-            location: {address: $address, city: $city, state: $state, zip: $zip} # category: $category
-        ) {
-            title
-            location {
-                address
-                city
-            }
-        }
-    }
-`;
-
-const deleteEvent = gql`
-    mutation($eventId: ID, $userId: ID) {
-        deleteEvent(eventId: $eventId, userId: $userId) {
-            id
-            firstName
-            lastName
-            email
-            password
-            passwordTwo
-            age
-            phone
-            address
         }
     }
 `;
@@ -224,6 +178,4 @@ export {
     getEventById,
     getUser,
     queryFilterEvents,
-    updateEvent,
-    deleteEvent,
 };
