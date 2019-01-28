@@ -9,8 +9,8 @@ const {
 } = require('graphql');
 
 const usersCtrl = require('../controllers/users.ctrl.js');
-const {UserType} = require('../graphql_typedef/userTypeDef.js');
-const {EventType} = require('../graphql_typedef/eventTypeDef');
+const { UserType } = require('../graphql_typedef/userTypeDef.js');
+const { EventType } = require('../graphql_typedef/eventTypeDef');
 module.exports = {
   userGetAll: {
     type: new GraphQLList(UserType),
@@ -21,21 +21,20 @@ module.exports = {
       return await usersCtrl.getUsers();
     }
   },
-  getUser:{
+  getUser: {
     type: UserType,
     args: {
-      id: {type:GraphQLString}
+      id: { type: GraphQLString },
     },
-    resolve: async (parent, args)=>{
+    resolve: async (parent, args) => {
       return await usersCtrl.getUser(args)
     }
-  }
-  ,
+  },
   userLogin: {
     type: UserType,
     args: {
-      email: {type: new GraphQLNonNull(GraphQLString)},
-      password: {type: new GraphQLNonNull(GraphQLString)}
+      email: { type: new GraphQLNonNull(GraphQLString) },
+      password: { type: new GraphQLNonNull(GraphQLString) }
     },
     resolve: (parent, args) => {
       return usersCtrl
@@ -52,15 +51,15 @@ module.exports = {
   addUser: {
     type: UserType,
     args: {
-      firstName: {type: GraphQLString},
-      lastName: {type: GraphQLString},
-      email: {type: GraphQLString},
-      password: {type: GraphQLString},
-      passwordTwo: {type: GraphQLString},
-      age: {type: GraphQLInt},
-      phone: {type: GraphQLInt},
-      address: {type: GraphQLString},
-      image: {type: GraphQLString}
+      firstName: { type: GraphQLString },
+      lastName: { type: GraphQLString },
+      email: { type: GraphQLString },
+      password: { type: GraphQLString },
+      passwordTwo: { type: GraphQLString },
+      age: { type: GraphQLInt },
+      phone: { type: GraphQLString },
+      address: { type: GraphQLString },
+      image: { type: GraphQLString }
     },
     resolve: (parent, args) => {
       const newUser = {
@@ -84,20 +83,20 @@ module.exports = {
         });
     }
   },
-  updateUser:{
+  updateUser: {
     type: UserType,
-    args:{
-      id: {type: GraphQLString},
-      firstName: {type: GraphQLString},
-      image: {type: GraphQLString},
-      username: {type: GraphQLString},
-      lastName: {type: GraphQLString},
-      email: {type: GraphQLString},
-      age: {type: GraphQLInt},
-      phone: {type: GraphQLInt},
+    args: {
+      id: { type: GraphQLString },
+      firstName: { type: GraphQLString },
+      image: { type: GraphQLString },
+      username: { type: GraphQLString },
+      lastName: { type: GraphQLString },
+      email: { type: GraphQLString },
+      age: { type: GraphQLInt },
+      phone: { type: GraphQLString },
     },
-    resolve(parent,args){
-
+    resolve(parent, args) {
+     
       return usersCtrl.updateUser(args);
     }
   }
@@ -105,7 +104,7 @@ module.exports = {
   currentUser: {
     type: UserType,
     args: {
-      id: {type: GraphQLString}
+      id: { type: GraphQLString }
     },
     resolve: async (parent, args) => {
       return await usersCtrl.getCurrentUser(args);

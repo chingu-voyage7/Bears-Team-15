@@ -27,7 +27,7 @@ module.exports = {
             age: {type: GraphQLInt},
             token: {type: GraphQLString},
             image: {type: GraphQLString},
-            phone: {type: GraphQLInt},
+            phone: {type: GraphQLString},
             address: {type: GraphQLString},
             eventsId: {
                 type: new GraphQLList(require('./eventTypeDef').EventType),
