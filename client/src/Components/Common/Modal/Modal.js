@@ -9,7 +9,6 @@ import SuppliesForm from '../../Modules/Forms/SuppliesForm';
 import EventEdit from '../../Modules/EventEdit/EventEdit';
 import EventForm from '../../Modules/Forms/EventForm.js';
 import ProfileForm from '../../Modules/Forms/ProfileForm.js';
-import {navigate} from '@reach/router';
 function Modal({modal, closeModal, data}) {
     if (!modal) {
         return null;
@@ -19,7 +18,7 @@ function Modal({modal, closeModal, data}) {
     let component;
     switch (modal) {
         case 'EDIT_PROFILE_FORM':
-            component = <ProfileForm />;
+            component=<ProfileForm />;
             break;
         case 'NEW_EVENT_FORM':
             component = <EventForm />;
