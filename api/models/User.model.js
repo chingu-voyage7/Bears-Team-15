@@ -12,6 +12,9 @@ const UserSchema = new Schema({
     type: String,
     required: [true, 'Last name cannot be blank']
   },
+  username:{
+    type: String
+  },
   email: {
     type: String,
     required: [true, 'Email cannot be blank']
@@ -24,6 +27,9 @@ const UserSchema = new Schema({
     type: Number
   },
   image: {
+    type: String
+  },
+  avatar: {
     type: String
   },
   phone: {

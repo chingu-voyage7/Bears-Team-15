@@ -59,7 +59,8 @@ module.exports = {
       passwordTwo: {type: GraphQLString},
       age: {type: GraphQLInt},
       phone: {type: GraphQLInt},
-      address: {type: GraphQLString}
+      address: {type: GraphQLString},
+      image: {type: GraphQLString}
     },
     resolve: (parent, args) => {
       const newUser = {
@@ -70,7 +71,8 @@ module.exports = {
         passwordTwo: args.passwordTwo,
         age: args.age,
         phone: args.phone,
-        address: args.address
+        address: args.address,
+        image: args.image
       };
       return usersCtrl
         .registerUser(newUser)
@@ -82,6 +84,24 @@ module.exports = {
         });
     }
   },
+  updateUser:{
+    type: UserType,
+    args:{
+      id: {type: GraphQLString},
+      firstName: {type: GraphQLString},
+      image: {type: GraphQLString},
+      username: {type: GraphQLString},
+      lastName: {type: GraphQLString},
+      email: {type: GraphQLString},
+      age: {type: GraphQLInt},
+      phone: {type: GraphQLInt},
+    },
+    resolve(parent,args){
+
+      return usersCtrl.updateUser(args);
+    }
+  }
+  ,
   currentUser: {
     type: UserType,
     args: {

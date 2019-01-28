@@ -139,6 +139,7 @@ const mapDispatchToProps = (dispatch) => ({
     auth: (args) => dispatch(auth(args)),
     closeModal: () => dispatch(closeModal()),
     setCurrUser: (args) => dispatch(setCurrentUser(args)),
+    
 });
 
 export default connect(

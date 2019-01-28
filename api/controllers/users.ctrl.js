@@ -18,6 +18,13 @@ module.exports = {
   getUser: async (data) => {
     return await User.findById(data.id).populate("eventsId");
   },
+  updateUser: async (data)=>{
+    const {id,...myUpdate}= data;
+    console.log(id,myUpdate);
+    return await User.findByIdAndUpdate(id,myUpdate,(user)=>{
+      return(user);
+    });
+  },
   // Sign up a new user
   registerUser: async (dataNewUser, res) => {
     const { errors, isValid } = validateRegisterInput(dataNewUser);
