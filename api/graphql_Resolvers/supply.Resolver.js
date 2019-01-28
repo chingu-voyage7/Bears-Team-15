@@ -27,7 +27,7 @@ module.exports = {
             description: {type: GraphQLString},
             quantity: {type: GraphQLInt},
             fulfilled: {type: GraphQLInt},
-            OwnerId: {
+            ownerId: {
                 // type: new GraphQLList(UserType),
                 type: GraphQLID,
             },
