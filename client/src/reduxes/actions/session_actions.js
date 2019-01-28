@@ -1,11 +1,8 @@
 import jwtDecode from 'jwt-decode';
 import SetGetCookie from '../../util/helper.cookie';
 
-const {
-  setCookie,
-  deleteCookie,
-  getCookie
-} = new SetGetCookie('tokenizer');
+
+const {setCookie, deleteCookie} = new SetGetCookie('tokenizer');
 
 // export const login = (args) => {
 //   return {
@@ -21,10 +18,16 @@ const {
 //   };
 // };
 
-export const login = (args) => dispatch => {
-  setCookie(args)
-  const user = jwtDecode(args);
-  dispatch(setCurrentUser(user));
+
+/**
+ * this function receives a type string of TOKEN
+ * then it will call dispatch to set the current user
+ * @param {STRING} args
+ */
+export const login = (args) => (dispatch) => {
+    setCookie(args);
+    const user = jwtDecode(args);
+    dispatch(setCurrentUser(user));
 };
 
 export const signup = (args) => dispatch => {
@@ -33,10 +36,9 @@ export const signup = (args) => dispatch => {
   dispatch(setCurrentUser(user));
 };
 
-export const logout = () => dispatch => {
-  deleteCookie('tokenizer');
-  // const user = {};
-  dispatch(setCurrentUser({}));
+export const logout = () => (dispatch) => {
+    deleteCookie();
+    dispatch(setCurrentUser({}));
 };
 
 export const setCurrentUser = (user) => {
