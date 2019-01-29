@@ -75,13 +75,38 @@ module.exports = {
         },
     },
     deleteEvent: {
-        type: new GraphQLList(EventType),
+        type: UserType,
         args: {
             eventId: {type: GraphQLID},
             userId: {type: GraphQLID},
         },
         resolve: async (parent, args) => {
             return await eventCtrl.deleteEvent(args);
+        },
+    },
+    updateEvent: {
+        type: EventType,
+        args: {
+            id: {type: GraphQLID},
+            title: {type: GraphQLString},
+            organization: {type: GraphQLString},
+            description: {type: GraphQLString},
+            date: {type: GraphQLInt},
+            location: {
+                type: new GraphQLInputObjectType({
+                    name: 'updateLocation',
+                    fields: () => ({
+                        address: {type: GraphQLString},
+                        city: {type: GraphQLString},
+                        state: {type: GraphQLString},
+                        zip: {type: GraphQLInt},
+                        country: {type: GraphQLString},
+                    }),
+                }),
+            },
+        },
+        resolve: async (parent, args) => {
+            return await eventCtrl.updateEvent(args);
         },
     },
 };
