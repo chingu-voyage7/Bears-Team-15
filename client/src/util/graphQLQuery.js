@@ -144,6 +144,51 @@ const getAllEvents = gql`
     }
 `;
 
+
+const updateEvent = gql`
+    mutation addNewEvent(
+        $id: ID
+        $title: String
+        $organization: String
+        $description: String
+        $address: String
+        $city: String
+        $state: String
+        $zip: Int # $category: String
+    ) {
+        updateEvent(
+            id: $id
+            title: $title
+            organization: $organization
+            description: $description
+            location: {address: $address, city: $city, state: $state, zip: $zip} # category: $category
+        ) {
+            title
+            location {
+                address
+                city
+            }
+        }
+    }
+`;
+
+const deleteEvent = gql`
+    mutation($eventId: ID, $userId: ID) {
+        deleteEvent(eventId: $eventId, userId: $userId) {
+            id
+            # firstName
+            # lastName
+            # email
+            # password
+            # passwordTwo
+            # age
+            # phone
+            # address
+        }
+    }
+`;
+
+
 const addUser = gql`
     mutation(
         $firstName: String = ""
@@ -178,4 +223,6 @@ export {
     getEventById,
     getUser,
     queryFilterEvents,
+    updateEvent,
+    deleteEvent
 };

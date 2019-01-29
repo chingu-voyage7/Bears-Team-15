@@ -51,6 +51,7 @@ module.exports = {
         }
     },
     deleteEvent: async (data) => {
+        console.log(data);
         try {
             const user = await User.findById(data.userId).populate('eventsId');
             await user.eventsId.remove(data.eventId);
