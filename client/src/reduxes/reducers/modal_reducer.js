@@ -1,9 +1,5 @@
 import {OPEN_MODAL, CLOSE_MODAL} from '../actions/modal_actions';
 
-// const inState = {
-//   modal: true
-// };
-
 export default function modalReducer(state = {}, action) {
     switch (action.type) {
         case OPEN_MODAL:

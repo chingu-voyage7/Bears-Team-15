@@ -51,29 +51,15 @@ module.exports = {
         }
     },
     deleteEvent: async (data) => {
+        console.log(data);
         try {
-            const user = await User.findById(data.userId);
+            const user = await User.findById(data.userId).populate('eventsId');
             await user.eventsId.remove(data.eventId);
             await Event.deleteOne({_id: data.eventId});
-            return await user.save();
-        } catch (error) {
-            return error;
-        }
-    },
-    updateEvent: async (data) => {
-        const {title, organization, description, location, date} = data;
-        try {
-            const event = await Event.findById(data.id);
-            event.location.address = location.address;
-            event.location.city = location.city;
-            event.location.state = location.state;
-            event.location.zip = location.zip;
-            event.set({
-                title,
-                organization,
-                description,
-            });
-            event.save();
+            const test = await user.save();
+            const event = await Event.findById(data.eventId);
+            console.log(event);
+            return await [user];
         } catch (error) {
             return error;
         }

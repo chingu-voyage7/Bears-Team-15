@@ -52,17 +52,16 @@ const getUser = gql`
 const getEventById = gql`
     query($id: String) {
         getEventById(id: $id) {
-            id
             title
             image
             description
-            location {
-                address
-                city
-                state
-                zip
+            location{
+                address,
+                city,
+                state,
+                zip,
             }
-            organizer {
+            organizer{
                 firstName
                 lastName
                 image
@@ -98,7 +97,6 @@ const queryFilterEvents = gql`
         }
     }
 `;
-
 const addNewEvent = gql`
     mutation addNewEvent(
         $organizer: ID
@@ -125,7 +123,6 @@ const addNewEvent = gql`
         }
     }
 `;
-
 const getAllEvents = gql`
     {
         getAllEvents {
@@ -146,6 +143,7 @@ const getAllEvents = gql`
         }
     }
 `;
+
 
 const updateEvent = gql`
     mutation addNewEvent(
@@ -182,6 +180,7 @@ const deleteEvent = gql`
     }
 `;
 
+
 const addUser = gql`
     mutation(
         $firstName: String = ""
@@ -217,5 +216,5 @@ export {
     getUser,
     queryFilterEvents,
     updateEvent,
-    deleteEvent,
+    deleteEvent
 };

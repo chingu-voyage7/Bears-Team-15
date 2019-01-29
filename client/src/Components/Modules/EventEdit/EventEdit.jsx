@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+
 import {closeModal} from '../../../reduxes/actions/modal_actions';
 import {Redirect, navigate} from '@reach/router';
 import {graphql, withApollo} from 'react-apollo';
@@ -61,6 +62,7 @@ const EventEdit = ({
             dispatch(closeModal());
         } catch (error) {
             //TODO: handle error here
+            console.log(error);
         }
     };
 
@@ -83,61 +85,11 @@ const EventEdit = ({
             dispatch(closeModal());
             navigate('/profile');
         } catch (error) {
+            console.log(error);
             //TODO: handle error here
         }
     };
 
-    return (
-        <div className="modal-form">
-            <form className="modal-event" onSubmit={handleUpdateEvent}>
-                <h2>New Event</h2>
-                <div className="modal-event-field">
-                    <label>Title</label>
-                    <input name="title" onChange={onChange} required />
-                </div>
-                <div className="modal-event-field">
-                    <label>Organization(optional)</label>
-                    <input name="organization" onChange={onChange} />
-                </div>
-                <div className="modal-event-field">
-                    <label>Description</label>
-                    <input name="description" onChange={onChange} required />
-                </div>
-                <div className="modal-event-field">
-                    <label>Address</label>
-                    <input name="address" onChange={onChange} required />
-                </div>
-                <div className="modal-event-field">
-                    <label>City</label>
-                    <input name="city" onChange={onChange} required />
-                </div>
-                <div className="modal-event-field">
-                    <label>State</label>
-                    <input name="state" onChange={onChange} required />
-                </div>
-                <div className="modal-event-field">
-                    <label>Zip</label>
-                    <input name="zip" onChange={onChange} required />
-                </div>
-                {/* <div className="modal-event-field">
-                    <label>Date</label>
-                    <input
-                        type="date"
-                        name="date"
-                        onChange={onChange}
-                        required
-                    />
-                </div> */}
-                {/* <div className="modal-event-field">
-                    <label>Category</label>
-                    <input name="category" onChange={onChange} required />
-                </div> */}
-                <button>Update</button>
-                <button onClick={handleDeleteEvent}>Delete Event</button>
-            </form>
-        </div>
-    );
-};
 
 const mapStateToProps = (state) => ({
     state,
@@ -147,21 +99,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch,
 });
 
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(EventEdit);
-
-export default compose(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    ),
-    // graphql query
-    graphql(updateEvent, {
-        name: 'updateThisEvent',
-    }),
-    graphql(deleteEvent, {
-        name: 'deleteThisEvent',
-    })
-)(withApollo(EventEdit));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(EventEdit);
