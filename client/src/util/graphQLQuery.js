@@ -178,14 +178,6 @@ const deleteEvent = gql`
     mutation($eventId: ID, $userId: ID) {
         deleteEvent(eventId: $eventId, userId: $userId) {
             id
-            # firstName
-            # lastName
-            # email
-            # password
-            # passwordTwo
-            # age
-            # phone
-            # address
         }
     }
 `;
