@@ -1,21 +1,25 @@
 class SetGetCookie {
-    constructor(keyName) {
-        this.keyName = keyName;
+    constructor(tokenName) {
+        this.tokenName = tokenName;
     }
 
-    setCookie = (value) => {
+    /**
+     * ! function sets the token with the given token name
+     * @param token
+     */
+    setCookie = (token) => {
         // const { day, date, month, year, hours } = this.date;
         // console.log(`expires = ${day}, ${date} ${month} ${year} ${hours}:00:00 UTC`);
         // this shit doesnt work! so i used max-age
         //Expires=${day}, ${date} ${month} ${year} ${hours}:00:00 GMT
         // by default max age is set to four hours
-        document.cookie = `${this.keyName}=${value}; Max-Age=14400000`;
+        document.cookie = `${this.tokenName}=Bearer ${token}; Max-Age=14400000`;
     };
 
     /**
      * ! this function expects a string value of
      * ! token name
-     * @param tokenName
+     * @returns jwtToken
      */
     getCookie = () => {
         // splits the cookies to an array
@@ -26,14 +30,16 @@ class SetGetCookie {
             .join('')
             .split('=');
         // gets the index of the keyName of the cookie
-        const getIndexOfKeyName = cookieSplitArr.indexOf(this.keyName);
-        // assumes that developer follows the BEARER SCHEMA then add 2 from the index of keyName
+        const getIndexOfKeyName = cookieSplitArr.indexOf(this.tokenName);
+        // assumes that developer follows the  SCHEMA then add 2 from the index of keyName
         return cookieSplitArr[getIndexOfKeyName + 2];
     };
 
-    // TODO: finish this method will delete a cookie
-    deleteCookie = (key) => {
-        document.cookie = `${key}=; Max-Age=0`;
+    /**
+     * this functions deletes the token by setting the max-Age to zero
+     */
+    deleteCookie = () => {
+        document.cookie = `${this.tokenName}=; Max-Age=0`;
     };
 }
 
