@@ -6,6 +6,7 @@ import {openModal} from '../reduxes/actions/modal_actions';
 
 const {getCookie} = new SetGetCookie('tokenizer');
 
+//! delete this comment
 /**
  * this function should check if the user is authenticated.
  * @param {BOOLEAN} bool
