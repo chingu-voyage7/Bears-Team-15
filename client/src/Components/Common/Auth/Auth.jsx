@@ -27,7 +27,6 @@ class Auth extends Component {
         if (isAuth === true) {
             return <Component path={path} />;
         } else {
-            // this.props.openModal('LOGIN');
             navigate('/');
         }
     };
