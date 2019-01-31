@@ -93,21 +93,53 @@ class Event extends React.Component {
         this.props.openModal('EVENT_EDIT', event);
     };
 
+    /**
+     * handles a user who wants to attend the event
+     * TODO: implement this in action. just pass the client query
+     * TODO: like what you did on search
+     */
+    handleAttendEvent = () => {};
+
+    /**
+     * this function renders a button if its a creator or attendee
+     * @param {STRING} eventOwnerId get this from the event data
+     */
+    renderIfEditOrAttendBtn = (eventOwnerId) => {
+        const {id} = this.props.currentUser;
+
+        console.log(this.props);
+
+        if (id === eventOwnerId) {
+            return (
+                <button
+                    onClick={() => this.handleEditClick(this.props.EventId)}>
+                    EDIT
+                </button>
+            );
+        } else {
+            return (
+                <button onClick={() => this.handleAttendEvent(id)}>
+                    ATTEND
+                </button>
+            );
+        }
+    };
+
     renderData = () => {
         const event = this.props.getEventById;
-
-        // console.log('test:', event.getEventById);
 
         if (event.loading) {
             return <div>LOADING...</div>;
         } else {
             const {
+                organizer,
                 description,
                 img,
                 location,
                 supplies,
                 title,
             } = event.getEventById;
+
             return (
                 <div className="event-container">
                     <img
@@ -119,7 +151,7 @@ class Event extends React.Component {
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}
                         <h1>
-                            {this.state.admin ? (
+                            {/* {this.state.admin ? (
                                 <button
                                     onClick={() =>
                                         this.handleEditClick(this.props.EventId)
@@ -128,7 +160,9 @@ class Event extends React.Component {
                                 </button>
                             ) : (
                                 ''
-                            )}
+                            )} */
+                            //TODO:
+                            this.renderIfEditOrAttendBtn(organizer.id)}
                         </h1>
                     </div>
                     <div className="profile-rule" />
@@ -141,7 +175,7 @@ class Event extends React.Component {
                                     location.state}
                             </p>
                             <h2>Event Details</h2>
-                            <p>{description}</p>
+                            {/* <p>{description}</p> */}
                             <h2>
                                 Supplies <img src={checked} alt="checkmark" />{' '}
                                 fulfilled{' '}
