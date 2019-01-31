@@ -63,6 +63,7 @@ const getEventById = gql`
                 zip
             }
             organizer {
+                id
                 firstName
                 lastName
                 image
@@ -134,15 +135,28 @@ const getAllEvents = gql`
             date
             image
             description
-            location
+            location {
+                address
+                city
+                state
+                country
+                zip
+            }
             organizer {
                 id
                 firstName
             }
+            supplies {
+                id
+                name
+                description
+                quantity
+                OwnerId
+            }
             attendees {
                 lastName
             }
-            supplies
+            # supplies
         }
     }
 `;
