@@ -9,10 +9,12 @@ import { openModal } from '../../../reduxes/actions/modal_actions.js';
 
 class Profile extends React.Component {
     renderLoading = () => {
+        // console.log(this.props.user, 'user');
         if (this.props.getUser.loading === true) {
             return <div>loading</div>;
         } else {
             const user = this.props.getUser.getUser;
+            console.log(user, 'USEEEEERRSSS');
             return (
                 <div className="profile-container">
                     <div className="profile-user">
@@ -21,6 +23,7 @@ class Profile extends React.Component {
                             className="profile-avatar"
                             src={user.image}
                             alt={'avatar ' + user.firstName}
+
                         />
                     </div>
                     <div className="profile-content">

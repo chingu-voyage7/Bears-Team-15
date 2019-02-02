@@ -75,7 +75,7 @@ module.exports = {
         },
     },
     deleteEvent: {
-        type: new GraphQLList(EventType),
+        type: UserType,
         args: {
             eventId: {type: GraphQLID},
             userId: {type: GraphQLID},

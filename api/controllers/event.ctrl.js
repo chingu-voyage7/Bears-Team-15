@@ -52,13 +52,10 @@ module.exports = {
     },
     deleteEvent: async (data) => {
         try {
-            const user = await User.findById(data.userId).populate('eventsId');
+            const user = await User.findById(data.userId);
             await user.eventsId.remove(data.eventId);
             await Event.deleteOne({_id: data.eventId});
-            const test = await user.save();
-            const event = await Event.findById(data.eventId);
-            console.log(event);
-            return await [user];
+            return await user.save();
         } catch (error) {
             return error;
         }

@@ -32,6 +32,8 @@ import ApolloClient from 'apollo-boost';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {HttpLink} from 'apollo-link-http';
 import {setCurrentUser} from './reduxes/actions/session_actions';
+import {navigate} from '@reach/router/lib/history';
+import {checkIfAuth} from './util/authChecker.js';
 
 const cache = new InMemoryCache();
 
@@ -42,70 +44,13 @@ const client = new ApolloClient({
 });
 // ! query
 
-const {getCookie} = new SetGetCookie('tokenizer');
-
 class App extends Component {
-    // constructor(props) {
-    //   super(props);
-    //   this.state = {
-    //     client: {},
-    //   }
-    // }
-
+    // ! this hook check if user is authenticated
     componentWillMount() {
-        // this.setState({
-        //   client: this.props.store.getState().client
-        // })
+        // checkIfAuth fn will be called before mounting
+        // pass boolean if to check that we are on the home page
+        this.props.checkIfAuth(true);
     }
-
-    componentDidMount() {
-        // TODO: make a condition that checks the token.
-        // ! if token returns true then query, if not then let user login
-        // const { client } = this.props.state;
-        // takes hashtoken from cookie
-        const hashToken = getCookie();
-
-        // checker if the theres a token in the cookie
-        if (hashToken === '0' || !hashToken) {
-            console.log(this.props.state.isAuth, 'fooo', hashToken);
-            return;
-        }
-        console.log(this.props.state.isAuth, 'fooo');
-        this.props.auth(true);
-        this.props.setCurrUser(jwtDecode(hashToken));
-        this.props.closeModal();
-        // decode the token and grab the ID
-        // const { id } = jwtDecode(hashToken)
-        // // query the user, takes id as a variables
-        // const userWhoIsLoggedIn = await client.query({
-        //   query: currUser,
-        //   variables: {
-        //     id: id,
-        //   }
-        // });
-
-        // const { email, isSuccess } = userWhoIsLoggedIn.data.currentUser;
-        // pass the email and isSuccess as an argument
-        // this.handleUserCheckIfLoggedI(email, isSuccess);
-    }
-
-    /**
-  //  * takes an string and bool
-  //  * @param {STRING} email
-  //  * @param {BOOL} stat
-  //  */
-    // handleUserCheckIfLoggedI = (email, stat) => {
-    //   const { closeModal, auth } = this.props;
-    //   if (email && stat) {
-    //     auth(true)
-    //     closeModal();
-    //     console.log('success');
-    //   } else {
-    //     console.log('denied');
-    //     auth(false);
-    //     // TODO: call open modal here
-    //   }
-    // }
 
     render() {
         return (
@@ -139,7 +84,8 @@ const mapDispatchToProps = (dispatch) => ({
     auth: (args) => dispatch(auth(args)),
     closeModal: () => dispatch(closeModal()),
     setCurrUser: (args) => dispatch(setCurrentUser(args)),
-    
+    checkIfAuth: (args) => dispatch(checkIfAuth(args)),
+
 });
 
 export default connect(
