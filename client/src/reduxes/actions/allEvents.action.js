@@ -29,15 +29,15 @@ export const allEvents = (client) => async (dispatch) => {
             isQueryEventSuccess: true,
         };
         // !! testing rendering loading to be removed!
-        setTimeout(function() {
-            dispatch(receiveAllEvents(allEvents));
-        }, 5000);
+        // setTimeout(function() {
+        dispatch(receiveAllEvents(allEvents));
+        // }, 5000);
     } catch (error) {
         dataEvents.events = null;
         dataEvents.isQueryEventSuccess = false;
-        setTimeout(function() {
-            dispatch(receiveAllEvents(dataEvents));
-        }, 5000);
+        // setTimeout(function() {
+        dispatch(receiveAllEvents(dataEvents));
+        // }, 5000);
     }
 };
 export const filterEvents = (client, char) => async (dispatch) => {
