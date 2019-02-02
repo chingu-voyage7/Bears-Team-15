@@ -16,7 +16,6 @@ module.exports = {
         }
     },
 
-    // TODO: when adding a new event put the event ID to a user
     addEvent: async (data) => {
         try {
             const user = await User.findById(data.organizer);
@@ -77,5 +76,25 @@ module.exports = {
         } catch (error) {
             return error;
         }
+    },
+    /**
+     * this method will add a attending user to the event
+     * @param {OBJECT} data
+     * @return {OBJECT} user
+     */
+    attendEvent: async (data) => {
+        const {eventId, attendeeId} = data;
+        // console.log(eventId, attendeeId);
+
+        const event = await Event.findById(eventId);
+        event.attendees.push(attendeeId);
+        event.save();
+
+        // ! mike heres the code to add the event into the user who attend the event
+        const user = await User.findById(attendeeId);
+        user.eventsId.push(eventId);
+        user.save();
+
+        return user;
     },
 };
