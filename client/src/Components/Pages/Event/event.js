@@ -7,7 +7,7 @@ import exclamation from '../../Icons/ExclamationCircle.svg';
 import cat from '../../Images/cat.jpg';
 import {connect} from 'react-redux';
 import {openModal} from '../../../reduxes/actions/modal_actions.js';
-import {getEventById} from '../../../util/graphQLQuery';
+import {getEventById, attendEvent, getUser} from '../../../util/graphQLQuery';
 import {withApollo, graphql, compose} from 'react-apollo';
 class Event extends React.Component {
     constructor(props) {
@@ -95,30 +95,46 @@ class Event extends React.Component {
 
     /**
      * handles a user who wants to attend the event
+     * @param {ID} eventId event ID that is currently being viewed
+     * @param {ID} attendeeId user attendee ID currently login user
      * TODO: implement this in action. just pass the client query
      * TODO: like what you did on search
      */
-    handleAttendEvent = () => {};
+    handleAttendEvent = (eventId, attendeeId) => {
+        const {attendEvent} = this.props;
+        attendEvent({
+            variables: {
+                eventId,
+                attendeeId,
+            },
+            refetchQueries: [
+                {
+                    query: getUser,
+                    variables: {id: attendeeId},
+                },
+            ],
+        });
+    };
 
     /**
      * this function renders a button if its a creator or attendee
      * @param {STRING} eventOwnerId get this from the event data
      */
     renderIfEditOrAttendBtn = (eventOwnerId) => {
+        // this user id is current login user
         const {id} = this.props.currentUser;
-
-        console.log(this.props);
+        // event ID
+        const {EventId} = this.props;
 
         if (id === eventOwnerId) {
             return (
-                <button
-                    onClick={() => this.handleEditClick(this.props.EventId)}>
+                <button onClick={() => this.handleEditClick(EventId)}>
                     EDIT
                 </button>
             );
         } else {
             return (
-                <button onClick={() => this.handleAttendEvent(id)}>
+                <button onClick={() => this.handleAttendEvent(EventId, id)}>
                     ATTEND
                 </button>
             );
@@ -219,5 +235,8 @@ export default compose(
                 },
             };
         },
+    }),
+    graphql(attendEvent, {
+        name: 'attendEvent',
     })
 )(withApollo(Event));
