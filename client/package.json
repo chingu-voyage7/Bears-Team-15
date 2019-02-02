@@ -9,6 +9,7 @@
     "jwt-decode": "^2.2.0",
     "react": "^16.6.3",
     "react-apollo": "^2.3.2",
+    "react-calendar": "^2.18.1",
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
     "react-scripts": "^2.1.3",

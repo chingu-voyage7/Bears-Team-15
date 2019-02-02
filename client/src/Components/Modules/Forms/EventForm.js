@@ -6,6 +6,7 @@ import { closeModal } from "../../../reduxes/actions/modal_actions";
 import { graphql, compose } from 'react-apollo';
 import { getUser } from '../../../util/graphQLQuery';
 import { withApollo } from 'react-apollo'
+import Calendar from 'react-calendar';
 const EventForm = ({ event, client, currentUser, closeModal }) => {
     let form = {
         title: '',
@@ -16,7 +17,8 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
         city: '',
         state: '',
         zip: '',
-        category: ''
+        category: '',
+        date: new Date(),
     }
 
     const onChange = (event) => {
@@ -26,6 +28,7 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
 
     }
     const onSubmit = (event) => {
+        console.log('submit form date:',form.date);
         event.preventDefault();
         closeModal();
         client.mutate({
@@ -38,7 +41,8 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
                 city: form.city,
                 state: form.state,
                 zip: parseInt(form.zip),
-                category: form.category
+                category: form.category,
+                date: form.date
             },
             refetchQueries: [{
                 query: getUser,
@@ -59,7 +63,12 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
             <div className="modal-event-field"><label>Zip</label><input name="zip" onChange={onChange} required /></div>
             {/* <div className="modal-event-field"><label>Time</label><input name="time" onChange={onChange} required /></div> */}
             <div className="modal-event-field"><label>Category</label><input name="category" onChange={onChange} required /></div>
+            <div className></div>
+
+
             {/*public or private needs field */}
+
+            <div><Calendar onChange={(value)=>{form.date=value; console.log(form.date)}} value= {form.date}/></div>
             <button>Submit</button>
         </form>
     </div>);

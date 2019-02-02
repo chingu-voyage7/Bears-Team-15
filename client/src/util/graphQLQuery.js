@@ -100,6 +100,7 @@ const queryFilterEvents = gql`
 `;
 
 const addNewEvent = gql`
+
     mutation addNewEvent(
         $organizer: ID
         $organization: String
@@ -109,6 +110,7 @@ const addNewEvent = gql`
         $state: String
         $zip: Int
         $category: String
+        $date: date
     ) {
         addNewEvent(
             organizer: $organizer
@@ -116,12 +118,14 @@ const addNewEvent = gql`
             title: $title
             location: {address: $address, city: $city, state: $state, zip: $zip}
             category: $category
+            date: $date
         ) {
             title
             location {
                 address
                 city
             }
+            date
         }
     }
 `;
