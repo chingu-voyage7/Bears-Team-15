@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {graphql, compose, withApollo} from 'react-apollo';
+// graphql, compose,
+import {withApollo} from 'react-apollo';
 
 import {
     allEvents,
@@ -68,8 +69,8 @@ class Search extends React.Component {
             return (
                 <div className="search__results">
                     {events.map((event, i) => (
-                        <Link to={`/event/${event.id}`}>
-                            <div key={event.id} className="search-container">
+                        <Link key={event.id} to={`/event/${event.id}`}>
+                            <div className="search-container">
                                 <div className="search-event">
                                     <h1>{event.title}</h1>
                                     <p>{event.description}</p>
