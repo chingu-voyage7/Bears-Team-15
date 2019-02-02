@@ -107,7 +107,13 @@ class Event extends React.Component {
                 location,
                 supplies,
                 title,
+                date
             } = event.getEventById;
+            console.log(event.getEventById);
+            const parseDate=new Date(parseInt(date));
+            const time=parseDate.toLocaleTimeString();
+
+            const dateString = parseDate.toDateString();
             return (
                 <div className="event-container">
                     <img
@@ -136,10 +142,14 @@ class Event extends React.Component {
                         <div className="event-content-middle">
                             <h2>Location</h2>
                             <p>
-                                {location.address +
-                                    location.city +
+                                {location.address + ' '+
+                                    location.city + ' '+
                                     location.state}
                             </p>
+                            <h2>Date</h2>
+                            <p>{dateString}</p>
+                            <h2>Time</h2>
+                            <p>{time}</p>
                             <h2>Event Details</h2>
                             <p>{description}</p>
                             <h2>

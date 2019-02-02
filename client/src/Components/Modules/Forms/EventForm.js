@@ -18,17 +18,22 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
         state: '',
         zip: '',
         category: '',
+        time: '',
         date: new Date(),
     }
 
     const onChange = (event) => {
         console.log('name', event.target.name);
         console.log('input', event.target.value);
+        
         form[event.target.name] = event.target.value;
-
+       
     }
     const onSubmit = (event) => {
         console.log('submit form date:',form.date);
+        let time= form.time.split(':');
+        form.date.setHours(time[0],time[1]);
+        console.log('form with hours: ',form);
         event.preventDefault();
         closeModal();
         client.mutate({
@@ -36,6 +41,7 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
             variables: {
                 organizer: form.organizer,
                 organization: form.organization,
+                description: form.description,
                 title: form.title,
                 address: form.address,
                 city: form.city,
@@ -63,7 +69,8 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
             <div className="modal-event-field"><label>Zip</label><input name="zip" onChange={onChange} required /></div>
             {/* <div className="modal-event-field"><label>Time</label><input name="time" onChange={onChange} required /></div> */}
             <div className="modal-event-field"><label>Category</label><input name="category" onChange={onChange} required /></div>
-            <div className></div>
+            <div className="modal-event-field"><label>Time</label><input name="time" type="time" onChange={onChange} required /></div>
+            
 
 
             {/*public or private needs field */}

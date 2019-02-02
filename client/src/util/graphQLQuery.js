@@ -56,6 +56,7 @@ const getEventById = gql`
             title
             image
             description
+            date
             location {
                 address
                 city
@@ -104,6 +105,7 @@ const addNewEvent = gql`
     mutation addNewEvent(
         $organizer: ID
         $organization: String
+        $description: String
         $title: String
         $address: String
         $city: String
@@ -115,6 +117,7 @@ const addNewEvent = gql`
         addNewEvent(
             organizer: $organizer
             organization: $organization
+            description: $description
             title: $title
             location: {address: $address, city: $city, state: $state, zip: $zip}
             category: $category
