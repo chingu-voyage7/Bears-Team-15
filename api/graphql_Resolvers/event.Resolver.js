@@ -109,4 +109,16 @@ module.exports = {
             return await eventCtrl.updateEvent(args);
         },
     },
+    attendEvent: {
+        type: UserType,
+        args: {
+            eventId: {type: GraphQLID},
+            attendeeId: {type: GraphQLID},
+        },
+        resolve: async (parent, args) => {
+            const test = await eventCtrl.attendEvent(args);
+            console.log(test.eventsId);
+            return test;
+        },
+    },
 };
