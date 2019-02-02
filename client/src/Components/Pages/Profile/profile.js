@@ -1,5 +1,5 @@
 import React from 'react';
-import avatar from '../../Images/CoolGuy.jpg';
+// import avatar from '../../Images/CoolGuy.jpg';
 import './profile.css';
 import {Link} from '@reach/router';
 import {connect} from 'react-redux';
@@ -14,7 +14,6 @@ class Profile extends React.Component {
             return <div>loading</div>;
         } else {
             const user = this.props.getUser.getUser;
-            console.log(user, 'USEEEEERRSSS');
             return (
                 <div className="profile-container">
                     <div className="profile-user">
@@ -22,7 +21,7 @@ class Profile extends React.Component {
                         <img
                             className="profile-avatar"
                             // src={user.avatar}
-                            // alt={'avatar ' + user.username}
+                            alt={'avatar'}
                         />
                     </div>
                     <div className="profile-content">

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import React, {Component} from 'react';
-import {graphql, compose} from 'react-apollo';
+// import {graphql, compose} from 'react-apollo';
 import {Provider, connect} from 'react-redux';
 import {Router} from '@reach/router';
 import Layout from './Components/Common/Layout/index.js';
@@ -17,10 +17,10 @@ import {
     LoginForm,
 } from './Components/Pages/index';
 import {ApolloProvider} from 'react-apollo';
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
 
 // ! helpers
-import SetGetCookie from './util/helper.cookie';
+// import SetGetCookie from './util/helper.cookie';
 
 // ! components
 import Auth from './Components/Common/Auth/Auth';
@@ -32,7 +32,7 @@ import ApolloClient from 'apollo-boost';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {HttpLink} from 'apollo-link-http';
 import {setCurrentUser} from './reduxes/actions/session_actions';
-import {navigate} from '@reach/router/lib/history';
+// import {navigate} from '@reach/router/lib/history';
 import {checkIfAuth} from './util/authChecker.js';
 
 const cache = new InMemoryCache();

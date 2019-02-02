@@ -1,7 +1,7 @@
 // create a util function that checks the user authentication.
 import SetGetCookie from './helper.cookie';
 import {auth} from '../reduxes/actions/isAuthAction';
-import {login, setCurrentUser} from '../reduxes/actions/session_actions';
+import {login} from '../reduxes/actions/session_actions';
 import {openModal} from '../reduxes/actions/modal_actions';
 
 const {getCookie} = new SetGetCookie('tokenizer');
