@@ -7,6 +7,7 @@ import modal from './modal_reducer';
 import client from './client_reducers';
 import isAuth from './isAuthReducer';
 import getAllEvents from './allEvents.Reducer';
+import attendEvent from './attendEvent.reducer';
 
 // pure functions that will be triggered
 // combineReducers fn will receive all the reducers
@@ -19,4 +20,5 @@ export default combineReducers({
     client: client,
     isAuth: isAuth,
     dataAllEvents: getAllEvents,
+    userAttendEvent: attendEvent,
 });

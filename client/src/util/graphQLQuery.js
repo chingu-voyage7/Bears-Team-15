@@ -219,6 +219,14 @@ const addUser = gql`
     }
 `;
 
+const attendEvent = gql`
+    mutation($eventId: ID, $attendeeId: ID) {
+        attendEvent(eventId: $eventId, attendeeId: $attendeeId) {
+            id
+        }
+    }
+`;
+
 export {
     testUserQuery,
     userLogin,
@@ -232,4 +240,5 @@ export {
     queryFilterEvents,
     updateEvent,
     deleteEvent,
+    attendEvent,
 };
