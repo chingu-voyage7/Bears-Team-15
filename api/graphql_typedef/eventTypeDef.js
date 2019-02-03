@@ -33,16 +33,17 @@ module.exports = {
             // firstName: {type: GraphQLString},
             // lastName: {type: GraphQLString},
             // ! type relation
-            // userRelatedToEvent: {
-            //   type: UserType,
-            //   resolve: async (parent, args) => {
-            //     console.log("myData:",parent.attendeesId);
-            //     // const id = {
-            //     //   id: parent.organizerId
-            //     // };
-            //     return await getCurrentUser(id);
-            //   }
-            // }
+            // getMeUser: {
+            //     type: UserType,
+            //     args: {type: GraphQLID},
+            //     resolve: async (parent, args) => {
+            //         console.log('myData:', parent.attendeesId);
+            //         // const id = {
+            //         //   id: parent.organizerId
+            //         // };
+            //         return await getUsers(args.id);
+            //     },
+            // },
         }),
     }),
 };
