@@ -15,7 +15,7 @@ module.exports = {
         return await User.find().populate('eventsId');
     },
     getUser: async (data) => {
-        return await User.findById(data.id).populate('eventsId');
+        return await User.findById(data.id).populate('eventsId attendedEvent');
     },
     // Sign up a new user
     registerUser: async (dataNewUser, res) => {
@@ -183,7 +183,6 @@ module.exports = {
             return status;
         }
     },
-
     // Fetch current user
     getCurrentUser: async (data) => {
         const currUser = await User.findOne({_id: data.id});
