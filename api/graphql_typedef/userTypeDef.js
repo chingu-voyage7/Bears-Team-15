@@ -32,6 +32,9 @@ module.exports = {
             eventsId: {
                 type: new GraphQLList(require('./eventTypeDef').EventType),
             }, // <-- this will be the query for userRelatedToUser
+            attendedEvent: {
+                type: new GraphQLList(require('./eventTypeDef').EventType),
+            }, // <-- this will be the query for userRelatedToUser
             statusCode: {type: GraphQLInt},
             isSuccess: {type: GraphQLBoolean},
             msg: {type: GraphQLString},
