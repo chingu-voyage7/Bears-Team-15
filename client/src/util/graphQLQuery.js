@@ -57,6 +57,7 @@ const getEventById = gql`
             title
             image
             description
+            date
             location {
                 address
                 city
@@ -101,28 +102,34 @@ const queryFilterEvents = gql`
 `;
 
 const addNewEvent = gql`
+
     mutation addNewEvent(
         $organizer: ID
         $organization: String
+        $description: String
         $title: String
         $address: String
         $city: String
         $state: String
         $zip: Int
         $category: String
+        $date: date
     ) {
         addNewEvent(
             organizer: $organizer
             organization: $organization
+            description: $description
             title: $title
             location: {address: $address, city: $city, state: $state, zip: $zip}
             category: $category
+            date: $date
         ) {
             title
             location {
                 address
                 city
             }
+            date
         }
     }
 `;

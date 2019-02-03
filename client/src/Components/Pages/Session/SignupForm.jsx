@@ -1,7 +1,7 @@
 // ! imported dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { graphql, compose } from 'react-apollo';
+import { graphql, compose,withApollo } from 'react-apollo';
 
 // ! imported files
 import Input from '../../Common/Input/input';
@@ -181,4 +181,4 @@ export default compose(
 	//     }
 	//   }
 	// )
-)(SignupForm);
+)(withApollo(SignupForm));

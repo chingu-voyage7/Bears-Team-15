@@ -37,7 +37,12 @@ const EventSchema = new Schema({
     date: {
         type: Date,
         // required: [true, 'Date cannot be blank']
-        default: Date.now,
+        // default: Date.now,
+    },
+    dateCreated:{
+        type: Date,
+        default: new Date().now
+
     },
     image: {
         type: String,

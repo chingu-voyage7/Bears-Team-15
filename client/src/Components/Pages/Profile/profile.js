@@ -21,6 +21,7 @@ class Profile extends React.Component {
                         <h1>{user.firstName}</h1>
                         <img
                             className="profile-avatar"
+
                             src={user.image}
                             alt={'avatar ' + user.firstName}
 

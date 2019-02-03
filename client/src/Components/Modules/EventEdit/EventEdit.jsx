@@ -83,6 +83,7 @@ const EventEdit = ({
             dispatch(closeModal());
             navigate('/profile');
         } catch (error) {
+
             //TODO: handle error here
         }
     };
