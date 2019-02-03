@@ -46,11 +46,15 @@ const getUser = gql`
                 id
                 title
             }
+            attendedEvent {
+                id
+                title
+            }
         }
     }
 `;
 const getEventById = gql`
-    query($id: String) {
+    query($id: String, $uID: String) {
         getEventById(id: $id) {
             id
             title
@@ -69,12 +73,18 @@ const getEventById = gql`
                 image
             }
             attendees {
+                id
                 firstName
             }
             supplies {
                 name
                 description
                 quantity
+            }
+        }
+        getUser(id: $uID) {
+            attendedEvent {
+                id
             }
         }
     }
