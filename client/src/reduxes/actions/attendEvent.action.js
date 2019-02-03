@@ -1,7 +1,6 @@
 import * as types from './types';
-import {attendEvent} from '../../util/graphQLQuery';
 
-export const attendEvent = (args) => {
+export const UserAttendEvent = (args) => {
     return {
         type: types.ATTEND_EVENT,
         payload: {
@@ -11,23 +10,16 @@ export const attendEvent = (args) => {
     };
 };
 
-export const filterEvents = (client, char) => async (dispatch) => {
-    const dataEvents = {
-        events: [],
-        isAttendSuccess: false,
-    };
-    dispatch(attendEvent(dataEvents));
+export const userWillAttendEvent = (gqlQuery, gqlData) => async (dispatch) => {
+    const {variables, refetchQueries} = gqlData;
 
     try {
-        const response = await client.query({
-            query: attendEvent,
-            variables: {
-                char: char,
-            },
+        const attendee = await gqlQuery({
+            variables,
+            refetchQueries,
         });
-
-        dispatch(attendEvent(response));
+        console.log(attendee);
     } catch (error) {
-        dispatch(attendEvent(dataEvents));
+        return error;
     }
 };
