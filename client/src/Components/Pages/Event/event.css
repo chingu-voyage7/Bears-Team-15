@@ -64,8 +64,7 @@
     display: flex;
     flex-wrap: wrap;
     list-style: none;
-    padding: 0px;
-    flex-grow: 1;   
+    padding: 0px;   
 }
 .event-supply-item{
     width:25%;

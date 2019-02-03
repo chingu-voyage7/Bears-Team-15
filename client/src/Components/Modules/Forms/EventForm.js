@@ -55,7 +55,7 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
     }
     return (<div className="modal-form">
     <h2 className="text-center">New Event</h2>
-        <form className="modal-event-split" onSubmit={onSubmit}>
+        <form className="modal-event-split" id="newEvent" onSubmit={onSubmit}>
         <div className="modal-event">
             
             <div className="modal-event-field"><label>Title</label><input name="title" onChange={onChange} required /></div>
@@ -77,7 +77,7 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
 
         </div>
         </form>
-        <button className="text-center">Submit</button>
+        <button className="text-center" type="submit" form="newEvent">Submit</button>
     </div>);
 }
 

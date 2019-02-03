@@ -75,6 +75,13 @@ const getEventById = gql`
                 name
                 description
                 quantity
+                volunteers{
+                    volunteer{
+                        id
+                        image
+                    }
+                    quantity
+                }
             }
         }
     }

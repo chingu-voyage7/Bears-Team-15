@@ -154,12 +154,32 @@ class Event extends React.Component {
                             <p>{time}</p>
                             <h2>Event Details</h2>
                             <p>{description}</p>
+                            
                             <h2>
-                                Supplies <img src={checked} alt="checkmark" />{' '}
+                                Supplies
+                                 <img src={checked} alt="checkmark" />{' '}
                                 fulfilled{' '}
                                 <img src={exclamation} alt="exclamation mark" />{' '}
                                 needs supplies
-                            </h2>
+                            </h2> 
+                            <button>add supplies</button>
+                            <ul className="event-supply-list">
+                            {supplies.map((supply) => {
+                                let total= 0;
+                                if(supply.volunteers.length){
+                                    total = supply.volunteers.reduce((total, nextVal) => {
+                                    return total.qty + nextVal.qty;
+                                });
+                                }                   
+                                return <li className="event-supply-item">
+                                {supply.name}
+                                <img src={total >= supply.quantity ? checked : exclamation} alt="some text"></img>
+                                </li>
+                            })}
+                           
+                            
+                           
+</ul>
                             <h2>Attendees</h2>
                         </div>
                         <div>google map</div>
