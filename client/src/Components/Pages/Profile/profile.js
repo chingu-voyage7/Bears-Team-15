@@ -9,11 +9,11 @@ import {openModal} from '../../../reduxes/actions/modal_actions.js';
 
 class Profile extends React.Component {
     renderLoading = () => {
-        // console.log(this.props.user, 'user');
         if (this.props.getUser.loading === true) {
             return <div>loading</div>;
         } else {
             const user = this.props.getUser.getUser;
+
             return (
                 <div className="profile-container">
                     <div className="profile-user">
@@ -69,6 +69,23 @@ class Profile extends React.Component {
                                     );
                                 })}
                             </div>
+
+                            <div className="profile-events">
+                                {user.attendedEvent.map((item, i) => {
+                                    return (
+                                        <Link key={i} to={`/event/${item.id}`}>
+                                            <div className="profile-event-card">
+                                                <p>{item.title}</p>
+                                                <div className="profile-event-details">
+                                                    <p>{item.date}</p>
+                                                    <p>{item.location}</p>
+                                                </div>
+                                                <h3>{item.visibility}</h3>
+                                            </div>
+                                        </Link>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,7 +99,7 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.currentUser,
+    currentUser: state.currentUser,
 });
 const mapDispatchToProps = (dispatch) => ({
     openModal: (args, data) => dispatch(openModal(args, data)),
@@ -98,7 +115,7 @@ export default compose(
         options: (props) => {
             return {
                 variables: {
-                    id: props.user.id,
+                    id: props.currentUser.id,
                 },
             };
         },
