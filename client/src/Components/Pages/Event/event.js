@@ -9,54 +9,13 @@ import {connect} from 'react-redux';
 import {openModal} from '../../../reduxes/actions/modal_actions.js';
 import {getEventById, attendEvent, getUser} from '../../../util/graphQLQuery';
 import {withApollo, graphql, compose} from 'react-apollo';
+import {userWillAttendEvent} from '../../../reduxes/actions/attendEvent.action';
 class Event extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            admin: true,
-            event: {},
-            exists: false,
-            defaultEvent: {
-                title: 'Beach Cleanup',
-                organization: 'Portland Volunteers NW',
-                organizer: {
-                    username: 'CoolGuy',
-                    role: 'Organizor',
-                    image: avatar,
-                },
-                eventDetails:
-                    'Join us Saturday, Jan 24th @9AM for a beach cleanup',
-                // location: 'seaside townhall, some addresss',
-                attendees: [
-                    {username: 'CoolGuy', role: 'Organizor', image: avatar},
-                    {username: 'T0mCat', role: 'Volunteer', image: cat},
-                    {username: 'Rawf', role: 'Volunteer', image: cat},
-                    {username: 'SumDude', role: 'Attendee', image: cat},
-                ],
-                supplies: [
-                    {
-                        item: 'bags',
-                        quantity: 24,
-                        volunteers: [
-                            {user: 'T0mCat', qty: 12},
-                            {user: 'Rawf', qty: 12},
-                        ],
-                    },
-                    {
-                        item: 'shovels',
-                        quantity: 24,
-                        volunteers: [
-                            {user: 'T0mCat', qty: 2},
-                            {user: 'Rawf', qty: 3},
-                        ],
-                    },
-                ],
-            },
-            tooltip: '',
-            x: 100,
-            y: 500,
-        };
+        this.state = {};
     }
+
     // attendees form
     async componentDidMount() {
         const EventId = this.props.EventId;
@@ -97,12 +56,11 @@ class Event extends React.Component {
      * handles a user who wants to attend the event
      * @param {ID} eventId event ID that is currently being viewed
      * @param {ID} attendeeId user attendee ID currently login user
-     * TODO: implement this in action. just pass the client query
-     * TODO: like what you did on search
      */
     handleAttendEvent = (eventId, attendeeId) => {
-        const {attendEvent} = this.props;
-        attendEvent({
+        const {attendEvent, dispatch} = this.props;
+
+        const gqlData = {
             variables: {
                 eventId,
                 attendeeId,
@@ -113,14 +71,20 @@ class Event extends React.Component {
                     variables: {id: attendeeId},
                 },
             ],
-        });
+        };
+
+        // call dispatch so action will be created
+        // on fn userWillAttendEvent pass the gqlQuery
+        // and  variable and refetchqueries
+        dispatch(userWillAttendEvent(attendEvent, gqlData));
     };
 
     /**
      * this function renders a button if its a creator or attendee
      * @param {STRING} eventOwnerId get this from the event data
+     * @param {BOOLEAN} isAttending if user has already attended
      */
-    renderIfEditOrAttendBtn = (eventOwnerId) => {
+    renderToggleBtn = (eventOwnerId, isAttending) => {
         // this user id is current login user
         const {id} = this.props.currentUser;
         // event ID
@@ -133,12 +97,31 @@ class Event extends React.Component {
                 </button>
             );
         } else {
-            return (
-                <button onClick={() => this.handleAttendEvent(EventId, id)}>
-                    ATTEND
-                </button>
-            );
+            if (isAttending) {
+                //TODO: unattend here fn
+                return <button>Unattend</button>;
+            } else {
+                return (
+                    <button onClick={() => this.handleAttendEvent(EventId, id)}>
+                        Attend
+                    </button>
+                );
+            }
         }
+    };
+
+    /**
+     * loops thru the current users attended events
+     * @param {OBJECT} getUser current user
+     * @param {ID} eventID current event that is being viewe
+     * @returns {BOOLEAN}
+     */
+    checkCurrentUserIfAttendingTheCurrentEvent = (getUser, eventID) => {
+        const hasEvent = getUser.attendedEvent.filter(
+            (item) => item.id === eventID
+        );
+
+        return hasEvent.length ? true : false;
     };
 
     renderData = () => {
@@ -148,13 +131,22 @@ class Event extends React.Component {
             return <div>LOADING...</div>;
         } else {
             const {
+                id: eventID,
                 organizer,
                 description,
                 img,
                 location,
                 supplies,
                 title,
+                attendees,
             } = event.getEventById;
+
+            const {getUser} = event;
+
+            const isAttend = this.checkCurrentUserIfAttendingTheCurrentEvent(
+                getUser,
+                eventID
+            );
 
             return (
                 <div className="event-container">
@@ -166,20 +158,7 @@ class Event extends React.Component {
                     <div className="event-navigation">
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}
-                        <h1>
-                            {/* {this.state.admin ? (
-                                <button
-                                    onClick={() =>
-                                        this.handleEditClick(this.props.EventId)
-                                    }>
-                                    EDIT
-                                </button>
-                            ) : (
-                                ''
-                            )} */
-                            //TODO:
-                            this.renderIfEditOrAttendBtn(organizer.id)}
-                        </h1>
+                        <h1>{this.renderToggleBtn(organizer.id, isAttend)}</h1>
                     </div>
                     <div className="profile-rule" />
                     <div className="event-content">
@@ -219,6 +198,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
     openModal: (modal, data) => dispatch(openModal(modal, data)),
+    dispatch,
 });
 
 export default compose(
@@ -232,6 +212,7 @@ export default compose(
             return {
                 variables: {
                     id: props.EventId,
+                    uID: props.currentUser.id,
                 },
             };
         },
