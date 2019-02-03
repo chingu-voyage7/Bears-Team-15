@@ -24,7 +24,8 @@ const UserSchema = new Schema({
     type: Number
   },
   image: {
-    type: String
+    type: String,
+    default: "https://res.cloudinary.com/duytlootx/image/upload/v1549145313/default-profile_xwm8on.svg"
   },
   phone: {
     type: Number
