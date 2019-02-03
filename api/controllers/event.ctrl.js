@@ -91,8 +91,8 @@ module.exports = {
         event.save();
 
         // ! mike heres the code to add the event into the user who attend the event
-        const user = await User.findById(attendeeId);
-        user.eventsId.push(eventId);
+        const user = await User.findById(attendeeId).populate('attendedEvent');
+        user.attendedEvent.push(eventId);
         user.save();
 
         return user;
