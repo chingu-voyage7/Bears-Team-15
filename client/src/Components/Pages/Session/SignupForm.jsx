@@ -17,7 +17,7 @@ import './session_form.css';
 
 // ! imported query
 import {
-    userSignup,
+    // userSignup,
     testUserQuery,
     test,
     addUser,
@@ -25,14 +25,14 @@ import {
 
 // ! import helpers
 import SetGetCookie from '../../../util/helper.cookie';
-import JWTHelpers from '../../../util/jwt.helper';
+// import JWTHelpers from '../../../util/jwt.helper';
 
 // destructured helper functions for cookies
 // setGetCookie constructor needs a key name type STRING
-const {setCookie, getCookie} = new SetGetCookie('tokenizer');
+const {setCookie} = new SetGetCookie('tokenizer');
 // destructured JWT helper method
-const {decodeJWT} = new JWTHelpers();
-
+// const {decodeJWT} = new JWTHelpers();
+//
 class SignupForm extends Component {
     constructor(props) {
         super(props);
