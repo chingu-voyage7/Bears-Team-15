@@ -1,11 +1,11 @@
 import React from 'react';
 import avatar from '../../Images/CoolGuy.jpg';
 import './profile.css';
-import {Link} from '@reach/router';
-import {connect} from 'react-redux';
-import {graphql, compose} from 'react-apollo';
-import {getUser} from '../../../util/graphQLQuery';
-import {openModal} from '../../../reduxes/actions/modal_actions.js';
+import { Link } from '@reach/router';
+import { connect } from 'react-redux';
+import { graphql, compose } from 'react-apollo';
+import { getUser } from '../../../util/graphQLQuery';
+import { openModal } from '../../../reduxes/actions/modal_actions.js';
 
 class Profile extends React.Component {
     renderLoading = () => {
@@ -21,8 +21,10 @@ class Profile extends React.Component {
                         <h1>{user.firstName}</h1>
                         <img
                             className="profile-avatar"
-                             src={user.image}
-                             alt={'avatar ' + user.firstName}
+
+                            src={user.image}
+                            alt={'avatar ' + user.firstName}
+
                         />
                     </div>
                     <div className="profile-content">

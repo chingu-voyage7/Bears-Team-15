@@ -42,6 +42,7 @@ const getUser = gql`
             firstName
             email
             image
+            phone
             eventsId {
                 id
                 title
@@ -185,18 +186,20 @@ const deleteEvent = gql`
     mutation($eventId: ID, $userId: ID) {
         deleteEvent(eventId: $eventId, userId: $userId) {
             id
-            firstName
-            lastName
-            email
-            password
-            passwordTwo
-            age
-            phone
-            address
         }
     }
 `;
+const updateUser= gql`
+mutation($id: String $image: String $firstName: String $phone: String $email: String){
+        updateUser(id:$id firstName:$firstName image:$image phone:$phone email:$email ){
+            id
+            firstName
+            email
+            phone
+        }
+}
 
+`
 const addUser = gql`
     mutation(
         $firstName: String = ""
@@ -230,6 +233,7 @@ export {
     getAllEvents,
     getEventById,
     getUser,
+    updateUser,
     queryFilterEvents,
     updateEvent,
     deleteEvent,

@@ -5,10 +5,10 @@ import image from '../../Images/gaming-group.jpg';
 import checked from '../../Icons/CheckedCircle.svg';
 import exclamation from '../../Icons/ExclamationCircle.svg';
 import cat from '../../Images/cat.jpg';
-import {connect} from 'react-redux';
-import {openModal} from '../../../reduxes/actions/modal_actions.js';
-import {getEventById} from '../../../util/graphQLQuery';
-import {withApollo, graphql, compose} from 'react-apollo';
+import { connect } from 'react-redux';
+import { openModal } from '../../../reduxes/actions/modal_actions.js';
+import { getEventById } from '../../../util/graphQLQuery';
+import { withApollo, graphql, compose } from 'react-apollo';
 class Event extends React.Component {
     constructor(props) {
         super(props);
@@ -28,26 +28,26 @@ class Event extends React.Component {
                     'Join us Saturday, Jan 24th @9AM for a beach cleanup',
                 // location: 'seaside townhall, some addresss',
                 attendees: [
-                    {username: 'CoolGuy', role: 'Organizor', image: avatar},
-                    {username: 'T0mCat', role: 'Volunteer', image: cat},
-                    {username: 'Rawf', role: 'Volunteer', image: cat},
-                    {username: 'SumDude', role: 'Attendee', image: cat},
+                    { username: 'CoolGuy', role: 'Organizor', image: avatar },
+                    { username: 'T0mCat', role: 'Volunteer', image: cat },
+                    { username: 'Rawf', role: 'Volunteer', image: cat },
+                    { username: 'SumDude', role: 'Attendee', image: cat },
                 ],
                 supplies: [
                     {
                         item: 'bags',
                         quantity: 24,
                         volunteers: [
-                            {user: 'T0mCat', qty: 12},
-                            {user: 'Rawf', qty: 12},
+                            { user: 'T0mCat', qty: 12 },
+                            { user: 'Rawf', qty: 12 },
                         ],
                     },
                     {
                         item: 'shovels',
                         quantity: 24,
                         volunteers: [
-                            {user: 'T0mCat', qty: 2},
-                            {user: 'Rawf', qty: 3},
+                            { user: 'T0mCat', qty: 2 },
+                            { user: 'Rawf', qty: 3 },
                         ],
                     },
                 ],
@@ -61,7 +61,7 @@ class Event extends React.Component {
     async componentDidMount() {
         const EventId = this.props.EventId;
         if (!EventId.length) {
-            this.setState({exists: true});
+            this.setState({ exists: true });
         }
 
         const data = await this.props.client.query({
@@ -82,14 +82,14 @@ class Event extends React.Component {
     };
 
     tooltip = (event) => {
-        this.setState({tooltip: event.currentTarget.alt});
+        this.setState({ tooltip: event.currentTarget.alt });
     };
     supplyModal = () => {
         // show supply modal to volunteer.
     };
 
     handleEditClick = () => {
-        const {event} = this.state;
+        const { event } = this.state;
         this.props.openModal('EVENT_EDIT', event);
     };
 
@@ -133,8 +133,8 @@ class Event extends React.Component {
                                     EDIT
                                 </button>
                             ) : (
-                                ''
-                            )}
+                                    ''
+                                )}
                         </h1>
                     </div>
                     <div className="profile-rule" />

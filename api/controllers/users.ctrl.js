@@ -11,12 +11,21 @@ require('dotenv').config();
 const secretOrKey = process.env.SECRET_OR_KEY;
 
 module.exports = {
+
+
+
+
     getUsers: async () => {
         return await User.find().populate('eventsId');
     },
     getUser: async (data) => {
         return await User.findById(data.id).populate('eventsId');
-    },
+    },  
+    updateUser: async (data)=>{
+    const {id,...myUpdate}= data;
+    console.log(id,myUpdate);
+    return await User.findByIdAndUpdate(id,myUpdate);
+  },
     // Sign up a new user
     registerUser: async (dataNewUser, res) => {
         const {errors, isValid} = validateRegisterInput(dataNewUser);
@@ -34,6 +43,7 @@ module.exports = {
         // Throw a 400 error if the email address already exists
         // errors.email = 'An account with this email already exists';
         if (user) {
+
             const status = {
                 statusCode: 400,
                 isSuccess: false,

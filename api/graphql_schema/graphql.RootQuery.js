@@ -3,6 +3,7 @@ const {GraphQLObjectType, GraphQLSchema} = require('graphql');
 const {
     userGetAll,
     getUser,
+    updateUser,
     userLogin,
     addUser,
     testQuery,
@@ -48,6 +49,7 @@ const mutate = new GraphQLObjectType({
         addUser,
         // ! user end
         // ! event start
+        updateUser,
         addNewEvent,
         deleteEvent,
         updateEvent,

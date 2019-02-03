@@ -12,6 +12,9 @@ const UserSchema = new Schema({
     type: String,
     required: [true, 'Last name cannot be blank']
   },
+  username:{
+    type: String
+  },
   email: {
     type: String,
     required: [true, 'Email cannot be blank']
@@ -27,8 +30,11 @@ const UserSchema = new Schema({
     type: String,
     default: "https://res.cloudinary.com/duytlootx/image/upload/v1549145313/default-profile_xwm8on.svg"
   },
+  avatar: {
+    type: String
+  },
   phone: {
-    type: Number
+    type: String
   },
   address: {
     type: String
