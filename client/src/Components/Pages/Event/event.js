@@ -110,6 +110,7 @@ class Event extends React.Component {
                 date
             } = event.getEventById;
             console.log(event.getEventById);
+            console.log(this.props.currentUser);
             const parseDate=new Date(parseInt(date));
             const time=parseDate.toLocaleTimeString();
 

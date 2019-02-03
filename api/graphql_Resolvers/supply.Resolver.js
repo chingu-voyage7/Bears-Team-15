@@ -76,5 +76,29 @@ module.exports = {
         resolve: async(parent,args)=>{
             return await supplyCtrl.updateSupply(args);
         }
+    },
+    volunteerSupply:{
+        type:SuppliesType,
+        args:{
+            id:{type: GraphQLID},
+            supplyId:{type: GraphQLID},
+            volunteerId:{type: GraphQLID},
+            quantity:{type: GraphQLInt}
+        },
+        resolve: async(parent,args)=>{
+            return await supplyCtrl.volunteerSupply(args);
+        }
+    },
+    unvolunteerSupply:{
+        type:SuppliesType,
+        args:{
+            id:{type: GraphQLID},
+            supplyId:{type: GraphQLID},
+            volunteerId:{type: GraphQLID},
+            donationId:{type:GraphQLID}
+        },
+        resolve: async(parent,args)=>{
+            return await supplyCtrl.unvolunteerSupply(args);
+        }
     }
 };

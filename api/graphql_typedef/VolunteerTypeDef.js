@@ -15,6 +15,7 @@ module.exports={
     VolunteerType: new GraphQLObjectType({
             name: 'volunteer',
             fields: ()=>({
+                id: {type: GraphQLID},
         volunteer: {type: UserType},
         quantity: {type: GraphQLInt} 
     })
