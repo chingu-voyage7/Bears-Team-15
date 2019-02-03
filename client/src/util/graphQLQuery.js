@@ -72,6 +72,7 @@ const getEventById = gql`
                 firstName
             }
             supplies {
+                id
                 name
                 description
                 quantity

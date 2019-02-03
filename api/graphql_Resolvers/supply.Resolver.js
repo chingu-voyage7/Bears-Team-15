@@ -54,5 +54,27 @@ module.exports = {
         }
         
     },
-
+    deleteSupply:{
+        type: SuppliesType,
+        args:{
+        id: {type: GraphQLID},
+        supplyId: {type: GraphQLID}
+        },
+        resolve: async(parent,args)=>{
+            return await supplyCtrl.deleteSupply(args);
+        }
+    },
+    updateSupply:{
+        type: SuppliesType,
+        args:{
+            id:{type: GraphQLID},
+            supplyId:{type: GraphQLID},
+            name:{type: GraphQLString},
+            quantity:{type: GraphQLInt},
+            description:{type: GraphQLString},
+        },
+        resolve: async(parent,args)=>{
+            return await supplyCtrl.updateSupply(args);
+        }
+    }
 };

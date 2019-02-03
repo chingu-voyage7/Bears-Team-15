@@ -34,7 +34,7 @@ module.exports= {
         });
         return checkSub;
  
-    }
+    },
     deleteSupply: async (data)=>{
         const{id,supplyId}=data;
         let checkSub;
@@ -47,12 +47,14 @@ module.exports= {
         return checkSub;
     },
     updateSupply: async(data)=>{
-        const {id,supplyId,...update}=data;
+        const {id,supplyId,...myUpdate}=data;
         let checkSub;
         await Event.findById(id,function(err,event){
-            event.supplies.id(supplyId).update(update);
+            event.supplies.id(supplyId).set(myUpdate);
             checkSub= event.supplies.id(supplyId);
+            event.save();
         });
+        return checkSub;
     }
     
 
