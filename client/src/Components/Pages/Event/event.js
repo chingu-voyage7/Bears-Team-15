@@ -142,9 +142,11 @@ class Event extends React.Component {
                         <div className="event-content-middle">
                             <h2>Location</h2>
                             <p>
-                                {location.address + ' '+
-                                    location.city + ' '+
-                                    location.state}
+                                {location.address}
+                                <br/>
+                                {location.city}
+                                <br/>
+                                {location.state+ ' '+ location.zip}
                             </p>
                             <h2>Date</h2>
                             <p>{dateString}</p>
