@@ -178,7 +178,7 @@ class Event extends React.Component {
      */
     renderData = () => {
         const event = this.props.getEventById;
-
+console.log('user data',event.getUser);
         if (event.loading) {
             return <div>LOADING...</div>;
         } else {
@@ -208,11 +208,12 @@ class Event extends React.Component {
 
             return (
                 <div className="event-container">
-                    <img
+                    {/* <img
                         className="event-banner"
                         src={image}
                         alt="event banner"
-                    />
+                    /> */}
+                    <div className="event-banner"></div>
                     <div className="event-navigation">
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}
@@ -264,6 +265,9 @@ class Event extends React.Component {
                            
 </ul>
                             <h2>Attendees</h2>
+                             {event.getUser.attendedEvent.map(function(item){
+                                return <img src='' alt=''></img>
+                             })}
                         </div>
                         <div>google map</div>
                     </div>
