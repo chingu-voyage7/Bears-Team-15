@@ -163,7 +163,7 @@ class Event extends React.Component {
                                 <img src={exclamation} alt="exclamation mark" />{' '}
                                 needs supplies
                             </h2> 
-                            <button>add supplies</button>
+                            <button onClick={()=>this.props.openModal('ADD_SUPPLY')}>add supplies</button>
                             <ul className="event-supply-list">
                             {supplies.map((supply) => {
                                 let total= 0;
