@@ -158,6 +158,19 @@ class Event extends React.Component {
 
         return hasEvent.length ? true : false;
     };
+    renderAddSupply=()=>{
+      
+        const {
+            id,
+            organizer
+        }= this.props.getEventById.getEventById;
+    
+
+        if(this.props.currentUser.id==organizer.id){
+            return(<button onClick={()=>this.props.openModal('ADD_SUPPLY', id)}>add supplies</button>);
+        }
+        return
+    }
 
     /**
      * Rendering component function here
@@ -230,7 +243,7 @@ class Event extends React.Component {
                                 <img src={exclamation} alt="exclamation mark" />{' '}
                                 needs supplies
                             </h2> 
-                            <button onClick={()=>this.props.openModal('ADD_SUPPLY', event.getEventById.id)}>add supplies</button>
+                            {this.renderAddSupply()}
                             <ul className="event-supply-list">
                             {supplies.map((supply) => {
                                 let total= 0;
