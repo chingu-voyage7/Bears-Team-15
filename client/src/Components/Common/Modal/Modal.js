@@ -18,6 +18,7 @@ function Modal({modal, closeModal, data}) {
 
     // case "add-Items" => itemform,case "edit-event"=> editform
     let component;
+    console.log(modal);
     switch (modal) {
         case 'EDIT_PROFILE_FORM':
             component = <ProfileForm />;

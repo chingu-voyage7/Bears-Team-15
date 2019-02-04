@@ -272,6 +272,17 @@ const unAttendEvent = gql`
     }
 `;
 
+const addSupply= gql`
+mutation($eventId: ID,$name: String, $description: String, $quantity: Int){
+    addSupply(eventId: $eventId,name: $name,description:$description,quantity: $quantity){
+        id
+    }
+}
+
+`;
+
+
+
 export {
     testUserQuery,
     userLogin,
@@ -288,4 +299,5 @@ export {
     deleteEvent,
     attendEvent,
     unAttendEvent,
+    addSupply,
 };

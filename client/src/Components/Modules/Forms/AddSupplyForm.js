@@ -1,69 +1,76 @@
-import React from "react"
-import { connect } from "react-redux"
+import React from 'react';
+import { connect } from 'react-redux';
+import './forms.scss';
+import { addSupply, getEventById } from '../../../util/graphQLQuery';
+import { closeModal } from '../../../reduxes/actions/modal_actions';
 import { graphql, compose } from 'react-apollo';
-import {getUser, getEventById} from '../../../util/graphQLQuery';
-import "./forms.scss"
-import {closeModal} from "../../../reduxes/actions/modal_actions";
-const AddSupplyForm = ({ client, currentUser,data}) => {
+import { getUser } from '../../../util/graphQLQuery';
+import { withApollo } from 'react-apollo';
+import Calendar from 'react-calendar';
+const AddSupplyForm = ({ event, client, currentUser, data, closeModal }) => {
     let form = {
-        eventId:data.eventId,
+        eventId: '',
         name: '',
-        description: currentUser.id,
+        description: '',
         quantity: ''
-    }
-    
-    const onChange = (event) => {
-        console.log('name', event.target.name);
-        console.log('input', event.target.value);
-        console.log('frommodal',data);
-        form[event.target.name] = event.target.value;
-        console.log(form);
+    };
 
-    }
+    const onChange = (event) => {
+        form[event.target.name] = event.target.value;
+        // set fields
+    };
     const onSubmit = (event) => {
         event.preventDefault();
-        client.mutate({}).then((data) => {
-            closeModal();
-           
-        });
+        closeModal();
+        client.mutate({
+            mutation: addSupply,
+            variables: {
 
-    }
+            },
+            refetchQueries: [
+                {
+                    query: getEventById,
+                    variables: { id: data.eventId },
+                },
+            ],
+        });
+    };
+
     return (<div className="modal-form">
-        <form className="modal-event" onSubmit={onSubmit}>
-            <h2>Edit Profile</h2>
-            <div className="modal-event-field"><label>Name</label><input type="text" name="firstName" onChange={onChange} placeholder={data.firstName}/></div>
-            <div className="modal-event-field"><label>Avatar</label><input type="url" name="image" onChange={onChange} placeholder={data.image}/></div>
-            <div className="modal-event-field"><label>Email</label><input type="email" name="email" onChange={onChange} placeholder={data.email}/></div>
-            <div className="modal-event-field"><label>Phone</label><input type="text" name="phone" onChange={onChange} placeholder={data.phone}/></div>
-            {/*public or private needs field */}
-            <button>Submit</button>
-        </form>
-    </div>);
+    <form className="modal-event" onSubmit={onSubmit}>
+        <h2>Add Supply</h2>
+        <div className="modal-event-field"><label>Name</label><input type="text" name="name" onChange={onChange} placeholder={data.firstName}/></div>
+        <div className="modal-event-field"><label>Description</label><input type="url" name="description" onChange={onChange} placeholder={data.image}/></div>
+        <div className="modal-event-field"><label>Quantity Needed</label><input type="email" name="quantity" onChange={onChange} placeholder={data.email}/></div>
+        <button>Submit</button>
+    </form>
+</div>);
 }
 
-
 const mapStateToProps = (state) => ({
-    // get supplies list
     currentUser: state.currentUser,
-    client: state.client,
     data: state.modal.data
 });
 const mapDispatchToProps = (dispatch) => ({
-    closeModal: ()=>{dispatch(closeModal());}
+    closeModal: () => {
+        dispatch(closeModal());
+    },
 });
-
-
-export default compose(connect(
-  mapStateToProps,
-  mapDispatchToProps
-  // replace with edit user
-), graphql(getUser, {
-  name: "getUser", options: (props) => {
-      console.log("graphprops", props)
-      return {
-          variables: {
-              id: props.currentUser.id
-          }
-      }
-  }
-}))(AddSupplyForm);
+export default compose(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+        // replace with edit user
+    ),
+    graphql(getEventById, {
+        name: 'getUser',
+        options: (props) => {
+            console.log('graphprops', props);
+            return {
+                variables: {
+                    id: props.data.eventId,
+                },
+            };
+        },
+    })
+)(withApollo(AddSupplyForm));

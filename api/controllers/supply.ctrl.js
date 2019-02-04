@@ -2,9 +2,9 @@ const Event = require('../models/main.model').event;
 const User = require('../models/main.model').user;
 module.exports = {
     addSupply: async (data) => {
-        const { id, ...supply } = data;
+        const { eventId, ...supply } = data;
         let checkSub
-        await Event.findById(id, function (err, event) {
+        await Event.findById(eventId, function (err, event) {
             event.supplies.push(supply);
             checkSub = event.supplies[event.supplies.length - 1];
             console.log(checkSub);

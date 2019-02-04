@@ -29,7 +29,7 @@ module.exports = {
     addSupply: {
         type: SuppliesType,
         args: {
-            id: {type: GraphQLID},
+            eventId: {type: GraphQLID},
             name: {type: GraphQLString},
             description: {type: GraphQLString},
             quantity: {type: GraphQLInt},
