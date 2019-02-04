@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {closeModal} from '../../../reduxes/actions/modal_actions';
-import {Redirect, navigate} from '@reach/router';
+import {navigate} from '@reach/router';
 import {graphql, withApollo} from 'react-apollo';
 import {compose} from 'redux';
 import {

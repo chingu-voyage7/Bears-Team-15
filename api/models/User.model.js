@@ -43,10 +43,8 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  attendedEvent: [{type: Schema.Types.ObjectId, ref: 'events'}],
   eventsId: [{type: Schema.Types.ObjectId, ref: 'events'}]
-  //   event: {
-  //     type: String
-  //   },
 });
 
 module.exports = User = mongoose.model('users', UserSchema);

@@ -19,13 +19,13 @@ module.exports = {
         return await User.find().populate('eventsId');
     },
     getUser: async (data) => {
-        return await User.findById(data.id).populate('eventsId');
+        return await User.findById(data.id).populate('eventsId attendedEvent');
     },  
     updateUser: async (data)=>{
     const {id,...myUpdate}= data;
     console.log(id,myUpdate);
     return await User.findByIdAndUpdate(id,myUpdate);
-  },
+    },
     // Sign up a new user
     registerUser: async (dataNewUser, res) => {
         const {errors, isValid} = validateRegisterInput(dataNewUser);
@@ -193,7 +193,6 @@ module.exports = {
             return status;
         }
     },
-
     // Fetch current user
     getCurrentUser: async (data) => {
         const currUser = await User.findOne({_id: data.id});

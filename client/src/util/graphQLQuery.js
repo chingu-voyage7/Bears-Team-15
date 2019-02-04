@@ -47,11 +47,15 @@ const getUser = gql`
                 id
                 title
             }
+            attendedEvent {
+                id
+                title
+            }
         }
     }
 `;
 const getEventById = gql`
-    query($id: String) {
+    query($id: String, $uID: String) {
         getEventById(id: $id) {
             id
             title
@@ -65,17 +69,24 @@ const getEventById = gql`
                 zip
             }
             organizer {
+                id
                 firstName
                 lastName
                 image
             }
             attendees {
+                id
                 firstName
             }
             supplies {
                 name
                 description
                 quantity
+            }
+        }
+        getUser(id: $uID) {
+            attendedEvent {
+                id
             }
         }
     }
@@ -142,15 +153,28 @@ const getAllEvents = gql`
             date
             image
             description
-            location
+            location {
+                address
+                city
+                state
+                country
+                zip
+            }
             organizer {
                 id
                 firstName
             }
+            supplies {
+                id
+                name
+                description
+                quantity
+                OwnerId
+            }
             attendees {
                 lastName
             }
-            supplies
+            # supplies
         }
     }
 `;
@@ -223,6 +247,22 @@ const addUser = gql`
     }
 `;
 
+const attendEvent = gql`
+    mutation($eventId: ID, $attendeeId: ID) {
+        attendEvent(eventId: $eventId, attendeeId: $attendeeId) {
+            id
+        }
+    }
+`;
+
+const unAttendEvent = gql`
+    mutation($eventId: ID, $currentUserId: ID) {
+        unAttendEvent(eventId: $eventId, currentUserId: $currentUserId) {
+            id
+        }
+    }
+`;
+
 export {
     testUserQuery,
     userLogin,
@@ -237,4 +277,6 @@ export {
     queryFilterEvents,
     updateEvent,
     deleteEvent,
+    attendEvent,
+    unAttendEvent,
 };

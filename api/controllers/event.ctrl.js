@@ -16,7 +16,6 @@ module.exports = {
         }
     },
 
-    // TODO: when adding a new event put the event ID to a user
     addEvent: async (data) => {
         try {
             const user = await User.findById(data.organizer);
@@ -31,7 +30,6 @@ module.exports = {
         }
     },
     getEventById: async (data) => {
-        console.log(data);
         return await Event.findOne({_id: data.id}).populate(
             'attendees organizer'
         );
@@ -52,10 +50,48 @@ module.exports = {
         }
     },
     deleteEvent: async (data) => {
+        console.log(data);
         try {
+            // deleting the event by the owner
             const user = await User.findById(data.userId);
             await user.eventsId.remove(data.eventId);
-            await Event.deleteOne({_id: data.eventId});
+
+            // const event = await Event.findById(data.eventId);
+            // const attendingUsers = await event.attendees;
+
+            // console.log(attendingUsers, 'array');
+
+            // User.find({_id: {$in: attendingUsers}}, (err, response) => {
+            //     console.log(response);
+            //     response.attendedEvent.id(data.eventId).remove();
+            //     console.log(response);
+            // });
+
+            Event.findById(data.eventId, function(err, event) {
+                return event.remove(function(err) {
+                    if (!err) {
+                        User.updateMany(
+                            {_id: {$in: event.attendees}},
+                            {$pull: {attendedEvent: data.eventId}},
+                            // {multi: true},
+                            function(err, numberAffected) {
+                                console.log(numberAffected);
+                            }
+                        );
+                    } else {
+                        console.log(err);
+                    }
+                });
+            });
+
+            // await Event.remove({_id: {$in: attendingUsers}}, function(
+            //     err,
+            //     response
+            // ) {
+            //     console.log(response);
+            // });
+
+            // await Event.deleteOne({_id: data.eventId});
             return await user.save();
         } catch (error) {
             return error;
@@ -77,6 +113,57 @@ module.exports = {
                 description,
             });
             event.save();
+        } catch (error) {
+            return error;
+        }
+    },
+    /**
+     * this method will add a attending user to the event
+     * @param {OBJECT} data
+     * @return {OBJECT} user
+     */
+    attendEvent: async (data) => {
+        const {eventId, attendeeId} = data;
+        // console.log(eventId, attendeeId);
+
+        try {
+            const event = await Event.findById(eventId);
+            event.attendees.push(attendeeId);
+            event.save();
+
+            const user = await User.findById(attendeeId).populate(
+                'attendedEvent'
+            );
+            user.attendedEvent.push(eventId);
+            user.save();
+
+            return user;
+        } catch (error) {
+            return error;
+        }
+    },
+
+    /**
+     * this method will remove the attended event
+     * @param {OBJECT} data
+     * @return {OBJECT} user
+     */
+    unAttendEvent: async (data) => {
+        const {eventId, currentUserId} = data;
+        try {
+            // removes the user from the event attended property
+            const event = await Event.findById(eventId);
+            event.attendees.removed(currentUserId);
+            event.save();
+
+            // removes the event from the user attendedEvent property
+            const user = await User.findById(currentUserId).populate(
+                'attendedEvent'
+            );
+            user.attendedEvent.remove(eventId);
+            user.save();
+
+            return user;
         } catch (error) {
             return error;
         }

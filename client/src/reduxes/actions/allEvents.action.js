@@ -21,6 +21,7 @@ export const allEvents = (client) => async (dispatch) => {
         const response = await client.query({
             query: getAllEvents,
         });
+
         const data = await response.data.getAllEvents;
 
         const allEvents = {
@@ -28,17 +29,16 @@ export const allEvents = (client) => async (dispatch) => {
             isQueryEventSuccess: true,
         };
         // !! testing rendering loading to be removed!
-        setTimeout(function() {
-            dispatch(receiveAllEvents(allEvents));
-        }, 5000);
+        // setTimeout(function() {
+        dispatch(receiveAllEvents(allEvents));
+        // }, 5000);
     } catch (error) {
         dataEvents.events = null;
         dataEvents.isQueryEventSuccess = false;
-        setTimeout(function() {
-            dispatch(receiveAllEvents(dataEvents));
-        }, 5000);
+        // setTimeout(function() {
+        dispatch(receiveAllEvents(dataEvents));
+        // }, 5000);
     }
-
 };
 export const filterEvents = (client, char) => async (dispatch) => {
     const dataEvents = {
@@ -57,14 +57,10 @@ export const filterEvents = (client, char) => async (dispatch) => {
         const data = await response.data.filterEvent;
         dataEvents.events = data;
         dataEvents.isQueryEventSuccess = true;
-        setTimeout(function() {
-            dispatch(receiveAllEvents(dataEvents));
-        }, 10000);
+        dispatch(receiveAllEvents(dataEvents));
     } catch (error) {
         dataEvents.events = null;
         dataEvents.isQueryEventSuccess = false;
-        setTimeout(function() {
-            dispatch(receiveAllEvents(dataEvents));
-        }, 10000);
+        dispatch(receiveAllEvents(dataEvents));
     }
 };

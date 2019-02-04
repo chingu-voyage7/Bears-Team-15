@@ -133,4 +133,24 @@ module.exports = {
             return await eventCtrl.updateEvent(args);
         },
     },
+    attendEvent: {
+        type: UserType,
+        args: {
+            eventId: {type: GraphQLID},
+            attendeeId: {type: GraphQLID},
+        },
+        resolve: async (parent, args) => {
+            return await eventCtrl.attendEvent(args);
+        },
+    },
+    unAttendEvent: {
+        type: UserType,
+        args: {
+            eventId: {type: GraphQLID},
+            currentUserId: {type: GraphQLID},
+        },
+        resolve: async (parent, args) => {
+            return await eventCtrl.unAttendEvent(args);
+        },
+    },
 };

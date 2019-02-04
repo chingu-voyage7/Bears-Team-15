@@ -19,14 +19,14 @@ import './session_form.css';
 import {userLogin, testUserQuery, test} from '../../../util/graphQLQuery';
 
 // ! import helpers
-import SetGetCookie from '../../../util/helper.cookie';
-import JWTHelpers from '../../../util/jwt.helper';
+// import SetGetCookie from '../../../util/helper.cookie';
+// import JWTHelpers from '../../../util/jwt.helper';
 
 // destructured helper functions for cookies
 // setGetCookie constructor needs a key name type STRING
-const {setCookie, getCookie} = new SetGetCookie('tokenizer');
+// const {setCookie, getCookie} = new SetGetCookie('tokenizer');
 // destructured JWT helper method
-const {decodeJWT} = new JWTHelpers();
+// const {decodeJWT} = new JWTHelpers();
 
 class LoginForm extends Component {
     constructor(props) {

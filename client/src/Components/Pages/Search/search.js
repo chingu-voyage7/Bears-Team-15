@@ -1,12 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {graphql, compose, withApollo} from 'react-apollo';
+// graphql, compose,
+import {withApollo} from 'react-apollo';
 
 import {
     allEvents,
     filterEvents,
 } from '../../../reduxes/actions/allEvents.action';
 import SearchWrapper from './styled.search';
+import {Link} from '@reach/router';
 
 class Search extends React.Component {
     constructor(props) {
@@ -33,7 +35,7 @@ class Search extends React.Component {
     }
 
     handleSubmitQuery = (e) => {
-        e.preventDefault();    
+        e.preventDefault();
         const {dispatch} = this.props;
         const {searchEvent} = this.state;
         dispatch(filterEvents(this.props.client, searchEvent));
@@ -67,21 +69,27 @@ class Search extends React.Component {
             return (
                 <div className="search__results">
                     {events.map((event, i) => (
-                        <div key={event.id} className="search-container">
-                            <div className="search-event">
-                                <h1>{event.title}</h1>
-                                <p>{event.description}</p>
-                                <p>{event.date}</p>
-                                <div>
-                                    <h4>attendee:</h4>
+                        <Link key={event.id} to={`/event/${event.id}`}>
+                            <div className="search-container">
+                                <div className="search-event">
+                                    <h1>{event.title}</h1>
+                                    <p>{event.description}</p>
+                                    <p>{event.date}</p>
                                     <div>
-                                        {event.attendees.map((attendee, i) => (
-                                            <p key={i}>{attendee.lastName}</p>
-                                        ))}
+                                        <h4>attendee:</h4>
+                                        <div>
+                                            {event.attendees.map(
+                                                (attendee, i) => (
+                                                    <p key={i}>
+                                                        {attendee.lastName}
+                                                    </p>
+                                                )
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             );
