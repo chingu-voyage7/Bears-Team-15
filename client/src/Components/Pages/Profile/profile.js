@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {graphql, compose} from 'react-apollo';
 import {getUser} from '../../../util/graphQLQuery';
 import {openModal} from '../../../reduxes/actions/modal_actions.js';
+import Card from '../../Common/Card/Card';
 
 class Profile extends React.Component {
     renderLoading = () => {
@@ -56,16 +57,11 @@ class Profile extends React.Component {
                             <div className="profile-events">
                                 {user.eventsId.map((item, i) => {
                                     return (
-                                        <Link key={i} to={`/event/${item.id}`}>
-                                            <div className="profile-event-card">
-                                                <p>{item.title}</p>
-                                                <div className="profile-event-details">
-                                                    <p>{item.date}</p>
-                                                    <p>{item.location}</p>
-                                                </div>
-                                                <h3>{item.visibility}</h3>
-                                            </div>
-                                        </Link>
+                                        <Card
+                                            key={item.id}
+                                            item={item}
+                                            owner={true}
+                                        />
                                     );
                                 })}
                             </div>
@@ -73,16 +69,11 @@ class Profile extends React.Component {
                             <div className="profile-events">
                                 {user.attendedEvent.map((item, i) => {
                                     return (
-                                        <Link key={i} to={`/event/${item.id}`}>
-                                            <div className="profile-event-card">
-                                                <p>{item.title}</p>
-                                                <div className="profile-event-details">
-                                                    <p>{item.date}</p>
-                                                    <p>{item.location}</p>
-                                                </div>
-                                                <h3>{item.visibility}</h3>
-                                            </div>
-                                        </Link>
+                                        <Card
+                                            key={item.id}
+                                            item={item}
+                                            owner={false}
+                                        />
                                     );
                                 })}
                             </div>

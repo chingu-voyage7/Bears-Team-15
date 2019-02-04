@@ -7,9 +7,14 @@ import exclamation from '../../Icons/ExclamationCircle.svg';
 import cat from '../../Images/cat.jpg';
 import {connect} from 'react-redux';
 import {openModal} from '../../../reduxes/actions/modal_actions.js';
-import {getEventById, attendEvent, getUser} from '../../../util/graphQLQuery';
+import {
+    getEventById,
+    attendEvent,
+    getUser,
+    unAttendEvent,
+} from '../../../util/graphQLQuery';
 import {withApollo, graphql, compose} from 'react-apollo';
-import {userWillAttendEvent} from '../../../reduxes/actions/attendEvent.action';
+import {userHandleAttendAction} from '../../../reduxes/actions/attendEvent.action';
 class Event extends React.Component {
     constructor(props) {
         super(props);
@@ -40,13 +45,37 @@ class Event extends React.Component {
         });
     };
 
-    tooltip = (event) => {
-        this.setState({tooltip: event.currentTarget.alt});
-    };
+    //TODO: supply ask mike
     supplyModal = () => {
         // show supply modal to volunteer.
     };
 
+    /**
+     * this method will handle unattend event
+     * this current user is not the owner this event
+     *
+     */
+    handleUnattendEvent = (eventId, currentUserId) => {
+        const {unAttendEvent, dispatch} = this.props;
+
+        const gqlData = {
+            variables: {
+                eventId,
+                currentUserId,
+            },
+            refetchQueries: [
+                {
+                    query: getUser,
+                    variables: {id: currentUserId},
+                },
+            ],
+        };
+        dispatch(userHandleAttendAction(unAttendEvent, gqlData));
+    };
+
+    /**
+     * This method will handle editing the current event
+     */
     handleEditClick = () => {
         const {event} = this.state;
         this.props.openModal('EVENT_EDIT', event);
@@ -76,7 +105,7 @@ class Event extends React.Component {
         // call dispatch so action will be created
         // on fn userWillAttendEvent pass the gqlQuery
         // and  variable and refetchqueries
-        dispatch(userWillAttendEvent(attendEvent, gqlData));
+        dispatch(userHandleAttendAction(attendEvent, gqlData));
     };
 
     /**
@@ -91,6 +120,7 @@ class Event extends React.Component {
         const {EventId} = this.props;
 
         if (id === eventOwnerId) {
+            // ! handling edit event
             return (
                 <button onClick={() => this.handleEditClick(EventId)}>
                     EDIT
@@ -98,9 +128,15 @@ class Event extends React.Component {
             );
         } else {
             if (isAttending) {
-                //TODO: unattend here fn
-                return <button>Unattend</button>;
+                // ! handling unattend event
+                return (
+                    <button
+                        onClick={() => this.handleUnattendEvent(EventId, id)}>
+                        Unattend
+                    </button>
+                );
             } else {
+                // ! handling attend event
                 return (
                     <button onClick={() => this.handleAttendEvent(EventId, id)}>
                         Attend
@@ -124,6 +160,10 @@ class Event extends React.Component {
         return hasEvent.length ? true : false;
     };
 
+    /**
+     * Rendering component function here
+     * @returns {COMPONENT}
+     */
     renderData = () => {
         const event = this.props.getEventById;
 
@@ -219,5 +259,8 @@ export default compose(
     }),
     graphql(attendEvent, {
         name: 'attendEvent',
+    }),
+    graphql(unAttendEvent, {
+        name: 'unAttendEvent',
     })
 )(withApollo(Event));

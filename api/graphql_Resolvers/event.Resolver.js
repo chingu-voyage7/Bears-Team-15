@@ -116,9 +116,17 @@ module.exports = {
             attendeeId: {type: GraphQLID},
         },
         resolve: async (parent, args) => {
-            const test = await eventCtrl.attendEvent(args);
-            console.log(test.eventsId);
-            return test;
+            return await eventCtrl.attendEvent(args);
+        },
+    },
+    unAttendEvent: {
+        type: UserType,
+        args: {
+            eventId: {type: GraphQLID},
+            currentUserId: {type: GraphQLID},
+        },
+        resolve: async (parent, args) => {
+            return await eventCtrl.unAttendEvent(args);
         },
     },
 };

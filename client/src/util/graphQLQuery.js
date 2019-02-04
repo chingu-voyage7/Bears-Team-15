@@ -237,6 +237,14 @@ const attendEvent = gql`
     }
 `;
 
+const unAttendEvent = gql`
+    mutation($eventId: ID, $currentUserId: ID) {
+        unAttendEvent(eventId: $eventId, currentUserId: $currentUserId) {
+            id
+        }
+    }
+`;
+
 export {
     testUserQuery,
     userLogin,
@@ -251,4 +259,5 @@ export {
     updateEvent,
     deleteEvent,
     attendEvent,
+    unAttendEvent,
 };

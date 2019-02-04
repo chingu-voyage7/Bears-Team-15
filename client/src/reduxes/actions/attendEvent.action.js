@@ -10,7 +10,19 @@ export const UserAttendEvent = (args) => {
     };
 };
 
-export const userWillAttendEvent = (gqlQuery, gqlData) => async (dispatch) => {
+export const userUnattendEvent = (args) => {
+    return {
+        type: types.ATTEND_EVENT,
+        payload: {
+            attendEvent: args.attendEvent,
+            isAttendSuccess: args.isAttendSuccess,
+        },
+    };
+};
+
+export const userHandleAttendAction = (gqlQuery, gqlData) => async (
+    dispatch
+) => {
     const {variables, refetchQueries} = gqlData;
 
     try {
