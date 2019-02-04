@@ -8,6 +8,7 @@ import {getUser} from '../../../util/graphQLQuery';
 import {openModal} from '../../../reduxes/actions/modal_actions.js';
 import Card from '../../Common/Card/Card';
 
+
 class Profile extends React.Component {
     renderLoading = () => {
         if (this.props.getUser.loading === true) {
@@ -18,11 +19,15 @@ class Profile extends React.Component {
             return (
                 <div className="profile-container">
                     <div className="profile-user">
-                        {/* <h1>{user.username}</h1> */}
+                        <h1>{user.firstName}</h1>
                         <img
                             className="profile-avatar"
-                            // src={user.avatar}
-                            alt={'avatar'}
+
+
+                            src={user.image}
+                            alt={'avatar ' + user.firstName}
+
+
                         />
                     </div>
                     <div className="profile-content">

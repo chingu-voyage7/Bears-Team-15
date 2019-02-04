@@ -1,13 +1,14 @@
 import React from "react"
 import { connect } from "react-redux"
 import { graphql, compose } from 'react-apollo';
-import {getUser} from '../../../util/graphQLQuery';
+import {getUser,updateUser} from '../../../util/graphQLQuery';
 import "./forms.scss"
 import {closeModal} from "../../../reduxes/actions/modal_actions";
-const EventForm = ({ event, client, currentUser,data}) => {
+const EventForm = ({ event, client, currentUser,data,updateUser,closeModal}) => {
     let form = {
         firstName: '',
-        image: currentUser.id,
+        id:currentUser.id,
+        image: '',
         email: '',
         phone: ''
     }
@@ -19,14 +20,36 @@ const EventForm = ({ event, client, currentUser,data}) => {
         form[event.target.name] = event.target.value;
         console.log(form);
 
+
     }
     const onSubmit = (event) => {
         event.preventDefault();
-        client.mutate({}).then((data) => {
+        const user={};
+        const keys=Object.keys(form);
+        console.log('keys',keys);
+            keys.forEach(function(item,index){    
+            if(form[item] !==''){
+                console.log('item'+index,form[item])
+                user[item]=form[item];
+            }else{
+                user[item]=data[item];
+            }
+            });
+        console.log('updatedUser',user);
+        if(Object.keys(user).length>1){
+        updateUser({
+            variables:{
+                ...user
+            },refetchQueries: [{
+                query: getUser,
+                variables: { id: currentUser.id },
+            }]
+        }).then(function(resp){
+            console.log('response',resp);
             closeModal();
-           
-        });
-
+        })
+        }
+        
     }
     return (<div className="modal-form">
         <form className="modal-event" onSubmit={onSubmit}>
@@ -57,13 +80,6 @@ export default compose(connect(
   mapStateToProps,
   mapDispatchToProps
   // replace with edit user
-), graphql(getUser, {
-  name: "getUser", options: (props) => {
-      console.log("graphprops", props)
-      return {
-          variables: {
-              id: props.currentUser.id
-          }
-      }
-  }
+), graphql(updateUser, {
+  name: "updateUser"
 }))(EventForm);

@@ -7,7 +7,10 @@ const {
     GraphQLInt,
     GraphQLBoolean,
     GraphQLInputObjectType,
+    GraphQLScalarType
+    
 } = require('graphql');
+const {Kind} = require('graphql/language');
 const {UserType} = require('../graphql_typedef/userTypeDef');
 const {EventType} = require('../graphql_typedef/eventTypeDef');
 const {SuppliesType} = require('../graphql_typedef/suppliesTypeDef.js');
@@ -55,13 +58,33 @@ module.exports = {
                     }),
                 }),
             },
+            date: {type: new GraphQLScalarType({
+                name: 'date',
+                description: 'Date custom scalar type',
+                parseValue(value) {
+                    console.log(value);
+                  return new Date(value); // value from the client
+                },
+                serialize(value) {
+                  return value.getTime(); // value sent to the client
+                },
+                parseLiteral(ast) {
+                  if (ast.kind === Kind.INT) {
+                    return new Date(ast.value).toDateString(); // ast value is always in string format
+                  }
+                  return null;
+                },
+
+            })},
+
+
             //   attendees: {type: GraphQLString},
             attendees: {type: new GraphQLList(GraphQLID)},
             category: {type: GraphQLString},
             // supplies: {type: new GraphQLList(SuppliesType)},
         },
         resolve: async (parent, args) => {
-            console.log(parent);
+            console.log('backend-args:',args);
             return await eventCtrl.addEvent(args);
         },
     },
@@ -106,6 +129,7 @@ module.exports = {
             },
         },
         resolve: async (parent, args) => {
+            
             return await eventCtrl.updateEvent(args);
         },
     },
