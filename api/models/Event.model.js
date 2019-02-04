@@ -9,21 +9,13 @@ const addressSchema = new Schema({
     zip: {type: Number},
     country: {type: String},
 });
-const ItemSchema = new Schema({
-    name: {
-        type: String,
-    },
-    description: {
-        type: String,
-    },
-    quantity: {
-        type: Number,
-        default: 0,
-    },
-    fulfilled: {
-        type: Number,
-    },
-    ownerId: [{type: Schema.Types.ObjectId, ref: 'users'}],
+const supplySchema= new Schema({
+    name: String,
+    description: String,
+    quantity: Number,
+    fulfilled: {type: Number, default:0},
+    volunteers: [{volunteer:{type: Schema.Types.ObjectId, ref: 'users'},quantity: {type: Number, default: 0}}]
+    
 });
 
 const EventSchema = new Schema({
@@ -57,7 +49,7 @@ const EventSchema = new Schema({
         type: String,
     },
     attendees: [{type: Schema.Types.ObjectId, ref: 'users'}],
-    supplies: [ItemSchema],
+    supplies: [supplySchema],
 });
 
 module.exports = Event = mongoose.model('events', EventSchema);

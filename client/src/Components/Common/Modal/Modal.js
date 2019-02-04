@@ -5,7 +5,8 @@ import {closeModal} from '../../../reduxes/actions/modal_actions';
 import LoginForm from '../../Pages/Session/LoginForm.jsx';
 import SignupForm from '../../Pages/Session/SignupForm.jsx';
 import './modal.css';
-import SuppliesForm from '../../Modules/Forms/SuppliesForm';
+import AddSupplyForm from '../../Modules/Forms/AddSupplyForm';
+import SupplyForm from '../../Modules/Forms/SupplyForm';
 import EventEdit from '../../Modules/EventEdit/EventEdit';
 import EventForm from '../../Modules/Forms/EventForm.js';
 import ProfileForm from '../../Modules/Forms/ProfileForm.js';
@@ -24,8 +25,10 @@ function Modal({modal, closeModal, data}) {
         case 'NEW_EVENT_FORM':
             component = <EventForm />;
             break;
-        case 'SUPPLIES':
-            component = <SuppliesForm />;
+        case 'ADD_SUPPLY':
+            component = <AddSupplyForm/>;
+        case 'UPDATE_SUPPLY':
+            component = <SupplyForm />;
             break;
         case 'LOGIN':
             component = <LoginForm />;

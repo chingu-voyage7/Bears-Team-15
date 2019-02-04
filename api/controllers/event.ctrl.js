@@ -32,7 +32,7 @@ module.exports = {
     },
     getEventById: async (data) => {
         return await Event.findOne({_id: data.id}).populate(
-            'attendees organizer'
+            'attendees organizer supplies.volunteers.volunteer'
         );
     },
     filteredEventWith: async (data) => {

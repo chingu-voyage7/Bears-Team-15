@@ -79,9 +79,18 @@ const getEventById = gql`
                 firstName
             }
             supplies {
+                id
                 name
                 description
                 quantity
+                volunteers{
+                    id
+                    volunteer{
+                        id
+                        image
+                    }
+                    quantity
+                }
             }
         }
         getUser(id: $uID) {

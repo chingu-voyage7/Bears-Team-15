@@ -1,7 +1,7 @@
 import React from "react"
 import {connect} from "react-redux"
 import "./forms.scss"
-const SuppliesForm=(supplies,addSupplies,removeSupplies)=>{
+const SupplyForm=()=>{
 return(<div className="modal-form">
 <div><h2>Bags</h2><p>needed: 24</p><p>fulfilled: 12</p></div>
 <p>We need bags bigger than 2l for carrying trash</p>
@@ -21,4 +21,4 @@ const mapStateToProps=(state)=>({
 const mapDispatchToProps=(dispatch)=>({
 // update supplies list
 });
-export default connect(mapStateToProps,mapDispatchToProps)(SuppliesForm)
+export default connect(mapStateToProps,mapDispatchToProps)(SupplyForm)
