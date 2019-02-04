@@ -6,6 +6,7 @@ import { closeModal } from "../../../reduxes/actions/modal_actions";
 import { graphql, compose } from 'react-apollo';
 import { getUser } from '../../../util/graphQLQuery';
 import { withApollo } from 'react-apollo'
+import Calendar from 'react-calendar';
 const EventForm = ({ event, client, currentUser, closeModal }) => {
     let form = {
         title: '',
@@ -16,16 +17,19 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
         city: '',
         state: '',
         zip: '',
-        category: ''
+        category: '',
+        time: '',
+        date: new Date(),
     }
 
-    const onChange = (event) => {
-        console.log('name', event.target.name);
-        console.log('input', event.target.value);
+    const onChange = (event) => {       
         form[event.target.name] = event.target.value;
-
+        // set fields    
     }
     const onSubmit = (event) => {
+        let time= form.time.split(':');
+        form.date.setHours(time[0],time[1]);
+        // set the time
         event.preventDefault();
         closeModal();
         client.mutate({
@@ -33,12 +37,14 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
             variables: {
                 organizer: form.organizer,
                 organization: form.organization,
+                description: form.description,
                 title: form.title,
                 address: form.address,
                 city: form.city,
                 state: form.state,
                 zip: parseInt(form.zip),
-                category: form.category
+                category: form.category,
+                date: form.date
             },
             refetchQueries: [{
                 query: getUser,
@@ -48,8 +54,10 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
 
     }
     return (<div className="modal-form">
-        <form className="modal-event" onSubmit={onSubmit}>
-            <h2>New Event</h2>
+    <h2 className="text-center">New Event</h2>
+        <form className="modal-event-split" onSubmit={onSubmit}>
+        <div className="modal-event">
+            
             <div className="modal-event-field"><label>Title</label><input name="title" onChange={onChange} required /></div>
             <div className="modal-event-field"><label>Organization(optional)</label><input name="organization" onChange={onChange} /></div>
             <div className="modal-event-field"><label>Description</label><input name="description" onChange={onChange} required /></div>
@@ -57,11 +65,19 @@ const EventForm = ({ event, client, currentUser, closeModal }) => {
             <div className="modal-event-field"><label>City</label><input name="city" onChange={onChange} required /></div>
             <div className="modal-event-field"><label>State</label><input name="state" onChange={onChange} required /></div>
             <div className="modal-event-field"><label>Zip</label><input name="zip" onChange={onChange} required /></div>
-            {/* <div className="modal-event-field"><label>Time</label><input name="time" onChange={onChange} required /></div> */}
             <div className="modal-event-field"><label>Category</label><input name="category" onChange={onChange} required /></div>
+            <div className="modal-event-field modal-event-center"><label>Time</label><input name="time" type="time" onChange={onChange} required /></div>
+            
+
+
             {/*public or private needs field */}
-            <button>Submit</button>
+        </div>
+        <div>
+            <div className="modal-event-calendar"><label>Calendar</label><Calendar onChange={(value)=>{form.date=value; console.log(form.date)}} value= {form.date}/></div>
+
+        </div>
         </form>
+        <button className="text-center">Submit</button>
     </div>);
 }
 

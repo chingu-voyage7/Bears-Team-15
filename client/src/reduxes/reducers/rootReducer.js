@@ -17,7 +17,6 @@ export default combineReducers({
     allUsers: allUsers,
     currentUser: sessionReducer,
     modal: modal,
-    client: client,
     isAuth: isAuth,
     dataAllEvents: getAllEvents,
     userAttendEvent: attendEvent,

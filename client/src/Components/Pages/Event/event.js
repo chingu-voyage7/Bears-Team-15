@@ -19,13 +19,14 @@ class Event extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+
     }
 
     // attendees form
     async componentDidMount() {
         const EventId = this.props.EventId;
         if (!EventId.length) {
-            this.setState({exists: true});
+            this.setState({ exists: true });
         }
 
         const data = await this.props.client.query({
@@ -45,7 +46,6 @@ class Event extends React.Component {
         });
     };
 
-    //TODO: supply ask mike
     supplyModal = () => {
         // show supply modal to volunteer.
     };
@@ -77,7 +77,7 @@ class Event extends React.Component {
      * This method will handle editing the current event
      */
     handleEditClick = () => {
-        const {event} = this.state;
+        const { event } = this.state;
         this.props.openModal('EVENT_EDIT', event);
     };
 
@@ -178,7 +178,9 @@ class Event extends React.Component {
                 location,
                 supplies,
                 title,
+
                 attendees,
+               date
             } = event.getEventById;
 
             const {getUser} = event;
@@ -187,6 +189,14 @@ class Event extends React.Component {
                 getUser,
                 eventID
             );
+
+               
+ 
+            console.log(event.getEventById);
+            const parseDate=new Date(parseInt(date));
+            const time=parseDate.toLocaleTimeString();
+
+            const dateString = parseDate.toDateString();
 
             return (
                 <div className="event-container">
@@ -199,16 +209,23 @@ class Event extends React.Component {
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}
                         <h1>{this.renderToggleBtn(organizer.id, isAttend)}</h1>
+
                     </div>
                     <div className="profile-rule" />
                     <div className="event-content">
                         <div className="event-content-middle">
                             <h2>Location</h2>
                             <p>
-                                {location.address +
-                                    location.city +
-                                    location.state}
+                                {location.address}
+                                <br/>
+                                {location.city}
+                                <br/>
+                                {location.state+ ' '+ location.zip}
                             </p>
+                            <h2>Date</h2>
+                            <p>{dateString}</p>
+                            <h2>Time</h2>
+                            <p>{time}</p>
                             <h2>Event Details</h2>
                             {/* <p>{description}</p> */}
                             <h2>

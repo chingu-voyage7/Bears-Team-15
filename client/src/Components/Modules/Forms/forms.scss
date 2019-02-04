@@ -2,14 +2,18 @@
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-}
-.modal-form>*{
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 .modal-event{
     display: flex;
     flex-direction: column;    
+}
+.modal-event >*{
+    margin-top: 10px;
 }
 .modal-event h2{
     margin: auto;
@@ -19,7 +23,22 @@
     display: flex;
     justify-content: space-between;
 }
+.modal-event-center{
+    align-self: center;
+}
+.modal-event-calendar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+}
 .modal-event-field label{
  margin-left: auto;
  margin-right: 20px;
+}
+.modal-event-split{
+    display: flex;
+
 }
