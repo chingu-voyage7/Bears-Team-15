@@ -4,6 +4,7 @@ module.exports = {
     addSupply: async (data) => {
         const { eventId, ...supply } = data;
         let checkSub
+        console.log(data);
         await Event.findById(eventId, function (err, event) {
             event.supplies.push(supply);
             checkSub = event.supplies[event.supplies.length - 1];

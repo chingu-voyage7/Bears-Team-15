@@ -28,6 +28,7 @@ function Modal({modal, closeModal, data}) {
             break;
         case 'ADD_SUPPLY':
             component = <AddSupplyForm/>;
+            break;
         case 'UPDATE_SUPPLY':
             component = <SupplyForm />;
             break;
