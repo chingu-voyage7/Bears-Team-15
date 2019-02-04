@@ -35,7 +35,6 @@ const EventEdit = ({
     };
 
     const handleUpdateEvent = async (event) => {
-        console.log(client.cache);
         event.preventDefault();
         try {
             updateThisEvent({
@@ -83,7 +82,6 @@ const EventEdit = ({
             dispatch(closeModal());
             navigate('/profile');
         } catch (error) {
-
             //TODO: handle error here
         }
     };

@@ -34,7 +34,6 @@ module.exports = {
 
         await savedEvent.supplies.id(newSupply);
         savedEvent.save();
-        console.log(savedEvent);
 
         // return await newSupply.save();
     },

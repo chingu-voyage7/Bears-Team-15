@@ -19,14 +19,13 @@ class Event extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-
     }
 
     // attendees form
     async componentDidMount() {
         const EventId = this.props.EventId;
         if (!EventId.length) {
-            this.setState({ exists: true });
+            this.setState({exists: true});
         }
 
         const data = await this.props.client.query({
@@ -36,7 +35,7 @@ class Event extends React.Component {
             },
         });
         // const {title} = data.data.getEventById;
-        // console.log(title);
+
         this.handleSetData(data.data.getEventById);
     }
 
@@ -77,7 +76,7 @@ class Event extends React.Component {
      * This method will handle editing the current event
      */
     handleEditClick = () => {
-        const { event } = this.state;
+        const {event} = this.state;
         this.props.openModal('EVENT_EDIT', event);
     };
 
@@ -180,7 +179,7 @@ class Event extends React.Component {
                 title,
 
                 attendees,
-               date
+                date,
             } = event.getEventById;
 
             const {getUser} = event;
@@ -190,11 +189,8 @@ class Event extends React.Component {
                 eventID
             );
 
-               
- 
-            console.log(event.getEventById);
-            const parseDate=new Date(parseInt(date));
-            const time=parseDate.toLocaleTimeString();
+            const parseDate = new Date(parseInt(date));
+            const time = parseDate.toLocaleTimeString();
 
             const dateString = parseDate.toDateString();
 
@@ -209,7 +205,6 @@ class Event extends React.Component {
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}
                         <h1>{this.renderToggleBtn(organizer.id, isAttend)}</h1>
-
                     </div>
                     <div className="profile-rule" />
                     <div className="event-content">
@@ -217,10 +212,10 @@ class Event extends React.Component {
                             <h2>Location</h2>
                             <p>
                                 {location.address}
-                                <br/>
+                                <br />
                                 {location.city}
-                                <br/>
-                                {location.state+ ' '+ location.zip}
+                                <br />
+                                {location.state + ' ' + location.zip}
                             </p>
                             <h2>Date</h2>
                             <p>{dateString}</p>
