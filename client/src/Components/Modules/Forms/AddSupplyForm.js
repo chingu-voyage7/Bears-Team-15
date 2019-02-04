@@ -38,9 +38,9 @@ const AddSupplyForm = ({ event, client, currentUser, data, closeModal }) => {
     return (<div className="modal-form">
     <form className="modal-event" onSubmit={onSubmit}>
         <h2>Add Supply</h2>
-        <div className="modal-event-field"><label>Name</label><input type="text" name="name" onChange={onChange} placeholder={data.firstName} required/></div>
-        <div className="modal-event-field"><label>Description</label><input type="text" name="description" onChange={onChange} placeholder={data.image} required/></div>
-        <div className="modal-event-field"><label>Quantity Needed</label><input type="number" name="quantity" onChange={onChange} placeholder={data.email} required/></div>
+        <div className="modal-event-field"><label>Name</label><input type="text" name="name" onChange={onChange}  required/></div>
+        <div className="modal-event-field"><label>Description</label><input type="text" name="description" onChange={onChange} required/></div>
+        <div className="modal-event-field"><label>Quantity Needed</label><input type="number" name="quantity" onChange={onChange} required/></div>
         <button>Submit</button>
     </form>
 </div>);

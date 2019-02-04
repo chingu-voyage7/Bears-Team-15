@@ -280,6 +280,13 @@ mutation($eventId: ID,$name: String, $description: String, $quantity: Int){
 }
 
 `;
+const volunteerSupply= gql`
+mutation($eventId: ID,$supplyId: ID, $volunteerId: ID, $quantity: Int){
+    volunteerSupply(eventId: $eventId, supplyId:$supplyId,volunteerId:$volunteerId,quantity:$quantity){
+        id
+    }
+}
+`;
 
 
 
@@ -300,4 +307,5 @@ export {
     attendEvent,
     unAttendEvent,
     addSupply,
+    volunteerSupply
 };

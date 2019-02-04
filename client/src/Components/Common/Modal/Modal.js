@@ -29,7 +29,7 @@ function Modal({modal, closeModal, data}) {
         case 'ADD_SUPPLY':
             component = <AddSupplyForm/>;
             break;
-        case 'UPDATE_SUPPLY':
+        case 'SUPPLY_FORM':
             component = <SupplyForm />;
             break;
         case 'LOGIN':

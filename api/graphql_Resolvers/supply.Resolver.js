@@ -80,7 +80,7 @@ module.exports = {
     volunteerSupply:{
         type:SuppliesType,
         args:{
-            id:{type: GraphQLID},
+            eventId:{type: GraphQLID},
             supplyId:{type: GraphQLID},
             volunteerId:{type: GraphQLID},
             quantity:{type: GraphQLInt}

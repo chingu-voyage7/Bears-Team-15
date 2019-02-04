@@ -14,9 +14,9 @@ module.exports = {
         return checkSub;
     },
     volunteerSupply: async (data) => {
-        const { id, supplyId, volunteerId, quantity } = data;
+        const { eventId, supplyId, volunteerId, quantity } = data;
         let checkSub;
-        await Event.findById(id, function (err, event) {
+        await Event.findById(eventId, function (err, event) {
             event.supplies.id(supplyId).volunteers.push({ volunteer: volunteerId, quantity: quantity });
             checkSub = event.supplies.id(supplyId);
            // add supply to the user as well so they can see all the supplies for each event they are attending.

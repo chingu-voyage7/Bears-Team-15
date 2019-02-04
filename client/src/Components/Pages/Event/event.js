@@ -177,7 +177,6 @@ class Event extends React.Component {
                 location,
                 supplies,
                 title,
-
                 attendees,
                 date,
             } = event.getEventById;
@@ -235,12 +234,14 @@ class Event extends React.Component {
                             <ul className="event-supply-list">
                             {supplies.map((supply) => {
                                 let total= 0;
-                                if(supply.volunteers.length){
-                                    total = supply.volunteers.reduce((total, nextVal) => {
-                                    return total.qty + nextVal.qty;
-                                });
-                                }                   
-                                return <li className="event-supply-item">
+                                const volunteers = supply.volunteers;
+                                console.log(volunteers);
+                                if(volunteers.length){
+                                    total = volunteers.reduce((total,nextVal) => {
+                                    return total + nextVal.quantity;
+                                },0);
+                            }                 
+                                return <li id={supply.id} onClick={()=>{this.props.openModal('SUPPLY_FORM',{supply:supply,eventId:eventID})}} className="event-supply-item">
                                 {supply.name}
                                 <img src={total >= supply.quantity ? checked : exclamation} alt="some text"></img>
                                 </li>
