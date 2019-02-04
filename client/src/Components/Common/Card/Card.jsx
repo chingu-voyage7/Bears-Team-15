@@ -6,7 +6,7 @@ const Card = ({item, owner}) => {
         <Link key={item.id} to={`/event/${item.id}`}>
             <div className="profile-event-card">
                 <p>{item.title}</p>
-                <h1>{owner ? 'OWNER' : 'ATTENDEE'}</h1>
+                <h1>{owner ? 'OWNER' : ' ATTENDEE'}</h1>
                 <div className="profile-event-details">
                     <p>{item.date}</p>
                     <p>{item.location}</p>
