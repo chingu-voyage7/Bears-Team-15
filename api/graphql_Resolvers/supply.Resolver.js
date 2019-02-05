@@ -92,7 +92,7 @@ module.exports = {
     unvolunteerSupply:{
         type:SuppliesType,
         args:{
-            id:{type: GraphQLID},
+            eventId:{type: GraphQLID},
             supplyId:{type: GraphQLID},
             volunteerId:{type: GraphQLID},
             donationId:{type:GraphQLID}

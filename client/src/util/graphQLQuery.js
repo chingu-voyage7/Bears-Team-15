@@ -309,7 +309,16 @@ const volunteerSupply = gql`
         }
     }
 `;
-
+const unvolunteerSupply = gql`
+mutation($eventId: ID, $supplyId: ID, $donationId: ID){
+    unvolunteerSupply(eventId:$eventId,supplyId:$supplyId,donationId:$donationId){
+       id,
+       name
+    }
+     
+}
+ 
+`
 export {
     testUserQuery,
     userLogin,
@@ -328,4 +337,5 @@ export {
     unAttendEvent,
     addSupply,
     volunteerSupply,
+    unvolunteerSupply,
 };

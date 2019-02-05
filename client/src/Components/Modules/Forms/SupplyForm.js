@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import './forms.scss';
-import {volunteerSupply, getEventById} from '../../../util/graphQLQuery';
+import {unvolunteerSupply,volunteerSupply, getEventById} from '../../../util/graphQLQuery';
 import {closeModal} from '../../../reduxes/actions/modal_actions';
 import {graphql, compose} from 'react-apollo';
 import {withApollo} from 'react-apollo';
 import {userHandleAttendAction} from '../../../reduxes/actions/attendEvent.action';
 
-const SupplyForm = ({event, client, currentUser, data, closeModal}) => {
+const SupplyForm = ({ client, currentUser, data, closeModal}) => {
     let form = {
         eventId: data.eventId,
         supplyId: data.supply.id,
@@ -21,6 +21,28 @@ const SupplyForm = ({event, client, currentUser, data, closeModal}) => {
 
         // set fields
     };
+    const exists = data.supply.volunteers.filter(function(item) {
+        return item.volunteer.id === currentUser.id;
+    });
+    const volunteerRemove=(event)=>{
+        event.preventDefault();
+        const {eventId,supplyId}= form;
+        console.log('idlist:   ',data);
+        client.mutate({
+            mutation: unvolunteerSupply,
+            variables:{
+                eventId,
+                supplyId,
+                donationId: exists[0].idG
+            },
+            refetchQueries:[
+                {
+                    query: getEventById,
+                    variables:{id: data.eventId}
+                }
+            ]
+        }).then(()=>closeModal());
+    }
     const volunteerSubmit = (event) => {
         form.quantity = parseInt(form.quantity);
 
@@ -40,12 +62,15 @@ const SupplyForm = ({event, client, currentUser, data, closeModal}) => {
             .then(() => closeModal());
     };
 
+
+
     const formButton = () => {
-        const exists = data.supply.volunteers.filter(function(item) {
-            return item.volunteer.id === currentUser.id;
-        });
         if (exists.length > 0) {
-            return <button>Remove Item</button>;
+            return <button
+            onClick={(event)=>{
+                volunteerRemove(event);
+            }}
+            >Remove Item</button>;
         } else {
             return (
                 <button
