@@ -54,81 +54,33 @@ const EventForm = ({event, client, currentUser, closeModal}) => {
             ],
         });
     };
-    return (
-        <div className="modal-form">
-            <h2 className="text-center">New Event</h2>
-            <form
-                className="modal-event-split"
-                id="event_form"
-                onSubmit={onSubmit}>
-                <div className="modal-event">
-                    <div className="modal-event-field">
-                        <label>Title</label>
-                        <input name="title" onChange={onChange} required />
-                    </div>
-                    <div className="modal-event-field">
-                        <label>Organization(optional)</label>
-                        <input name="organization" onChange={onChange} />
-                    </div>
-                    <div className="modal-event-field">
-                        <label>Description</label>
-                        <input
-                            name="description"
-                            onChange={onChange}
-                            required
-                        />
-                    </div>
-                    <div className="modal-event-field">
-                        <label>Address</label>
-                        <input name="address" onChange={onChange} required />
-                    </div>
-                    <div className="modal-event-field">
-                        <label>City</label>
-                        <input name="city" onChange={onChange} required />
-                    </div>
-                    <div className="modal-event-field">
-                        <label>State</label>
-                        <input name="state" onChange={onChange} required />
-                    </div>
-                    <div className="modal-event-field">
-                        <label>Zip</label>
-                        <input name="zip" onChange={onChange} required />
-                    </div>
-                    <div className="modal-event-field">
-                        <label>Category</label>
-                        <input name="category" onChange={onChange} required />
-                    </div>
-                    <div className="modal-event-field modal-event-center">
-                        <label>Time</label>
-                        <input
-                            name="time"
-                            type="time"
-                            onChange={onChange}
-                            required
-                        />
-                    </div>
+    return (<div className="modal-form">
+    <h2 className="text-center">New Event</h2>
+        <form className="modal-event-split" id="newEvent" onSubmit={onSubmit}>
+        <div className="modal-event">
+            
+            <div className="modal-event-field"><label>Title</label><input name="title" onChange={onChange} required /></div>
+            <div className="modal-event-field"><label>Organization(optional)</label><input name="organization" onChange={onChange} /></div>
+            <div className="modal-event-field"><label>Description</label><input name="description" onChange={onChange} required /></div>
+            <div className="modal-event-field"><label>Address</label><input name="address" onChange={onChange} required /></div>
+            <div className="modal-event-field"><label>City</label><input name="city" onChange={onChange} required /></div>
+            <div className="modal-event-field"><label>State</label><input name="state" onChange={onChange} required /></div>
+            <div className="modal-event-field"><label>Zip</label><input name="zip" onChange={onChange} required /></div>
+            <div className="modal-event-field"><label>Category</label><input name="category" onChange={onChange} required /></div>
+            <div className="modal-event-field modal-event-center"><label>Time</label><input name="time" type="time" onChange={onChange} required /></div>
+            
 
-                    {/*public or private needs field */}
-                </div>
-                <div>
-                    <div className="modal-event-calendar">
-                        <label>Calendar</label>
-                        <Calendar
-                            onChange={(value) => {
-                                form.date = value;
-                                console.log(form.date);
-                            }}
-                            value={form.date}
-                        />
-                    </div>
-                </div>
-            </form>
-            <button className="text-center" form="event_form" type="submit">
-                Submit
-            </button>
+
+            {/*public or private needs field */}
         </div>
-    );
-};
+        <div>
+            <div className="modal-event-calendar"><label>Calendar</label><Calendar onChange={(value)=>{form.date=value; console.log(form.date)}} value= {form.date}/></div>
+
+        </div>
+        </form>
+        <button className="text-center" type="submit" form="newEvent">Submit</button>
+    </div>);
+}
 
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser,

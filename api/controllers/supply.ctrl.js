@@ -1,44 +1,66 @@
-const mongoose = require('mongoose');
-const {event} = require('../models/main.model');
-
+const Event = require('../models/main.model').event;
+const User = require('../models/main.model').user;
 module.exports = {
     addSupply: async (data) => {
-        try {
-            const savedEvent = await event.findById({_id: data.eventId});
-            const newSupply = await {
-                _id: mongoose.Types.ObjectId(),
-                name: data.name,
-                description: data.description,
-                quantity: data.quantity,
-                fulfilled: data.fulfilled,
-                ownerId: data.ownerId,
-            };
+        const { eventId, ...supply } = data;
+        let checkSub
+        console.log(data);
+        await Event.findById(eventId, function (err, event) {
+            event.supplies.push(supply);
+            checkSub = event.supplies[event.supplies.length - 1];
+            console.log(checkSub);
+            event.save();
+        });
+        return checkSub;
+    },
+    volunteerSupply: async (data) => {
+        const { eventId, supplyId, volunteerId, quantity } = data;
+        let checkSub;
+        await Event.findById(eventId, function (err, event) {
+            event.supplies.id(supplyId).volunteers.push({ volunteer: volunteerId, quantity: quantity });
+            checkSub = event.supplies.id(supplyId);
+           // add supply to the user as well so they can see all the supplies for each event they are attending.
+           // error checking in the backend or frontend for duplicates
+            console.log(checkSub);
+            event.save();
+        });
+        return checkSub;
 
-            await savedEvent.supplies.push(newSupply);
-            await savedEvent.save();
-            const supply = await savedEvent.supplies.id(newSupply._id);
-            supply.ownerId.push(newSupply.ownerId);
-        } catch (error) {
-            return error;
-        }
+    },
+    unvolunteerSupply: async (data) => {
+        const { id, supplyId, donationId} = data;
+        let checkSub;
+        await Event.findById(id, function (err, event) {
+            checkSub = event.supplies.id(supplyId);
+            event.supplies.id(supplyId).volunteers.id(donationId).remove();
+            console.log(checkSub);
+            event.save();
+        });
+        return checkSub;
+
     },
     deleteSupply: async (data) => {
-        const newSupply = {
-            name: data.name,
-            description: data.description,
-            quantity: data.quantity,
-            OwnerId: data.ownerId,
-        };
+        const { id, supplyId } = data;
+        let checkSub;
+        await Event.findById(id, function (err, event) {
+            checkSub = event.supplies.id(supplyId);
+            event.supplies.id(supplyId).remove();
 
-        const savedEvent = await event.findById({_id: data.eventId});
-
-        await savedEvent.supplies.id(newSupply);
-        savedEvent.save();
-
-        // return await newSupply.save();
+            event.save();
+        });
+        return checkSub;
     },
+    updateSupply: async (data) => {
+        const { id, supplyId, ...myUpdate } = data;
+        let checkSub;
+        await Event.findById(id, function (err, event) {
+            event.supplies.id(supplyId).set(myUpdate);
+            checkSub = event.supplies.id(supplyId);
+            event.save();
+        });
+        return checkSub;
+    }
 
-    getAllSupply: async (data) => {
-        return await supply.find().populate('ownerId');
-    },
+
+
 };

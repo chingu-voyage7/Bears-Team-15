@@ -21,7 +21,14 @@ const {
     unAttendEvent,
 } = require('../graphql_Resolvers/event.Resolver.js');
 
-const {addSupplies} = require('../graphql_Resolvers/supply.Resolver');
+const {
+    addSupply,
+    deleteSupply,
+    updateSupply,
+    volunteerSupply,
+    unvolunteerSupply
+
+} = require('../graphql_Resolvers/supply.Resolver');
 
 // const {EventType} = require('../graphql_typedef/eventTypeDef.js');
 
@@ -59,7 +66,11 @@ const mutate = new GraphQLObjectType({
         unAttendEvent,
         // ! event end
         // ! supply start
-        addSupplies,
+        unvolunteerSupply,
+        volunteerSupply,
+        updateSupply,
+        addSupply,
+        deleteSupply
         // ! supply end
     }),
 });

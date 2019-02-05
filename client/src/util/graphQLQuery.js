@@ -79,9 +79,18 @@ const getEventById = gql`
                 firstName
             }
             supplies {
+                id
                 name
                 description
                 quantity
+                volunteers{
+                    id
+                    volunteer{
+                        id
+                        image
+                    }
+                    quantity
+                }
             }
         }
         getUser(id: $uID) {
@@ -263,6 +272,24 @@ const unAttendEvent = gql`
     }
 `;
 
+const addSupply= gql`
+mutation($eventId: ID,$name: String, $description: String, $quantity: Int){
+    addSupply(eventId: $eventId,name: $name,description:$description,quantity: $quantity){
+        id
+    }
+}
+
+`;
+const volunteerSupply= gql`
+mutation($eventId: ID,$supplyId: ID, $volunteerId: ID, $quantity: Int){
+    volunteerSupply(eventId: $eventId, supplyId:$supplyId,volunteerId:$volunteerId,quantity:$quantity){
+        id
+    }
+}
+`;
+
+
+
 export {
     testUserQuery,
     userLogin,
@@ -279,4 +306,6 @@ export {
     deleteEvent,
     attendEvent,
     unAttendEvent,
+    addSupply,
+    volunteerSupply
 };
