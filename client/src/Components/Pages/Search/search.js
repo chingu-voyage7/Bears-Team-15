@@ -64,6 +64,14 @@ class Search extends React.Component {
         }
     };
 
+    /**
+     * parsing date
+     */
+    dateParser = (miliSec) => {
+        const parseDate = new Date(parseInt(miliSec));
+        return parseDate.toDateString();
+    };
+
     getEventsData = () => {
         const {events, isQueryEventSuccess} = this.props.state.dataAllEvents;
 
@@ -76,7 +84,7 @@ class Search extends React.Component {
                                 <div className="search-event">
                                     <h1>{event.title}</h1>
                                     <p>{event.description}</p>
-                                    <p>{event.date}</p>
+                                    <p>{this.dateParser(event.date)}</p>
                                     <div>
                                         <h4>attendee:</h4>
                                         <div>
