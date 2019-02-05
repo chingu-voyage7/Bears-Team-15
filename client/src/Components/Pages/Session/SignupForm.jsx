@@ -1,7 +1,6 @@
-
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { graphql, compose,withApollo } from 'react-apollo';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {graphql, compose} from 'react-apollo';
 
 // ! imported files
 import Input from '../../Common/Input/input';

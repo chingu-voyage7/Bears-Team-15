@@ -1,10 +1,10 @@
 import React from 'react';
 import './event.css';
-import avatar from '../../Images/CoolGuy.jpg';
-import image from '../../Images/gaming-group.jpg';
+// import avatar from '../../Images/CoolGuy.jpg';
+// import image from '../../Images/gaming-group.jpg';
 import checked from '../../Icons/CheckedCircle.svg';
 import exclamation from '../../Icons/ExclamationCircle.svg';
-import cat from '../../Images/cat.jpg';
+// import cat from '../../Images/cat.jpg';
 import {connect} from 'react-redux';
 import {openModal} from '../../../reduxes/actions/modal_actions.js';
 import {
@@ -77,7 +77,9 @@ class Event extends React.Component {
      */
     handleEditClick = () => {
         const {event} = this.state;
-        this.props.openModal('EVENT_EDIT', event);
+
+        this.props.openModal('NEW_EVENT_FORM', event, 'EVENT');
+        // this.props.openModal('EVENT_EDIT', event, 'EVENT');
     };
 
     /**
@@ -172,7 +174,7 @@ class Event extends React.Component {
     renderAddSupply = () => {
         const {id, organizer} = this.props.getEventById.getEventById;
 
-        if (this.props.currentUser.id == organizer.id) {
+        if (this.props.currentUser.id === organizer.id) {
             return (
                 <button onClick={() => this.props.openModal('ADD_SUPPLY', id)}>
                     add supplies
@@ -200,7 +202,7 @@ class Event extends React.Component {
                 location,
                 supplies,
                 title,
-                attendees,
+                // attendees,
                 date,
             } = event.getEventById;
 
@@ -330,7 +332,7 @@ const mapStateToProps = (state) => ({
     currentUser: state.currentUser,
 });
 const mapDispatchToProps = (dispatch) => ({
-    openModal: (modal, data) => dispatch(openModal(modal, data)),
+    openModal: (modal, data, page) => dispatch(openModal(modal, data, page)),
     dispatch,
 });
 

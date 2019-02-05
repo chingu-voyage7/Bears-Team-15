@@ -5,7 +5,7 @@ import {volunteerSupply, getEventById} from '../../../util/graphQLQuery';
 import {closeModal} from '../../../reduxes/actions/modal_actions';
 import {graphql, compose} from 'react-apollo';
 import {withApollo} from 'react-apollo';
-import {userHandleAttendAction} from '../../../reduxes/actions/attendEvent.action';
+// import {userHandleAttendAction} from '../../../reduxes/actions/attendEvent.action';
 
 const SupplyForm = ({event, client, currentUser, data, closeModal}) => {
     let form = {

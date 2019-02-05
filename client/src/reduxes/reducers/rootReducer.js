@@ -4,7 +4,7 @@ import incDecReducers from './inc_dec_reducers';
 import allUsers from './userGrabReducer';
 import sessionReducer from './session_reducer';
 import modal from './modal_reducer';
-import client from './client_reducers';
+// import client from './client_reducers';
 import isAuth from './isAuthReducer';
 import getAllEvents from './allEvents.Reducer';
 import attendEvent from './attendEvent.reducer';

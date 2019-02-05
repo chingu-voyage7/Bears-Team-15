@@ -7,8 +7,7 @@ const {
     GraphQLInt,
     GraphQLBoolean,
     GraphQLInputObjectType,
-    GraphQLScalarType
-    
+    GraphQLScalarType,
 } = require('graphql');
 const {Kind} = require('graphql/language');
 const {UserType} = require('../graphql_typedef/userTypeDef');
@@ -58,25 +57,25 @@ module.exports = {
                     }),
                 }),
             },
-            date: {type: new GraphQLScalarType({
-                name: 'date',
-                description: 'Date custom scalar type',
-                parseValue(value) {
-                    console.log(value);
-                  return new Date(value); // value from the client
-                },
-                serialize(value) {
-                  return value.getTime(); // value sent to the client
-                },
-                parseLiteral(ast) {
-                  if (ast.kind === Kind.INT) {
-                    return new Date(ast.value).toDateString(); // ast value is always in string format
-                  }
-                  return null;
-                },
-
-            })},
-
+            date: {
+                type: new GraphQLScalarType({
+                    name: 'date',
+                    description: 'Date custom scalar type',
+                    parseValue(value) {
+                        console.log(value);
+                        return new Date(value); // value from the client
+                    },
+                    serialize(value) {
+                        return value.getTime(); // value sent to the client
+                    },
+                    parseLiteral(ast) {
+                        if (ast.kind === Kind.INT) {
+                            return new Date(ast.value).toDateString(); // ast value is always in string format
+                        }
+                        return null;
+                    },
+                }),
+            },
 
             //   attendees: {type: GraphQLString},
             attendees: {type: new GraphQLList(GraphQLID)},
@@ -84,7 +83,7 @@ module.exports = {
             // supplies: {type: new GraphQLList(SuppliesType)},
         },
         resolve: async (parent, args) => {
-            console.log('backend-args:',args);
+            console.log('backend-args:', args);
             return await eventCtrl.addEvent(args);
         },
     },
@@ -109,12 +108,34 @@ module.exports = {
     },
     updateEvent: {
         type: EventType,
+        // args: {
+        //     id: {type: GraphQLID},
+        //     title: {type: GraphQLString},
+        //     organization: {type: GraphQLString},
+        //     description: {type: GraphQLString},
+        //     date: {type: GraphQLInt},
+        //     location: {
+        //         type: new GraphQLInputObjectType({
+        //             name: 'updateLocation',
+        //             fields: () => ({
+        //                 address: {type: GraphQLString},
+        //                 city: {type: GraphQLString},
+        //                 state: {type: GraphQLString},
+        //                 zip: {type: GraphQLInt},
+        //                 country: {type: GraphQLString},
+        //             }),
+        //         }),
+        //     },
+        // },
         args: {
-            id: {type: GraphQLID},
-            title: {type: GraphQLString},
+            //   organizerId: {type: GraphQLString},
+            eventId: {type: GraphQLID},
+            organizer: {type: GraphQLID},
             organization: {type: GraphQLString},
+            title: {type: GraphQLString},
+            image: {type: GraphQLString},
             description: {type: GraphQLString},
-            date: {type: GraphQLInt},
+            category: {type: GraphQLString},
             location: {
                 type: new GraphQLInputObjectType({
                     name: 'updateLocation',
@@ -127,9 +148,31 @@ module.exports = {
                     }),
                 }),
             },
+            // date: {
+            //     type: new GraphQLScalarType({
+            //         name: 'updateDateTime',
+            //         description: 'Date custom scalar type',
+            //         parseValue(value) {
+            //             console.log(value);
+            //             return new Date(value); // value from the client
+            //         },
+            //         serialize(value) {
+            //             return value.getTime(); // value sent to the client
+            //         },
+            //         parseLiteral(ast) {
+            //             if (ast.kind === Kind.INT) {
+            //                 return new Date(ast.value).toDateString(); // ast value is always in string format
+            //             }
+            //             return null;
+            //         },
+            //     }),
+            // },
+
+            //   attendees: {type: GraphQLString},
+            // attendees: {type: new GraphQLList(GraphQLID)},
+            // supplies: {type: new GraphQLList(SuppliesType)},
         },
         resolve: async (parent, args) => {
-            
             return await eventCtrl.updateEvent(args);
         },
     },

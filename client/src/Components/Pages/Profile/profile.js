@@ -40,7 +40,8 @@ class Profile extends React.Component {
                                     onClick={() =>
                                         this.props.openModal(
                                             'NEW_EVENT_FORM',
-                                            user.id
+                                            user.id,
+                                            'PROFILE'
                                         )
                                     }>
                                     Create Events
@@ -92,7 +93,7 @@ const mapStateToProps = (state) => ({
     currentUser: state.currentUser,
 });
 const mapDispatchToProps = (dispatch) => ({
-    openModal: (args, data) => dispatch(openModal(args, data)),
+    openModal: (args, data, page) => dispatch(openModal(args, data, page)),
 });
 
 export default compose(

@@ -99,11 +99,20 @@ module.exports = {
         }
     },
     updateEvent: async (data) => {
-        const {title, organization, description, location, date} = data;
+        // console.log(data, 'data');
+        const {
+            title,
+            organization,
+            description,
+            location,
+            date,
+            category,
+            eventId,
+        } = data;
         // modify the data to be dynamic based on data set.... still will throw error.
-        console.log(data);
+        // console.log(location, 'loc');
         try {
-            const event = await Event.findById(data.id);
+            const event = await Event.findById(eventId);
             event.location.address = location.address;
             event.location.city = location.city;
             event.location.state = location.state;
@@ -112,6 +121,7 @@ module.exports = {
                 title,
                 organization,
                 description,
+                category,
             });
             event.save();
         } catch (error) {

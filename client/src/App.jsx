@@ -8,7 +8,6 @@ import {
     Drives,
     IndexPage,
     About,
-    Test,
     Search,
     Profile,
     Event,

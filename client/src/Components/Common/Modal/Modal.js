@@ -11,23 +11,22 @@ import EventEdit from '../../Modules/EventEdit/EventEdit';
 import EventForm from '../../Modules/Forms/EventForm.js';
 import ProfileForm from '../../Modules/Forms/ProfileForm.js';
 // import {navigate} from '@reach/router';
-function Modal({modal, closeModal, data}) {
+function Modal({modal, closeModal, data, page}) {
     if (!modal) {
         return null;
     }
 
     // case "add-Items" => itemform,case "edit-event"=> editform
     let component;
-    console.log(modal);
     switch (modal) {
         case 'EDIT_PROFILE_FORM':
             component = <ProfileForm />;
             break;
         case 'NEW_EVENT_FORM':
-            component = <EventForm />;
+            component = <EventForm page={page} eventData={data} />;
             break;
         case 'ADD_SUPPLY':
-            component = <AddSupplyForm/>;
+            component = <AddSupplyForm />;
             break;
         case 'SUPPLY_FORM':
             component = <SupplyForm />;
@@ -57,6 +56,7 @@ const mapStateToProps = (state) => {
     return {
         modal: state.modal.modal,
         data: state.modal.data,
+        page: state.modal.page,
     };
 };
 

@@ -30,7 +30,6 @@ const EventForm = ({
 
         keys.forEach(function(item, index) {
             if (form[item] !== '') {
-                console.log('item' + index, form[item]);
                 user[item] = form[item];
             } else {
                 user[item] = data[item];
@@ -49,7 +48,6 @@ const EventForm = ({
                     },
                 ],
             }).then(function(resp) {
-                console.log('response', resp);
                 closeModal();
             });
         }
