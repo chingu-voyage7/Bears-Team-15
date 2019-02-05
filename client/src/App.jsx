@@ -63,7 +63,7 @@ class App extends Component {
                             <Drives path="/drives" />
                             {/* <Locations path="/locations" /> */}
                             <LoginForm path="/login" />
-                            <Auth path="/test" component={Test} />
+                            {/* <Auth path="/test" component={Test} /> */}
                             <Auth path="/about" component={About} />
                             <Search path="/search" />
                             <Auth path="/profile" component={Profile} />
@@ -85,7 +85,6 @@ const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch(closeModal()),
     setCurrUser: (args) => dispatch(setCurrentUser(args)),
     checkIfAuth: (args) => dispatch(checkIfAuth(args)),
-
 });
 
 export default connect(

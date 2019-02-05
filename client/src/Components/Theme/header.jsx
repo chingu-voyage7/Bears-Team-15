@@ -1,94 +1,105 @@
-import { connect } from 'react-redux';
-import React, { Component } from 'react';
-import { Link, navigate } from '@reach/router';
-import { login, logout } from '../../reduxes/actions/session_actions';
-import { openModal } from '../../reduxes/actions/modal_actions.js';
-import { auth } from '../../reduxes/actions/isAuthAction.js';
+import {connect} from 'react-redux';
+import React, {Component} from 'react';
+import {Link, navigate} from '@reach/router';
+import {login, logout} from '../../reduxes/actions/session_actions';
+import {openModal} from '../../reduxes/actions/modal_actions.js';
+import {auth} from '../../reduxes/actions/isAuthAction.js';
 
 const linkStyle = {
-	textDecoration  : 'none',
-	color           : 'inherit',
-	backgroundColor : 'inherit'
+    textDecoration: 'none',
+    color: 'inherit',
+    backgroundColor: 'inherit',
 };
 
 class Header extends Component {
-	handleLogout = () => {
-		console.log('logout');
-		this.props.logout();
-		this.props.auth(false);
-		navigate('/');
-	};
+    handleLogout = () => {
+        console.log('logout');
+        this.props.logout();
+        this.props.auth(false);
+        navigate('/');
+    };
 
-	render() {
-		const loggedInLinks = () => {
-			return (<span>
-				<span>
-				<Link to="/profile"> Profile </Link>
-				</span>
-				<span className="login-link" onClick={() => this.handleLogout()}>
-					Logout
-				</span>
-				
-			</span>);
-		};
+    render() {
+        const loggedInLinks = () => {
+            return (
+                <span>
+                    <span>
+                        <Link to="/profile"> Profile </Link>
+                    </span>
+                    <span
+                        className="login-link"
+                        onClick={() => this.handleLogout()}>
+                        Logout
+                    </span>
+                </span>
+            );
+        };
 
-		const loggedOutLinks = () => {
-			return (
-				<span>
-					<span className="login-link" onClick={() => this.props.openModal('LOGIN')}>
-						Login
-					</span>
-					<span className="login-link" onClick={() => this.props.openModal('SIGNUP')}>
-						Signup
-					</span>
-				</span>
-			);
-		};
+        const loggedOutLinks = () => {
+            return (
+                <span>
+                    <span
+                        className="login-link"
+                        onClick={() => this.props.openModal('LOGIN')}>
+                        Login
+                    </span>{' '}
+                    <span
+                        className="login-link"
+                        onClick={() => this.props.openModal('SIGNUP')}>
+                        Signup
+                    </span>
+                </span>
+            );
+        };
 
-		// console.log(this.props.currentUser === false, this.props.currentUser);
+        // console.log(this.props.currentUser === false, this.props.currentUser);
 
-		return (
-			<div className="header">
-				<h1 className="logo">
-					<Link to="/" style={linkStyle}>
-						ARC
-					</Link>
-				</h1>
-				<nav>
-					{/*{"  "}
+        return (
+            <div className="header">
+                <h1 className="logo">
+                    <Link to="/" style={linkStyle}>
+                        ARC
+                    </Link>
+                </h1>
+                <nav>
+                    {/*{"  "}
             <Link to="/">Home</Link>{"  "}
             <Link to="drives">Drives</Link>{"  "}
             <Link to="locations">Locations</Link>{"  "}
             <Link to="about">About</Link>{"  "}
             <Link to="test">Test</Link> */}
-					<Link to="/search">Search</Link>{' '}
-					{/* <span className="login-link" onClick={() => this.props.openModal("login")}>
+                    <Link to="/search">Search</Link>{' '}
+                    {/* <span className="login-link" onClick={() => this.props.openModal("login")}>
             Login
             </span>{" "}
           <span className="login-link" onClick={() => this.props.openModal("signup")}>
             Signup
             </span>{" "} */}
-					
-					<Link to="/test">Test</Link>
-					{this.props.state.isAuth ? loggedInLinks() : loggedOutLinks()}
-					{/* <span className="login-link" onClick={() => this.handleLogout()}>
+                    {/* <Link to="/test">Test</Link> */}
+                    {this.props.state.isAuth
+                        ? loggedInLinks()
+                        : loggedOutLinks()}
+                    {/* <span className="login-link" onClick={() => this.handleLogout()}>
             Logout
             </span>{" "} */}
-				</nav>
-			</div>
-		);
-	}
+                </nav>
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = (state) => ({
-	state
+    state,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	login     : (guestUser) => dispatch(login(guestUser)),
-	logout    : () => dispatch(logout()),
-	openModal : (modal) => dispatch(openModal(modal)),
-	auth      : (args) => dispatch(auth(args))
+    login: (guestUser) => dispatch(login(guestUser)),
+    logout: () => dispatch(logout()),
+    openModal: (modal) => dispatch(openModal(modal)),
+    auth: (args) => dispatch(auth(args)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Header);
