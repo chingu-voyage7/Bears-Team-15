@@ -28,6 +28,7 @@ export const allEvents = (client) => async (dispatch) => {
             events: data,
             isQueryEventSuccess: true,
         };
+        console.log(data, 'sadfas');
         // !! testing rendering loading to be removed!
         // setTimeout(function() {
         dispatch(receiveAllEvents(allEvents));
