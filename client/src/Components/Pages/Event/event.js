@@ -213,7 +213,7 @@ console.log('user data',event.getUser);
                         src={image}
                         alt="event banner"
                     /> */}
-                    <div className="event-banner"></div>
+                    <div className=""></div>
                     <div className="event-navigation">
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}
