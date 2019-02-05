@@ -152,6 +152,10 @@ class Event extends React.Component {
      * @returns {BOOLEAN}
      */
     checkCurrentUserIfAttendingTheCurrentEvent = (getUser, eventID) => {
+        // null checker,
+        // if you wont validate getUser it will give error on logout
+        if (!getUser) return;
+
         const hasEvent = getUser.attendedEvent.filter(
             (item) => item.id === eventID
         );
