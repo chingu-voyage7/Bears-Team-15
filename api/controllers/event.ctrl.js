@@ -11,6 +11,7 @@ module.exports = {
     getAllEvents: async (data) => {
         try {
             return await Event.find().populate('attendees organizer');
+            // console.log(test);
         } catch (error) {
             return error;
         }
@@ -74,7 +75,6 @@ module.exports = {
                         User.updateMany(
                             {_id: {$in: event.attendees}},
                             {$pull: {attendedEvent: data.eventId}},
-                            // {multi: true},
                             function(err, numberAffected) {
                                 console.log(numberAffected);
                             }
@@ -125,7 +125,6 @@ module.exports = {
      */
     attendEvent: async (data) => {
         const {eventId, attendeeId} = data;
-        // console.log(eventId, attendeeId);
 
         try {
             const event = await Event.findById(eventId);

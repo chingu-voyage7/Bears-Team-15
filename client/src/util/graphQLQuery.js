@@ -83,9 +83,9 @@ const getEventById = gql`
                 name
                 description
                 quantity
-                volunteers{
+                volunteers {
                     id
-                    volunteer{
+                    volunteer {
                         id
                         image
                     }
@@ -122,7 +122,6 @@ const queryFilterEvents = gql`
 `;
 
 const addNewEvent = gql`
-
     mutation addNewEvent(
         $organizer: ID
         $organization: String
@@ -178,12 +177,10 @@ const getAllEvents = gql`
                 name
                 description
                 quantity
-                OwnerId
             }
             attendees {
                 lastName
             }
-            # supplies
         }
     }
 `;
@@ -222,17 +219,28 @@ const deleteEvent = gql`
         }
     }
 `;
-const updateUser= gql`
-mutation($id: String $image: String $firstName: String $phone: String $email: String){
-        updateUser(id:$id firstName:$firstName image:$image phone:$phone email:$email ){
+const updateUser = gql`
+    mutation(
+        $id: String
+        $image: String
+        $firstName: String
+        $phone: String
+        $email: String
+    ) {
+        updateUser(
+            id: $id
+            firstName: $firstName
+            image: $image
+            phone: $phone
+            email: $email
+        ) {
             id
             firstName
             email
             phone
         }
-}
-
-`
+    }
+`;
 const addUser = gql`
     mutation(
         $firstName: String = ""
@@ -272,23 +280,35 @@ const unAttendEvent = gql`
     }
 `;
 
-const addSupply= gql`
-mutation($eventId: ID,$name: String, $description: String, $quantity: Int){
-    addSupply(eventId: $eventId,name: $name,description:$description,quantity: $quantity){
-        id
+const addSupply = gql`
+    mutation(
+        $eventId: ID
+        $name: String
+        $description: String
+        $quantity: Int
+    ) {
+        addSupply(
+            eventId: $eventId
+            name: $name
+            description: $description
+            quantity: $quantity
+        ) {
+            id
+        }
     }
-}
-
 `;
-const volunteerSupply= gql`
-mutation($eventId: ID,$supplyId: ID, $volunteerId: ID, $quantity: Int){
-    volunteerSupply(eventId: $eventId, supplyId:$supplyId,volunteerId:$volunteerId,quantity:$quantity){
-        id
+const volunteerSupply = gql`
+    mutation($eventId: ID, $supplyId: ID, $volunteerId: ID, $quantity: Int) {
+        volunteerSupply(
+            eventId: $eventId
+            supplyId: $supplyId
+            volunteerId: $volunteerId
+            quantity: $quantity
+        ) {
+            id
+        }
     }
-}
 `;
-
-
 
 export {
     testUserQuery,
@@ -307,5 +327,5 @@ export {
     attendEvent,
     unAttendEvent,
     addSupply,
-    volunteerSupply
+    volunteerSupply,
 };

@@ -27,18 +27,20 @@ class Search extends React.Component {
     };
 
     componentWillMount() {
+        const {id} = this.props.state.currentUser;
         const {dispatch} = this.props;
-        dispatch(allEvents(this.props.client));
+        dispatch(allEvents(this.props.client, id));
         this.setState({
             isFetching: true,
         });
     }
 
     handleSubmitQuery = (e) => {
+        const {id} = this.props.state.currentUser;
         e.preventDefault();
         const {dispatch} = this.props;
         const {searchEvent} = this.state;
-        dispatch(filterEvents(this.props.client, searchEvent));
+        dispatch(filterEvents(this.props.client, searchEvent, id));
         this.setState({
             isFetching: true,
         });
@@ -62,6 +64,14 @@ class Search extends React.Component {
         }
     };
 
+    /**
+     * parsing date
+     */
+    dateParser = (miliSec) => {
+        const parseDate = new Date(parseInt(miliSec));
+        return parseDate.toDateString();
+    };
+
     getEventsData = () => {
         const {events, isQueryEventSuccess} = this.props.state.dataAllEvents;
 
@@ -74,17 +84,15 @@ class Search extends React.Component {
                                 <div className="search-event">
                                     <h1>{event.title}</h1>
                                     <p>{event.description}</p>
-                                    <p>{event.date}</p>
+                                    <p>{this.dateParser(event.date)}</p>
                                     <div>
                                         <h4>attendee:</h4>
                                         <div>
-                                            {event.attendees.map(
-                                                (attendee, i) => (
-                                                    <p key={i}>
-                                                        {attendee.lastName}
-                                                    </p>
-                                                )
-                                            )}
+                                            {event.attendees.map((attendee) => (
+                                                <p key={attendee.id}>
+                                                    {attendee.lastName}
+                                                </p>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
