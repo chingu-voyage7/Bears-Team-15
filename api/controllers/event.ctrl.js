@@ -52,7 +52,6 @@ module.exports = {
         }
     },
     deleteEvent: async (data) => {
-        console.log(data);
         try {
             // deleting the event by the owner
             const user = await User.findById(data.userId);
@@ -99,8 +98,16 @@ module.exports = {
         }
     },
     updateEvent: async (data) => {
-        const {title, organization, description, location, date} = data;
-        // modify the data to be dynamic based on data set.... still will throw error.
+        const {
+            title,
+            organization,
+            description,
+            location,
+            category,
+            date,
+            time,
+        } = data;
+
         console.log(data);
         try {
             const event = await Event.findById(data.id);
@@ -112,6 +119,8 @@ module.exports = {
                 title,
                 organization,
                 description,
+                category,
+                date,
             });
             event.save();
         } catch (error) {
