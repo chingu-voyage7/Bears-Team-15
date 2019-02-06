@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import './forms.scss';
-import {unvolunteerSupply,volunteerSupply, getEventById} from '../../../util/graphQLQuery';
+import {unvolunteerSupply,volunteerSupply, getEventById, deleteSupply} from '../../../util/graphQLQuery';
 import {closeModal} from '../../../reduxes/actions/modal_actions';
 import {graphql, compose} from 'react-apollo';
 import {withApollo} from 'react-apollo';
@@ -21,9 +21,11 @@ const SupplyForm = ({ client, currentUser, data, closeModal}) => {
 
         // set fields
     };
+
     const exists = data.supply.volunteers.filter(function(item) {
         return item.volunteer.id === currentUser.id;
     });
+
     const volunteerRemove=(event)=>{
         event.preventDefault();
         const {eventId,supplyId}= form;
@@ -33,7 +35,7 @@ const SupplyForm = ({ client, currentUser, data, closeModal}) => {
             variables:{
                 eventId,
                 supplyId,
-                donationId: exists[0].idG
+                donationId: exists[0].id
             },
             refetchQueries:[
                 {
@@ -62,7 +64,26 @@ const SupplyForm = ({ client, currentUser, data, closeModal}) => {
             .then(() => closeModal());
     };
 
+    const handleDelete=(event)=>{
+        event.preventDefault();
+        const {eventId,supplyId}= form;
 
+        client
+            .mutate({
+                mutation: deleteSupply,
+                variables: {
+                    eventId,
+                    supplyId
+                },
+                refetchQueries: [
+                    {
+                        query: getEventById,
+                        variables: {id: data.eventId},
+                    },
+                ],
+            })
+            .then(() => closeModal());
+    }
 
     const formButton = () => {
         if (exists.length > 0) {
@@ -107,6 +128,7 @@ const SupplyForm = ({ client, currentUser, data, closeModal}) => {
                         />
                     </div>
                     {formButton()}
+                    {data.isOwner? <button onClick={(event)=>{handleDelete(event)}}>Delete Supply</button>:''}
                 </form>
             </div>
         );

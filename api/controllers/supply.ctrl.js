@@ -40,9 +40,9 @@ module.exports = {
 
     },
     deleteSupply: async (data) => {
-        const { id, supplyId } = data;
+        const { eventId, supplyId } = data;
         let checkSub;
-        await Event.findById(id, function (err, event) {
+        await Event.findById(eventId, function (err, event) {
             checkSub = event.supplies.id(supplyId);
             event.supplies.id(supplyId).remove();
 

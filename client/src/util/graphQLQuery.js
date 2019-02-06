@@ -319,6 +319,15 @@ mutation($eventId: ID, $supplyId: ID, $donationId: ID){
 }
  
 `
+const deleteSupply= gql `
+mutation($eventId: ID, $supplyId: ID){
+    deleteSupply(eventId:$eventId,supplyId:$supplyId){
+       id,
+       name
+    }
+     
+}
+`
 export {
     testUserQuery,
     userLogin,
@@ -336,6 +345,7 @@ export {
     attendEvent,
     unAttendEvent,
     addSupply,
+    deleteSupply, 
     volunteerSupply,
     unvolunteerSupply,
 };

@@ -61,6 +61,10 @@
 .event-navigation>*{
     margin:20px;
 }
+.event-navigation-controls{
+    display: flex;
+    
+}
 .event-supply-list{
     display: flex;
     flex-wrap: wrap;

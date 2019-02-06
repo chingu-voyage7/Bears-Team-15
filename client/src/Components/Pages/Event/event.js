@@ -231,13 +231,21 @@ class Event extends React.Component {
                     <div className="event-navigation">
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}
-                        <h1>
+                        <div className="event-navigation-controls">
+                       
+                            {/* <button onClick={()=>{
+                                const url= document.URL;
+                                console.log('url',url);
+                                url.select();
+                                document.execCommand('copy')}}>link</button> */}
                             {this.renderToggleBtn(
                                 currentUserId,
                                 isOwner,
                                 isAttend
                             )}
-                        </h1>
+                        
+                        </div>
+                        
                     </div>
                     <div className="profile-rule" />
                     <div className="event-content">
@@ -290,6 +298,7 @@ class Event extends React.Component {
                                                     {
                                                         supply: supply,
                                                         eventId: eventID,
+                                                        isOwner: isOwner
                                                     }
                                                 );
                                             }}

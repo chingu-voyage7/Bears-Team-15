@@ -57,7 +57,7 @@ module.exports = {
     deleteSupply:{
         type: SuppliesType,
         args:{
-        id: {type: GraphQLID},
+        eventId: {type: GraphQLID},
         supplyId: {type: GraphQLID}
         },
         resolve: async(parent,args)=>{
