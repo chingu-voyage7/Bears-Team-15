@@ -19,7 +19,7 @@ module.exports = {
         fields: () => ({
             id: {type: GraphQLID},
             organizer: {type: UserType},
-            orgization: {type: GraphQLString},
+            organization: {type: GraphQLString},
             title: {type: GraphQLString},
             image: {type: GraphQLString},
             description: {type: GraphQLString},
