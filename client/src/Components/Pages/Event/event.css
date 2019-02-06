@@ -11,16 +11,21 @@
     display: flex;
     justify-content: space-between;
 }
-.event-organizor{
+.event-organizer{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
-.event-organizor-image{
+.event-organizer h1, .event-organizer h2{
+    color: white;
+}
+.event-organizer-image{
     object-fit: cover;
-    height: 75px;
-    width: 75px;
+    height: 140px;
+    width: 140px;
     border-radius: 100%;
+    padding-bottom: 10px;
 }
 .event-banner{
     height:250px;

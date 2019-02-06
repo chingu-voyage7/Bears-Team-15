@@ -227,7 +227,11 @@ class Event extends React.Component {
                         src={image}
                         alt="event banner"
                     /> */}
-                    <div className="event-banner" />
+                    <div className="event-banner event-organizer" >
+                    <h1>Organizer</h1>
+                <img className="event-organizer-image"src={organizer.image}/>
+                <h2>{organizer.firstName}</h2>
+                    </div>
                     <div className="event-navigation">
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}

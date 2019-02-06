@@ -110,7 +110,13 @@ const queryFilterEvents = gql`
             date
             image
             description
-            location
+            location{
+                address
+                city
+                state
+                country
+                zip
+            }
             organizer {
                 id
                 firstName
