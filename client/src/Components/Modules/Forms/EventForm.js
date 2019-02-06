@@ -9,8 +9,8 @@ import {withApollo} from 'react-apollo';
 import Calendar from 'react-calendar';
 
 class EventForm extends Component {
-    constructor(props, {currentUser}) {
-        super(props, {currentUser});
+    constructor(props) {
+        super(props);
         this.state = {
             form: {
                 title: '',
@@ -28,6 +28,7 @@ class EventForm extends Component {
             mutation: '',
             refetchQueries: [],
             headerName: '',
+            require: '',
         };
     }
 
@@ -77,6 +78,7 @@ class EventForm extends Component {
                 this.setState({
                     headerName: 'NEW EVENT',
                     mutation: addNewEvent,
+                    require: 'required',
                     refetchQueries: [
                         {
                             query: getUser,
@@ -103,7 +105,7 @@ class EventForm extends Component {
     };
 
     render() {
-        const {form, headerName} = this.state;
+        const {form, headerName, require} = this.state;
         return (
             <div className="modal-form">
                 <h2 className="text-center">{headerName}</h2>
@@ -117,7 +119,7 @@ class EventForm extends Component {
                             <input
                                 name="title"
                                 onChange={this.onChange}
-                                required
+                                require={require}
                             />
                         </div>
                         <div className="modal-event-field">
@@ -132,7 +134,7 @@ class EventForm extends Component {
                             <input
                                 name="description"
                                 onChange={this.onChange}
-                                required
+                                require={require}
                             />
                         </div>
                         <div className="modal-event-field">
@@ -140,7 +142,7 @@ class EventForm extends Component {
                             <input
                                 name="address"
                                 onChange={this.onChange}
-                                required
+                                require={require}
                             />
                         </div>
                         <div className="modal-event-field">
@@ -148,7 +150,7 @@ class EventForm extends Component {
                             <input
                                 name="city"
                                 onChange={this.onChange}
-                                required
+                                require={require}
                             />
                         </div>
                         <div className="modal-event-field">
@@ -156,7 +158,7 @@ class EventForm extends Component {
                             <input
                                 name="state"
                                 onChange={this.onChange}
-                                required
+                                require={require}
                             />
                         </div>
                         <div className="modal-event-field">
@@ -164,7 +166,7 @@ class EventForm extends Component {
                             <input
                                 name="zip"
                                 onChange={this.onChange}
-                                required
+                                require={require}
                             />
                         </div>
                         <div className="modal-event-field">
@@ -172,7 +174,7 @@ class EventForm extends Component {
                             <input
                                 name="category"
                                 onChange={this.onChange}
-                                required
+                                require={require}
                             />
                         </div>
                         <div className="modal-event-field modal-event-center">
@@ -181,7 +183,7 @@ class EventForm extends Component {
                                 name="time"
                                 type="time"
                                 onChange={this.onChange}
-                                required
+                                require={require}
                             />
                         </div>
                     </div>
@@ -258,15 +260,15 @@ class EventForm extends Component {
 //         <form className="modal-event-split" id="newEvent" onSubmit={onSubmit}>
 //         <div className="modal-event">
 
-//             <div className="modal-event-field"><label>Title</label><input name="title" onChange={onChange} required /></div>
+//     ={this.}       <div className="modal-event-field"><label>Title</label><input name="title" onChange={onChange} required /></div>
 //             <div className="modal-event-field"><label>Organization(optional)</label><input name="organization" onChange={onChange} /></div>
-//             <div className="modal-event-field"><label>Description</label><input name="description" onChange={onChange} required /></div>
-//             <div className="modal-event-field"><label>Address</label><input name="address" onChange={onChange} required /></div>
-//             <div className="modal-event-field"><label>City</label><input name="city" onChange={onChange} required /></div>
-//             <div className="modal-event-field"><label>State</label><input name="state" onChange={onChange} required /></div>
-//             <div className="modal-event-field"><label>Zip</label><input name="zip" onChange={onChange} required /></div>
-//             <div className="modal-event-field"><label>Category</label><input name="category" onChange={onChange} required /></div>
-//             <div className="modal-event-field modal-event-center"><label>Time</label><input name="time" type="time" onChange={onChange} required /></div>
+//     ={this.}       <div className="modal-event-field"><label>Description</label><input name="description" onChange={onChange} required /></div>
+//     ={this.}       <div className="modal-event-field"><label>Address</label><input name="address" onChange={onChange} required /></div>
+//     ={this.}       <div className="modal-event-field"><label>City</label><input name="city" onChange={onChange} required /></div>
+//     ={this.}       <div className="modal-event-field"><label>State</label><input name="state" onChange={onChange} required /></div>
+//     ={this.}       <div className="modal-event-field"><label>Zip</label><input name="zip" onChange={onChange} required /></div>
+//     ={this.}       <div className="modal-event-field"><label>Category</label><input name="category" onChange={onChange} required /></div>
+//     ={this.}       <div className="modal-event-field modal-event-center"><label>Time</label><input name="time" type="time" onChange={onChange} required /></div>
 
 //             {/*public or private needs field */}
 //         </div>
@@ -296,7 +298,6 @@ export default compose(
     graphql(getUser, {
         name: 'getUser',
         options: (props) => {
-            console.log('graphprops', props);
             return {
                 variables: {
                     id: props.currentUser.id,
