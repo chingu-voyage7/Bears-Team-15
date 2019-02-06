@@ -162,19 +162,18 @@ class Event extends React.Component {
 
         return hasEvent.length ? true : false;
     };
-    renderAddSupply=()=>{
-      
-        const {
-            id,
-            organizer
-        }= this.props.getEventById.getEventById;
-    
+    renderAddSupply = () => {
+        const {id, organizer} = this.props.getEventById.getEventById;
 
-        if(this.props.currentUser.id==organizer.id){
-            return(<button onClick={()=>this.props.openModal('ADD_SUPPLY', id)}>add supplies</button>);
+        if (this.props.currentUser.id == organizer.id) {
+            return (
+                <button onClick={() => this.props.openModal('ADD_SUPPLY', id)}>
+                    add supplies
+                </button>
+            );
         }
-        return
-    }
+        return;
+    };
 
     /**
      * Rendering component function here
@@ -182,7 +181,6 @@ class Event extends React.Component {
      */
     renderData = () => {
         const event = this.props.getEventById;
-console.log('user data',event.getUser);
         if (event.loading) {
             return <div>LOADING...</div>;
         } else {
@@ -217,7 +215,7 @@ console.log('user data',event.getUser);
                         src={image}
                         alt="event banner"
                     /> */}
-                    <div className="event-banner"></div>
+                    <div className="event-banner" />
                     <div className="event-navigation">
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}
@@ -240,38 +238,59 @@ console.log('user data',event.getUser);
                             <p>{time}</p>
                             <h2>Event Details</h2>
                             <p>{description}</p>
-                            
+
                             <h2>
                                 Supplies
-                                 <img src={checked} alt="checkmark" />{' '}
-                                fulfilled{' '}
+                                <img
+                                    src={checked}
+                                    alt="checkmark"
+                                /> fulfilled{' '}
                                 <img src={exclamation} alt="exclamation mark" />{' '}
                                 needs supplies
-                            </h2> 
+                            </h2>
                             {this.renderAddSupply()}
                             <ul className="event-supply-list">
-                            {supplies.map((supply) => {
-                                let total= 0;
-                                const volunteers = supply.volunteers;
-                                console.log(volunteers);
-                                if(volunteers.length){
-                                    total = volunteers.reduce((total,nextVal) => {
-                                    return total + nextVal.quantity;
-                                },0);
-                            }                 
-                                return <li id={supply.id} onClick={()=>{this.props.openModal('SUPPLY_FORM',{supply:supply,eventId:eventID})}} className="event-supply-item">
-                                {supply.name}
-                                <img src={total >= supply.quantity ? checked : exclamation} alt="some text"></img>
-                                </li>
-                            })}
-                           
-                            
-                           
-</ul>
+                                {supplies.map((supply) => {
+                                    let total = 0;
+                                    const volunteers = supply.volunteers;
+                                    if (volunteers.length) {
+                                        total = volunteers.reduce(
+                                            (total, nextVal) => {
+                                                return total + nextVal.quantity;
+                                            },
+                                            0
+                                        );
+                                    }
+                                    return (
+                                        <li
+                                            id={supply.id}
+                                            onClick={() => {
+                                                this.props.openModal(
+                                                    'SUPPLY_FORM',
+                                                    {
+                                                        supply: supply,
+                                                        eventId: eventID,
+                                                    }
+                                                );
+                                            }}
+                                            className="event-supply-item">
+                                            {supply.name}
+                                            <img
+                                                src={
+                                                    total >= supply.quantity
+                                                        ? checked
+                                                        : exclamation
+                                                }
+                                                alt="some text"
+                                            />
+                                        </li>
+                                    );
+                                })}
+                            </ul>
                             <h2>Attendees</h2>
-                             {event.getUser.attendedEvent.map(function(item){
-                                return <img src='' alt=''></img>
-                             })}
+                            {event.getUser.attendedEvent.map(function(item) {
+                                return <img src="" alt="" />;
+                            })}
                         </div>
                         <div>google map</div>
                     </div>
