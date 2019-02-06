@@ -7,7 +7,7 @@ import {graphql, compose} from 'react-apollo';
 import {getUser} from '../../../util/graphQLQuery';
 import {withApollo} from 'react-apollo';
 import Calendar from 'react-calendar';
-const EventForm = ({event, client, currentUser, closeModal}) => {
+const EventForm = ({client, currentUser,data, closeModal}) => {
     let form = {
         title: '',
         organizer: currentUser.id,
@@ -21,7 +21,7 @@ const EventForm = ({event, client, currentUser, closeModal}) => {
         time: '',
         date: new Date(),
     };
-
+console.log(data);
     const onChange = (event) => {
         form[event.target.name] = event.target.value;
         // set fields
@@ -57,7 +57,7 @@ const EventForm = ({event, client, currentUser, closeModal}) => {
 
     
     return (<div className="modal-form">
-    <h2 className="text-center">New Event</h2>
+    <h2 className="text-center">data.title</h2>
         <form className="modal-event-split" id="newEvent" onSubmit={onSubmit}>
         <div className="modal-event">
             
@@ -86,6 +86,7 @@ const EventForm = ({event, client, currentUser, closeModal}) => {
 
 const mapStateToProps = (state) => ({
     currentUser: state.currentUser,
+    data: state.modal.data
 });
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => {

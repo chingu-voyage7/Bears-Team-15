@@ -75,9 +75,9 @@ class Event extends React.Component {
     /**
      * This method will handle editing the current event
      */
-    handleEditClick = () => {
-        const {event} = this.state;
-        this.props.openModal('EVENT_EDIT', event);
+    handleEditClick = (data) => {
+       
+        this.props.openModal('EVENT_EDIT', data);
     };
 
     /**
@@ -112,7 +112,7 @@ class Event extends React.Component {
      * @param {STRING} eventOwnerId get this from the event data
      * @param {BOOLEAN} isAttending if user has already attended
      */
-    renderToggleBtn = (currentUserId, isOwner, isAttend) => {
+    renderToggleBtn = (currentUserId, isOwner, isAttend, editEvent) => {
         // this user id is current login user
         const {id} = this.props.currentUser;
         // event ID
@@ -121,7 +121,7 @@ class Event extends React.Component {
         if (isOwner) {
             // ! handling edit event
             return (
-                <button onClick={() => this.handleEditClick(EventId)}>
+                <button onClick={() => this.handleEditClick(editEvent)}>
                     EDIT
                 </button>
             );
@@ -205,6 +205,7 @@ class Event extends React.Component {
             } = event.getEventById;
 
             const {getUser} = event;
+            const editEvent={event: event.getEventById, action:'EDIT',title:'Edit Event', required:"false"};
 
             const {id: currentUserId} = this.props.currentUser;
 
@@ -245,7 +246,8 @@ class Event extends React.Component {
                             {this.renderToggleBtn(
                                 currentUserId,
                                 isOwner,
-                                isAttend
+                                isAttend,
+                                editEvent
                             )}
                         
                         </div>
