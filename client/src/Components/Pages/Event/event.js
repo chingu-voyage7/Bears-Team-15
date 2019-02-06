@@ -316,10 +316,10 @@ class Event extends React.Component {
                                     );
                                 })}
                             </ul>
-                            {/* <h2>Attendees</h2>
-                             {event.getUser.attendedEvent.map(function(item){
-                                return <img src='' alt=''></img>
-                             })} */}
+                            <h2>Attendees</h2>
+                             {attendees.map(function(item){
+                                return <img className="event-attendee-image" src={item.image} alt=''></img>
+                             })}
                         </div>
                         <div>google map</div>
                     </div>

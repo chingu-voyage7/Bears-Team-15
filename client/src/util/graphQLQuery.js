@@ -77,6 +77,7 @@ const getEventById = gql`
             attendees {
                 id
                 firstName
+                image
             }
             supplies {
                 id

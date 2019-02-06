@@ -25,7 +25,6 @@ module.exports = {
             event.save();
         });
         return checkSub;
-
     },
     unvolunteerSupply: async (data) => {
         const { eventId, supplyId, donationId} = data;
@@ -60,7 +59,4 @@ module.exports = {
         });
         return checkSub;
     }
-
-
-
 };

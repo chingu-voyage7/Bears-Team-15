@@ -13,7 +13,6 @@ const {UserType} = require('../graphql_typedef/userTypeDef');
 const {SuppliesType} = require('../graphql_typedef/suppliesTypeDef.js');
 const supplyCtrl = require('../controllers/supply.ctrl');
 
-
 const volunteerInputType= new GraphQLInputObjectType({
         name: 'newVolunteers',
         description: 'blah blah',
@@ -22,8 +21,6 @@ const volunteerInputType= new GraphQLInputObjectType({
                         quantity: {type: GraphQLInt}
                     })
     });
-
-
 
 module.exports = {
     addSupply: {

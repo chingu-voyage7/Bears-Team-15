@@ -54,6 +54,8 @@ const EventForm = ({event, client, currentUser, closeModal}) => {
             ],
         });
     };
+
+    
     return (<div className="modal-form">
     <h2 className="text-center">New Event</h2>
         <form className="modal-event-split" id="newEvent" onSubmit={onSubmit}>
