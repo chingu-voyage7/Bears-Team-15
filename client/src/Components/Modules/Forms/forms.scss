@@ -1,32 +1,31 @@
-.modal-form{
+.modal-form {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
-.modal-event{
+.modal-event {
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
 }
-.modal-event >*{
+.modal-event > * {
     margin-top: 10px;
 }
-.modal-event h2{
+.modal-event h2 {
     margin: auto;
 }
 
-.modal-event-field{
+.modal-event-field {
     display: flex;
     justify-content: space-between;
 }
-.modal-event-center{
+.modal-event-center {
     align-self: center;
 }
-.modal-event-calendar{
+.modal-event-calendar {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,15 +33,25 @@
     margin-top: 20px;
     margin-left: 20px;
 }
-.modal-event-field label{
- margin-left: auto;
- margin-right: 20px;
+.modal-event-field label {
+    margin-left: auto;
+    margin-right: 20px;
 }
-.modal-event-split{
+.modal-event-split {
     display: flex;
-
 }
-.modal-form-supply{
-     width: 100%;
+.modal-form-supply {
+    width: 100%;
 }
 
+.form_btn_container {
+    margin-top: 20px;
+    margin-left: auto;
+}
+.event_btn {
+    display: inline-block;
+}
+
+.del_btn {
+    margin-left: 10px;
+}
