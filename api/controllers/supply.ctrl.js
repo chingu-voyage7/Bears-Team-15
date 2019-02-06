@@ -25,12 +25,11 @@ module.exports = {
             event.save();
         });
         return checkSub;
-
     },
     unvolunteerSupply: async (data) => {
-        const { id, supplyId, donationId} = data;
+        const { eventId, supplyId, donationId} = data;
         let checkSub;
-        await Event.findById(id, function (err, event) {
+        await Event.findById(eventId, function (err, event) {
             checkSub = event.supplies.id(supplyId);
             event.supplies.id(supplyId).volunteers.id(donationId).remove();
             console.log(checkSub);
@@ -40,9 +39,9 @@ module.exports = {
 
     },
     deleteSupply: async (data) => {
-        const { id, supplyId } = data;
+        const { eventId, supplyId } = data;
         let checkSub;
-        await Event.findById(id, function (err, event) {
+        await Event.findById(eventId, function (err, event) {
             checkSub = event.supplies.id(supplyId);
             event.supplies.id(supplyId).remove();
 
@@ -60,7 +59,4 @@ module.exports = {
         });
         return checkSub;
     }
-
-
-
 };

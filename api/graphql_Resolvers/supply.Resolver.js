@@ -13,7 +13,6 @@ const {UserType} = require('../graphql_typedef/userTypeDef');
 const {SuppliesType} = require('../graphql_typedef/suppliesTypeDef.js');
 const supplyCtrl = require('../controllers/supply.ctrl');
 
-
 const volunteerInputType= new GraphQLInputObjectType({
         name: 'newVolunteers',
         description: 'blah blah',
@@ -22,8 +21,6 @@ const volunteerInputType= new GraphQLInputObjectType({
                         quantity: {type: GraphQLInt}
                     })
     });
-
-
 
 module.exports = {
     addSupply: {
@@ -57,7 +54,7 @@ module.exports = {
     deleteSupply:{
         type: SuppliesType,
         args:{
-        id: {type: GraphQLID},
+        eventId: {type: GraphQLID},
         supplyId: {type: GraphQLID}
         },
         resolve: async(parent,args)=>{
@@ -92,7 +89,7 @@ module.exports = {
     unvolunteerSupply:{
         type:SuppliesType,
         args:{
-            id:{type: GraphQLID},
+            eventId:{type: GraphQLID},
             supplyId:{type: GraphQLID},
             volunteerId:{type: GraphQLID},
             donationId:{type:GraphQLID}

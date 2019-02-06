@@ -77,6 +77,7 @@ const getEventById = gql`
             attendees {
                 id
                 firstName
+                image
             }
             supplies {
                 id
@@ -109,7 +110,13 @@ const queryFilterEvents = gql`
             date
             image
             description
-            location
+            location{
+                address
+                city
+                state
+                country
+                zip
+            }
             organizer {
                 id
                 firstName
@@ -309,7 +316,25 @@ const volunteerSupply = gql`
         }
     }
 `;
-
+const unvolunteerSupply = gql`
+mutation($eventId: ID, $supplyId: ID, $donationId: ID){
+    unvolunteerSupply(eventId:$eventId,supplyId:$supplyId,donationId:$donationId){
+       id,
+       name
+    }
+     
+}
+ 
+`
+const deleteSupply= gql `
+mutation($eventId: ID, $supplyId: ID){
+    deleteSupply(eventId:$eventId,supplyId:$supplyId){
+       id,
+       name
+    }
+     
+}
+`
 export {
     testUserQuery,
     userLogin,
@@ -327,5 +352,7 @@ export {
     attendEvent,
     unAttendEvent,
     addSupply,
+    deleteSupply, 
     volunteerSupply,
+    unvolunteerSupply,
 };

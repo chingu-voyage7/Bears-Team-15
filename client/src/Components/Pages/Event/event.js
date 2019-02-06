@@ -227,17 +227,29 @@ class Event extends React.Component {
                         src={image}
                         alt="event banner"
                     /> */}
-                    <div className="event-banner" />
+                    <div className="event-banner event-organizer" >
+                    <h1>Organizer</h1>
+                <img className="event-organizer-image"src={organizer.image}/>
+                <h2>{organizer.firstName}</h2>
+                    </div>
                     <div className="event-navigation">
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}
-                        <h1>
+                        <div className="event-navigation-controls">
+                       
+                            {/* <button onClick={()=>{
+                                const url= document.URL;
+                                console.log('url',url);
+                                url.select();
+                                document.execCommand('copy')}}>link</button> */}
                             {this.renderToggleBtn(
                                 currentUserId,
                                 isOwner,
                                 isAttend
                             )}
-                        </h1>
+                        
+                        </div>
+                        
                     </div>
                     <div className="profile-rule" />
                     <div className="event-content">
@@ -290,6 +302,7 @@ class Event extends React.Component {
                                                     {
                                                         supply: supply,
                                                         eventId: eventID,
+                                                        isOwner: isOwner
                                                     }
                                                 );
                                             }}
@@ -307,10 +320,10 @@ class Event extends React.Component {
                                     );
                                 })}
                             </ul>
-                            {/* <h2>Attendees</h2>
-                             {event.getUser.attendedEvent.map(function(item){
-                                return <img src='' alt=''></img>
-                             })} */}
+                            <h2>Attendees</h2>
+                             {attendees.map(function(item){
+                                return <img className="event-attendee-image" src={item.image} alt=''></img>
+                             })}
                         </div>
                         <div>google map</div>
                     </div>
