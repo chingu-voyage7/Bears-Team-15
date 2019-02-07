@@ -42,7 +42,7 @@ class Profile extends React.Component {
                                             'NEW_EVENT_FORM',
                                             {
                                                 title: 'New Event',
-                                                required: true,
+                                                required: "required",
                                                 mutation: addNewEvent,
                                                 refetch: [{
                                                     query: getUser,

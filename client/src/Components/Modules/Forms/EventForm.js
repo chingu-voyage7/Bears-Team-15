@@ -24,7 +24,7 @@ const EventForm = ({client, currentUser,data, closeModal}) => {
         zip: '',
         category: '',
         time: '',
-        date: '',
+        date: new Date(),
     };
 
 console.log(data);
@@ -32,7 +32,7 @@ console.log(data);
         form[event.target.name] = event.target.value;
         // set fields
     };
-
+    console.log(data.required);
     const onSubmit = (event) => {
     event.preventDefault();
         
@@ -60,21 +60,22 @@ console.log(data);
                 eventUpdate[item] = form[item];
             }
         });
-       
-        if(form.time!==''){
+        
+    }else{
+        eventUpdate=form;
+    }
+
+    if(form.time!==''){
         const time = form.time.split(':');
         eventUpdate.date.setHours(time[0], time[1]);
         // set the time
-        }else{
+        }else if(data.event){
             const date= new Date(parseInt(data.event.date))
             const hours= date.getHours();
             const minutes= date.getMinutes();
          eventUpdate.date.setHours(hours,minutes);
         }
-        
-    }else{
-        eventUpdate=form;
-    }
+
        eventUpdate.zip=parseInt(eventUpdate.zip);
         
         client.mutate({
@@ -106,7 +107,7 @@ console.log(data);
 
     return (<div className="modal-form">
     <h2 className="text-center">{data.title}</h2>
-        <form className="modal-event-split" id="newEvent" onSubmit={onSubmit}>
+        <form className="modal-event-split" id="newEvent" onSubmit={(event)=>onSubmit(event)}>
         <div className="modal-event">
             
             <div className="modal-event-field"><label>Title</label><input name="title" onChange={onChange} required={data.required} /></div>
@@ -125,7 +126,7 @@ console.log(data);
 
         </div>
         </form>
-        <button className="text-center" onClick={(event)=>onSubmit(event)}form="newEvent">Submit</button>
+        <button className="text-center" type="submit"form="newEvent">Submit</button>
         {data.event?<button onClick={(event)=>handleDeleteEvent(event)}>Delete Event</button>:''}
     </div>);
 }

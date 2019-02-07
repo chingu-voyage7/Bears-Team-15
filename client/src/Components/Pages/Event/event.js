@@ -210,7 +210,7 @@ class Event extends React.Component {
             const editEvent={
             event: event.getEventById,     
             title: 'Edit Event',
-            required: false,
+            required: "",
             mutation: updateEvent,
             refetch: [{
                 query: getEventById,
