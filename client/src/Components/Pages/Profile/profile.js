@@ -3,7 +3,7 @@ import React from 'react';
 import './profile.css';
 import {connect} from 'react-redux';
 import {graphql, compose} from 'react-apollo';
-import {getUser} from '../../../util/graphQLQuery';
+import {getUser,addNewEvent} from '../../../util/graphQLQuery';
 import {openModal} from '../../../reduxes/actions/modal_actions.js';
 import Card from '../../Common/Card/Card';
 
@@ -40,7 +40,16 @@ class Profile extends React.Component {
                                     onClick={() =>
                                         this.props.openModal(
                                             'NEW_EVENT_FORM',
-                                            user.id
+                                            {
+                                                title: 'New Event',
+                                                required: true,
+                                                mutation: addNewEvent,
+                                                refetch: [{
+                                                    query: getUser,
+                                                    variables:{id: this.props.currentUser.id}
+                                                }]
+                                            
+                                            }
                                         )
                                     }>
                                     Create Events

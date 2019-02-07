@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {openModal} from '../../../reduxes/actions/modal_actions.js';
 import {
     getEventById,
+    updateEvent,
     attendEvent,
     getUser,
     unAttendEvent,
@@ -205,7 +206,16 @@ class Event extends React.Component {
             } = event.getEventById;
 
             const {getUser} = event;
-            const editEvent={event: event.getEventById, action:'EDIT',title:'Edit Event', required:"false"};
+
+            const editEvent={
+            event: event.getEventById,     
+            title: 'Edit Event',
+            required: false,
+            mutation: updateEvent,
+            refetch: [{
+                query: getEventById,
+                variables:{id: eventID}
+            }]};
 
             const {id: currentUserId} = this.props.currentUser;
 

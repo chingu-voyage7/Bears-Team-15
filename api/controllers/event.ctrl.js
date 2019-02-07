@@ -99,24 +99,30 @@ module.exports = {
         }
     },
     updateEvent: async (data) => {
-        const {title, organization, description, location, date} = data;
-        // modify the data to be dynamic based on data set.... still will throw error.
-        console.log(data);
-        try {
-            const event = await Event.findById(data.id);
-            event.location.address = location.address;
-            event.location.city = location.city;
-            event.location.state = location.state;
-            event.location.zip = location.zip;
-            event.set({
-                title,
-                organization,
-                description,
-            });
-            event.save();
-        } catch (error) {
-            return error;
-        }
+
+        const {organizer,eventId,...myUpdate}= data;
+        console.log(organizer,eventId,myUpdate);
+        return await Event.findByIdAndUpdate(eventId,myUpdate);
+
+
+        // const {title, organization, description, location, date} = data;
+        // // modify the data to be dynamic based on data set.... still will throw error.
+        // console.log(data);
+        // try {
+        //     const event = await Event.findById(data.id);
+        //     event.location.address = location.address;
+        //     event.location.city = location.city;
+        //     event.location.state = location.state;
+        //     event.location.zip = location.zip;
+        //     event.set({
+        //         title,
+        //         organization,
+        //         description,
+        //     });
+        //     event.save();
+        // } catch (error) {
+        //     return error;
+        // }
     },
     /**
      * this method will add a attending user to the event
