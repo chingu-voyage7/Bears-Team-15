@@ -180,9 +180,10 @@ const getAllEvents = gql`
                 name
                 description
                 quantity
-                OwnerId
+                #ownerId
             }
             attendees {
+                id
                 lastName
             }
             # supplies

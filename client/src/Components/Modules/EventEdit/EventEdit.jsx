@@ -75,15 +75,15 @@ const EventEdit = ({
     const gqlQuery = (gqlQuery, variablesAndRefetch) => {
         emptyStringChecker();
         const {variables, refetchQueries} = variablesAndRefetch;
-        // try {
-        //     gqlQuery({
-        //         variables,
-        //         refetchQueries,
-        //     });
-        // } catch (error) {
-        //     //TODO: handle error here
-        //     return error;
-        // }
+        try {
+            gqlQuery({
+                variables,
+                refetchQueries,
+            });
+        } catch (error) {
+            //TODO: handle error here
+            return error;
+        }
     };
 
     /**
@@ -139,6 +139,7 @@ const EventEdit = ({
             ],
         };
         gqlQuery(deleteThisEvent, gqlPropsAndData);
+        dispatch(closeModal());
         navigate('/profile');
     };
 
