@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {openModal} from '../../../reduxes/actions/modal_actions.js';
 import {
     getEventById,
+    updateEvent,
     attendEvent,
     getUser,
     unAttendEvent,
@@ -75,9 +76,9 @@ class Event extends React.Component {
     /**
      * This method will handle editing the current event
      */
-    handleEditClick = () => {
-        const {event} = this.state;
-        this.props.openModal('EVENT_EDIT', event);
+    handleEditClick = (data) => {
+       
+        this.props.openModal('EVENT_EDIT', data);
     };
 
     /**
@@ -112,7 +113,7 @@ class Event extends React.Component {
      * @param {STRING} eventOwnerId get this from the event data
      * @param {BOOLEAN} isAttending if user has already attended
      */
-    renderToggleBtn = (eventOwnerId, isAttending) => {
+    renderToggleBtn = (currentUserId, isOwner, isAttend, editEvent) => {
         // this user id is current login user
         const {id} = this.props.currentUser;
         // event ID
@@ -121,7 +122,7 @@ class Event extends React.Component {
         if (id === eventOwnerId) {
             // ! handling edit event
             return (
-                <button onClick={() => this.handleEditClick(EventId)}>
+                <button onClick={() => this.handleEditClick(editEvent)}>
                     EDIT
                 </button>
             );
@@ -198,6 +199,20 @@ class Event extends React.Component {
 
             const {getUser} = event;
 
+            const editEvent={
+            event: event.getEventById,     
+            title: 'Edit Event',
+            required: "",
+            mutation: updateEvent,
+            refetch: [{
+                query: getEventById,
+                variables:{id: eventID}
+            }]};
+
+            const {id: currentUserId} = this.props.currentUser;
+
+            const isOwner = currentUserId === organizer.id;
+
             const isAttend = this.checkCurrentUserIfAttendingTheCurrentEvent(
                 getUser,
                 eventID
@@ -219,7 +234,22 @@ class Event extends React.Component {
                     <div className="event-navigation">
                         <h1>{title}</h1>
                         {/* <h1>{organization}</h1> */}
-                        <h1>{this.renderToggleBtn(organizer.id, isAttend)}</h1>
+                        <div className="event-navigation-controls">
+                       
+                            {/* <button onClick={()=>{
+                                const url= document.URL;
+                                console.log('url',url);
+                                url.select();
+                                document.execCommand('copy')}}>link</button> */}
+                            {this.renderToggleBtn(
+                                currentUserId,
+                                isOwner,
+                                isAttend,
+                                editEvent
+                            )}
+                        
+                        </div>
+                        
                     </div>
                     <div className="profile-rule" />
                     <div className="event-content">

@@ -98,34 +98,10 @@ module.exports = {
         }
     },
     updateEvent: async (data) => {
-        const {
-            title,
-            organization,
-            description,
-            location,
-            category,
-            date,
-            time,
-        } = data;
 
-        console.log(data);
-        try {
-            const event = await Event.findById(data.id);
-            event.location.address = location.address;
-            event.location.city = location.city;
-            event.location.state = location.state;
-            event.location.zip = location.zip;
-            event.set({
-                title,
-                organization,
-                description,
-                category,
-                date,
-            });
-            event.save();
-        } catch (error) {
-            return error;
-        }
+        const {organizer,eventId,...myUpdate}= data;
+        console.log(organizer,eventId,myUpdate);
+        return await Event.findByIdAndUpdate(eventId,myUpdate);
     },
     /**
      * this method will add a attending user to the event
