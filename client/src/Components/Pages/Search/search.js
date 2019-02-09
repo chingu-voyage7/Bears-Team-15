@@ -86,14 +86,14 @@ class Search extends React.Component {
                                     <p>{event.description}</p>
                                     <p>{this.dateParser(event.date)}</p>
                                     <div>
-                                        <h4>attendee:</h4>
-                                        <div>
+                                        <h4>{'attendees: '+ event.attendees.length}</h4>
+                                        {/* <div>
                                             {event.attendees.map((attendee) => (
                                                 <p key={attendee.id}>
                                                     {attendee.lastName}
                                                 </p>
                                             ))}
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

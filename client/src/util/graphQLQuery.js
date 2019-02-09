@@ -193,28 +193,31 @@ const getAllEvents = gql`
 `;
 
 const updateEvent = gql`
-    mutation addNewEvent(
-        $id: ID
-        $title: String
+    mutation updateEvent(
+        $organizer: ID
+        $eventId: ID
         $organization: String
         $description: String
+        $title: String
         $address: String
         $city: String
         $state: String
-        $zip: Int # $category: String
+        $zip: Int
+        $category: String
+        $date: updateDate
     ) {
         updateEvent(
-            id: $id
+            organizer: $organizer
+            eventId: $eventId
             title: $title
             organization: $organization
             description: $description
-            location: {address: $address, city: $city, state: $state, zip: $zip} # category: $category
+            location: {address: $address, city: $city, state: $state, zip: $zip}
+            category: $category
+            date: $date
         ) {
             title
-            location {
-                address
-                city
-            }
+            id
         }
     }
 `;

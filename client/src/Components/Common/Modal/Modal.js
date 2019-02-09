@@ -7,7 +7,6 @@ import SignupForm from '../../Pages/Session/SignupForm.jsx';
 import './modal.css';
 import AddSupplyForm from '../../Modules/Forms/AddSupplyForm';
 import SupplyForm from '../../Modules/Forms/SupplyForm';
-import EventEdit from '../../Modules/EventEdit/EventEdit';
 import EventForm from '../../Modules/Forms/EventForm.js';
 import ProfileForm from '../../Modules/Forms/ProfileForm.js';
 // import {navigate} from '@reach/router';
@@ -39,7 +38,7 @@ function Modal({modal, closeModal, data}) {
             component = <SignupForm />;
             break;
         case 'EVENT_EDIT':
-            component = <EventEdit eventData={data} />;
+            component = <EventForm />;
             break;
         default:
             return null;

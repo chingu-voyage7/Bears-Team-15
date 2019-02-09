@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {openModal} from '../../../reduxes/actions/modal_actions.js';
 import {
     getEventById,
+    updateEvent,
     attendEvent,
     getUser,
     unAttendEvent,
@@ -75,9 +76,9 @@ class Event extends React.Component {
     /**
      * This method will handle editing the current event
      */
-    handleEditClick = () => {
-        const {event} = this.state;
-        this.props.openModal('EVENT_EDIT', event);
+    handleEditClick = (data) => {
+       
+        this.props.openModal('EVENT_EDIT', data);
     };
 
     /**
@@ -112,7 +113,7 @@ class Event extends React.Component {
      * @param {STRING} eventOwnerId get this from the event data
      * @param {BOOLEAN} isAttending if user has already attended
      */
-    renderToggleBtn = (currentUserId, isOwner, isAttend) => {
+    renderToggleBtn = (currentUserId, isOwner, isAttend, editEvent) => {
         // this user id is current login user
         const {id} = this.props.currentUser;
         // event ID
@@ -121,7 +122,7 @@ class Event extends React.Component {
         if (isOwner) {
             // ! handling edit event
             return (
-                <button onClick={() => this.handleEditClick(EventId)}>
+                <button onClick={() => this.handleEditClick(editEvent)}>
                     EDIT
                 </button>
             );
@@ -206,6 +207,16 @@ class Event extends React.Component {
 
             const {getUser} = event;
 
+            const editEvent={
+            event: event.getEventById,     
+            title: 'Edit Event',
+            required: "",
+            mutation: updateEvent,
+            refetch: [{
+                query: getEventById,
+                variables:{id: eventID}
+            }]};
+
             const {id: currentUserId} = this.props.currentUser;
 
             const isOwner = currentUserId === organizer.id;
@@ -245,7 +256,8 @@ class Event extends React.Component {
                             {this.renderToggleBtn(
                                 currentUserId,
                                 isOwner,
-                                isAttend
+                                isAttend,
+                                editEvent
                             )}
                         
                         </div>

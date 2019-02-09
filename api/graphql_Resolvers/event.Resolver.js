@@ -110,11 +110,13 @@ module.exports = {
     updateEvent: {
         type: EventType,
         args: {
-            id: {type: GraphQLID},
-            title: {type: GraphQLString},
+            //   organizerId: {type: GraphQLString},
+            organizer: {type: GraphQLID},
+            eventId: {type: GraphQLID},
             organization: {type: GraphQLString},
+            title: {type: GraphQLString},
+            image: {type: GraphQLString},
             description: {type: GraphQLString},
-            date: {type: GraphQLInt},
             location: {
                 type: new GraphQLInputObjectType({
                     name: 'updateLocation',
@@ -127,6 +129,30 @@ module.exports = {
                     }),
                 }),
             },
+            date: {type: new GraphQLScalarType({
+                name: 'updateDate',
+                description: 'Date custom scalar type',
+                parseValue(value) {
+                    console.log(value);
+                  return new Date(value); // value from the client
+                },
+                serialize(value) {
+                  return value.getTime(); // value sent to the client
+                },
+                parseLiteral(ast) {
+                  if (ast.kind === Kind.INT) {
+                    return new Date(ast.value).toDateString(); // ast value is always in string format
+                  }
+                  return null;
+                },
+
+            })},
+
+
+            //   attendees: {type: GraphQLString},
+            attendees: {type: new GraphQLList(GraphQLID)},
+            category: {type: GraphQLString},
+            // supplies: {type: new GraphQLList(SuppliesType)},
         },
         resolve: async (parent, args) => {
             
